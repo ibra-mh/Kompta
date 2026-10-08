@@ -2231,14 +2231,14 @@ let cgncReportState = { type:'', headers:[], exportRows:[] };
 const cgncMoney = value => `${fmtFR(value)} MAD`;
 function cgncAccounts(includeDemo = true) {
   const totals = {};
-  const add = (code, key, value) => { const t = totals[code] || (totals[code] = { code, anD:0, anC:0, mvD:0, mvC:0 }); t[key] += Number(value) || 0; };
+  const add = (code, key, value) => { code = String(code).trim(); const t = totals[code] || (totals[code] = { code, anD:0, anC:0, mvD:0, mvC:0 }); t[key] += Number(value) || 0; };
   if (includeDemo) aNouveauxFor(currentYear).forEach(a => { add(a.code, 'anD', a.debit); add(a.code, 'anC', a.credit); });
   clientEntries().filter(e => e.year === currentYear && (includeDemo || !e.demoOnly)).forEach(e => e.lines.forEach(l => { add(l.compte, 'mvD', lineDebit(l)); add(l.compte, 'mvC', lineCredit(l)); }));
   return Object.values(totals).sort((a, b) => a.code.localeCompare(b.code));
 }
 function cgncFilterBar(html) { document.getElementById('cgnc-report-filters').innerHTML = `<div style="display:flex;gap:8px;align-items:end;flex-wrap:wrap;">${html}</div>`; }
 function cgncSet(title, subtitle, headers, exportRows, body) {
-  cgncReportState = { type:cgncReportState.type, headers, exportRows };
+  cgncReportState = { type:cgncReportState.type, headers, exportRows, exportFooter:[] };
   document.getElementById('cgnc-report-title').textContent = title;
   document.getElementById('cgnc-report-subtitle').textContent = subtitle + ' — ' + (currentDossier?.name || currentClientId);
   body(); openModal('modalCgncReport');
@@ -2257,11 +2257,18 @@ function renderGeneralBalanceReport() {
   const period = document.getElementById('cgnc-period')?.value || 'all';
   const cls = document.getElementById('cgnc-class')?.value || 'all';
   const accounts = cgncAccounts().map(t => ({...t, label:ACCOUNTS[t.code] || ''})).filter(t => (!from || t.code >= from) && (!to || t.code <= to) && (cls === 'all' || t.code.startsWith(cls)));
-  let totals = [0,0,0,0,0,0,0,0];
-  const rows = accounts.map(t => { let mvD=t.mvD, mvC=t.mvC; if (period !== 'all') { mvD=mvC=0; clientEntries().filter(e => e.year === currentYear && Number(e.mois) === Number(period)).forEach(e => e.lines.filter(l => l.compte === t.code).forEach(l => { mvD += lineDebit(l); mvC += lineCredit(l); })); } const sfD=Math.max(0,t.anD+mvD-t.anC-mvC), sfC=Math.max(0,t.anC+mvC-t.anD-mvD); const vals=[t.code,t.label,t.anD,t.anC,mvD,mvC,sfD,sfC]; vals.slice(2).forEach((v,i) => totals[i] += v); return vals; });
-  const footer = `<tr class="total-row"><td colspan="2"><strong>TOTAUX</strong></td>${totals.map(v => `<td style="text-align:right;"><strong>${cgncMoney(round2(v))}</strong></td>`).join('')}</tr><tr><td colspan="2"><strong>Contrôle équilibre</strong></td><td colspan="3" style="text-align:right;">SI: ${cgncMoney(round2(totals[0]-totals[1]))}</td><td colspan="3" style="text-align:right;">SF: ${cgncMoney(round2(totals[6]-totals[7]))}</td></tr>`;
+  let totals = [0,0,0,0,0,0];
+  const rows = accounts.map(t => { let mvD=t.mvD, mvC=t.mvC; if (period !== 'all') { mvD=mvC=0; clientEntries().filter(e => e.year === currentYear && Number(e.mois) === Number(period)).forEach(e => e.lines.filter(l => String(l.compte).trim() === t.code).forEach(l => { mvD += lineDebit(l); mvC += lineCredit(l); })); } const sfD=Math.max(0,t.anD+mvD-t.anC-mvC), sfC=Math.max(0,t.anC+mvC-t.anD-mvD); return [t.code,t.label,...[t.anD,t.anC,mvD,mvC,sfD,sfC].map(round2)]; })
+    .filter(vals => vals.slice(2).some(v => v !== 0));
+  rows.forEach(vals => vals.slice(2).forEach((v,i) => totals[i] += v));
+  totals = totals.map(round2);
+  const footer = `<tr class="total-row"><td colspan="2"><strong>TOTAUX</strong></td>${totals.map(v => `<td style="text-align:right;"><strong>${cgncMoney(v)}</strong></td>`).join('')}</tr><tr><td colspan="2"><strong>Contrôle équilibre</strong></td><td colspan="3" style="text-align:right;">SI: ${cgncMoney(round2(totals[0]-totals[1]))}</td><td colspan="3" style="text-align:right;">SF: ${cgncMoney(round2(totals[4]-totals[5]))}</td></tr>`;
   document.getElementById('cgnc-report-body').innerHTML = cgncTable(['N° Compte','Intitulé','SI Débit','SI Crédit','Mvt Débit','Mvt Crédit','SF Débit','SF Crédit'], rows, footer);
   cgncReportState.exportRows = rows;
+  cgncReportState.exportFooter = [
+    ['TOTAUX', '', ...totals],
+    ['Contrôle équilibre', '', 'SI', round2(totals[0]-totals[1]), '', 'SF', round2(totals[4]-totals[5]), ''],
+  ];
 }
 function invoiceDate(e) { const raw = e.dueDate || e.echeance || e.date; if (raw) return new Date(raw); return new Date(currentYear, Number(e.mois || 1) - 1, Number(e.jour || 1) + 30); }
 function openAgedBalanceReport() {
@@ -2290,7 +2297,7 @@ function renderClientInvoicesCgncReport() { const rows=[]; clientEntries().filte
 function openHonorairesCgncReport() { cgncReportState.type='fees'; cgncFilterBar('<div class="fg"><label>Taux RAS</label><select id="cgnc-ras-rate" onchange="renderHonorairesCgncReport()"><option value="10">10 %</option><option value="15">15 %</option></select></div>'); cgncSet('Honoraires — Retenue à la Source','Avocats, experts-comptables et consultants',[],[],renderHonorairesCgncReport); }
 function renderHonorairesCgncReport() { const rate=Number(document.getElementById('cgnc-ras-rate')?.value||10)/100; const rows=reportEntryLines().filter(x=>/^6136/.test(x.l.compte)||/honoraire|avocat|expert|consultant/i.test(x.l.libelle||'')).map(x=>{const gross=round2(x.debit);return [entryDate(x.e),x.l.libelle||ACCOUNTS[x.l.compte]||'',gross,round2(gross*rate),round2(gross*(1-rate))];}); document.getElementById('cgnc-report-body').innerHTML=cgncTable(['Date','Bénéficiaire','Brut','RAS','Net payé'],rows); cgncReportState.exportRows=rows; }
 function openCgncReport(type) { if(type==='balance-generale')return openGeneralBalanceReport(); if(type==='aged-balance')return openAgedBalanceReport(); if(type==='journals')return openJournalCgncReport(false); if(type==='journal-central')return openJournalCgncReport(true); if(type==='bilan')return openBilanCgncReport(); if(type==='payment-delays')return openPaymentDelayCgncReport(); if(type==='professional-tax')return openProfessionalTaxCgncReport(); if(type==='client-invoices')return openClientInvoicesCgncReport(); if(type==='fees')return openHonorairesCgncReport(); }
-function exportCgncReport(format) { const values=[cgncReportState.headers,...(cgncReportState.exportRows||[])].map(row=>row.map(v=>String(v).replace(/<[^>]*>/g,''))); if(format==='xlsx'&&window.XLSX){const book=XLSX.utils.book_new();XLSX.utils.book_append_sheet(book,XLSX.utils.aoa_to_sheet(values),'Etat CGNC');XLSX.writeFile(book,dossierFileName('etat_cgnc_'+currentYear+'.xlsx'));}else{const csv=values.map(row=>row.map(v=>`"${v.replace(/"/g,'""')}"`).join(';')).join('\r\n');const link=document.createElement('a');link.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));link.download=dossierFileName('etat_cgnc_'+currentYear+'.csv');link.click();URL.revokeObjectURL(link.href);}showToast('Etat CGNC exporté ✓','success'); }
+function exportCgncReport(format) { const values=[cgncReportState.headers,...(cgncReportState.exportRows||[]),...(cgncReportState.exportFooter||[])].map(row=>row.map(v=>typeof v==='number'?v:String(v).replace(/<[^>]*>/g,''))); if(format==='xlsx'&&window.XLSX){const book=XLSX.utils.book_new();XLSX.utils.book_append_sheet(book,XLSX.utils.aoa_to_sheet(values),'Etat CGNC');XLSX.writeFile(book,dossierFileName('etat_cgnc_'+currentYear+'.xlsx'));}else{const csv=values.map(row=>row.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(';')).join('\r\n');const link=document.createElement('a');link.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));link.download=dossierFileName('etat_cgnc_'+currentYear+'.csv');link.click();URL.revokeObjectURL(link.href);}showToast('Etat CGNC exporté ✓','success'); }
 function exportMenuReport() {
   const values = Array.isArray(menuReportRows[0]) ? menuReportRows : [['Date','Journal','Piece','Libelle','Debit','Credit'], ...menuReportRows.map(r => [r.date,r.journal,r.piece,r.libelle,r.debit,r.credit])];
   if (window.XLSX) { const book = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(book, XLSX.utils.aoa_to_sheet(values), 'Rapport'); XLSX.writeFile(book, dossierFileName('rapport_' + currentYear + '.xlsx')); }
