@@ -2684,7 +2684,7 @@ function resetOcrReview() {
   if (button) button.disabled = true;
   const state = document.getElementById('ocr-state');
   if (state) state.style.display = 'none';
-  ['ocr-supplier', 'ocr-ice', 'ocr-invoice', 'ocr-date', 'ocr-ht', 'ocr-vat', 'ocr-vat-rate', 'ocr-ttc', 'ocr-expense-account', 'ocr-supplier-account'].forEach(id => {
+  ['ocr-supplier', 'ocr-ice', 'ocr-invoice', 'ocr-date', 'ocr-due-date', 'ocr-ht', 'ocr-vat', 'ocr-vat-rate', 'ocr-ttc', 'ocr-expense-account', 'ocr-supplier-account'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
@@ -2692,6 +2692,14 @@ function resetOcrReview() {
 function formatReviewDate(isoDate) {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(isoDate || '');
   return match ? `${match[3]}/${match[2]}/${match[1]}` : (isoDate || '');
+}
+function reviewDateToIso(text) {
+  const value = String(text || '').trim();
+  const fr = /^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})$/.exec(value);
+  const iso = fr ? `${fr[3]}-${fr[2].padStart(2, '0')}-${fr[1].padStart(2, '0')}` : value;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return '';
+  const date = new Date(`${iso}T00:00:00Z`);
+  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === iso ? iso : '';
 }
 async function uploadOcrFile(file) {
   if (!file) return;
@@ -2722,6 +2730,9 @@ async function uploadOcrFile(file) {
       if (ext.ice) document.getElementById('ocr-ice').value = ext.ice;
       if (ext.invoiceNumber) document.getElementById('ocr-invoice').value = ext.invoiceNumber;
       if (ext.date) document.getElementById('ocr-date').value = formatReviewDate(ext.date);
+      // No explicit due date on the document: default to the invoice date.
+      const dueDate = ext.dueDate || ext.date;
+      if (dueDate) document.getElementById('ocr-due-date').value = formatReviewDate(dueDate);
       if (ext.ht != null) document.getElementById('ocr-ht').value = ext.ht.toFixed(2);
       if (ext.vat != null) document.getElementById('ocr-vat').value = ext.vat.toFixed(2);
       if (ext.vatRate != null) document.getElementById('ocr-vat-rate').value = ext.vatRate;
@@ -2770,9 +2781,17 @@ function createOcrEntry() {
     setOcrState('Montants incohérents : HT + TVA doit être égal au TTC.', 'error');
     return;
   }
+  const invoiceDateIso = reviewDateToIso(document.getElementById('ocr-date').value);
+  const dueDateText = document.getElementById('ocr-due-date').value.trim();
+  const dueDateIso = dueDateText ? reviewDateToIso(dueDateText) : invoiceDateIso;
+  if (!invoiceDateIso || !dueDateIso) {
+    setOcrState('Dates invalides : saisissez la date facture (et l’échéance) au format JJ/MM/AAAA.', 'error');
+    return;
+  }
   closeModal('modalOCR');
   showPanel('saisie');
   document.getElementById('saisie-journal').value = 'ACHATS';
+  document.getElementById('saisie-date').value = invoiceDateIso;
   suggestPiece();
   document.getElementById('saisie-ref').value = invoice;
   document.getElementById('saisie-libelle').value = `Facture ${supplier}`;
@@ -2798,6 +2817,7 @@ function createOcrEntry() {
     tr.querySelector('.lib-cell').value = `Facture ${supplier}`;
     tr.querySelector(credit ? '.credit-input' : '.debit-input').value = amount.toFixed(2);
     tr.querySelector('.facture-cell').value = invoice;
+    tr.querySelector('.due-date-cell').value = dueDateIso;
   });
   computeTotals();
   setOcrState('Brouillon préparé dans la saisie. Validez-le via le workflow comptable existant.');
