@@ -149,7 +149,6 @@ kompta_tax_export/
 ├── styles.css                    # Extracted interface styles
 ├── app.js                        # Extracted interface behavior
 ├── cgnc_standard_accounts.json   # Official CGNC chart — single source of truth
-├── cgnc_supplement_accounts.json # Documented additions missing from the dataset (3455, 4455)
 ├── kompta.sqlite3                # Local accounting database; keep private
 ├── requirements.txt              # Runtime dependencies
 └── requirements-dev.txt          # Runtime + pytest/pyflakes
@@ -158,19 +157,22 @@ kompta_tax_export/
 ### Chart of accounts (CGNC)
 
 `cgnc_standard_accounts.json` is the single source of truth for the chart of
-accounts. `cgnc_supplement_accounts.json` adds only the roots the app posts to
-that are missing from that dataset (3455 TVA récupérable, 4455 TVA facturée),
-each with the reason it is needed.
+accounts (720 accounts, classes 1–8). It is repaired against the verified
+extraction in `tools/pcge_audit/data/official_plan_cgnc.json` by
+`python tools/pcge_audit/scripts/clean_cgnc_dataset.py` (idempotent): OCR
+artifacts and merged entries are fixed, dropped accounts restored, `14525`
+corrected to `44525`, and every account marked `"status": "standard"`.
 
-- An account code is valid when it is listed, or extends a listed code
-  (e.g. `44110002` under `4411`, `3455220` under `34552`). Journal posting
-  rejects any other code.
+- An account code is valid when it has 4 to 8 digits and its first 4 digits
+  are a listed CGNC account (e.g. `345520` under `3455`, `44110002` under
+  `4411`). Journal posting, balance lines and the UI reject any other code;
+  dataset sub-accounts without a 4-digit parent fail at startup.
 - The interface loads the chart from `GET /api/accounts/cgnc`; official
   accounts cannot be relabeled, renumbered or deleted in the UI. Local
   sub-accounts (clients, suppliers, TVA rates) remain editable and are saved
   in the browser.
-- The PCGE import/preview reads the same dataset; entries whose `status` is
-  `needs_review` are listed for review instead of being imported.
+- The PCGE import/preview reads the same dataset; every account is standard
+  and importable.
 
 ### PCGE account audit tools
 

@@ -42,7 +42,7 @@ class BalanceAmountBasis(str, Enum):
 class BalanceLine(BaseModel):
     """One row from the six-column CGNC trial balance."""
 
-    account_code: str = Field(..., alias="accountCode")
+    account_code: str = Field(..., pattern=r"^\s*\d{4,8}\s*$", alias="accountCode")
     label: str = ""
     opening_debit: Decimal = Field(0, alias="openingDebit")
     opening_credit: Decimal = Field(0, alias="openingCredit")

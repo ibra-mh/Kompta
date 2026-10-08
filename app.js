@@ -332,12 +332,19 @@ const DATA = {
 const ACCOUNTS = {};
 // Comptes divisionnaires fournisseurs (parent 4411) used by the account popup
 const SUPPLIERS = [];
-// Official CGNC codes (cgnc_standard_accounts.json + supplement), filled by loadCgncChart().
+// Official CGNC codes (cgnc_standard_accounts.json), filled by loadCgncChart().
 const CGNC_CODES = new Set();
-function cgncRoot(code) {
+let cgncChartError = '';
+const ACCOUNT_CODE_PATTERN = /^\d{4,8}$/;
+// A 4–8 digit code belongs to the chart when its first 4 digits are a listed CGNC account.
+function cgncParent(code) {
   const value = String(code).trim();
-  if (!/^\d+$/.test(value)) return null;
-  for (let length = value.length; length > 0; length--) if (CGNC_CODES.has(value.slice(0, length))) return value.slice(0, length);
+  return ACCOUNT_CODE_PATTERN.test(value) && CGNC_CODES.has(value.slice(0, 4)) ? value.slice(0, 4) : null;
+}
+function cgncRoot(code) {
+  if (!cgncParent(code)) return null;
+  const value = String(code).trim();
+  for (let length = value.length; length >= 4; length--) if (CGNC_CODES.has(value.slice(0, length))) return value.slice(0, length);
   return null;
 }
 function rebuildAccountIndexes() {
@@ -353,7 +360,7 @@ rebuildAccountIndexes();
 function applyCgncChart(chart) {
   CGNC_CODES.clear();
   chart.forEach(account => CGNC_CODES.add(account.code));
-  const standard = chart.map(a => ({ code:a.code, label:a.label, type:'parent', classe:a.class, standard:true, cgncStatus:a.status }));
+  const standard = chart.map(a => ({ code:a.code, label:a.label, type:'parent', classe:a.class, standard:true }));
   const local = DATA.accounts.filter(a => !a.standard && !CGNC_CODES.has(a.code) && cgncRoot(a.code));
   DATA.accounts.splice(0, DATA.accounts.length, ...standard, ...local);
   rebuildAccountIndexes();
@@ -363,10 +370,13 @@ async function loadCgncChart() {
     const response = await fetch(`${KOMPTA_API_BASE}/api/accounts/cgnc`);
     if (!response.ok) throw new Error(`Plan comptable CGNC indisponible (HTTP ${response.status}).`);
     applyCgncChart(await response.json());
+    cgncChartError = '';
     renderPlanComptable();
     renderAll();
   } catch (error) {
-    showToast(apiConnectionErrorMessage(error, 'Chargement du plan comptable CGNC'), 'error');
+    cgncChartError = apiConnectionErrorMessage(error, 'Chargement du plan comptable CGNC');
+    renderPlanComptable();
+    showToast(cgncChartError, 'error');
   }
 }
 function isStandardAccount(code) { return DATA.accounts.some(a => a.code === code && a.standard); }
@@ -1173,9 +1183,10 @@ function lookupAccount(input) {
     return;
   }
   hideAcctPopup();
-  if (ACCOUNTS[code]) {
+  const root = cgncRoot(code);
+  if (ACCOUNTS[code] || root) {
     input.classList.remove('acct-error');
-    if (libCell && (libCell.value === '' )) libCell.value = ACCOUNTS[code];
+    if (libCell && (libCell.value === '' )) libCell.value = ACCOUNTS[code] || ACCOUNTS[root];
   } else {
     input.classList.add('acct-error');
   }
@@ -1340,7 +1351,8 @@ async function validerEcriture() {
     const isTiers = isAccount(account, CGNC.CLIENTS, CGNC.FOURNISSEURS);
     const auxiliary = isTiers ? account : '';
     if (!account && debit === 0 && credit === 0) return;
-    if (account && !ACCOUNTS[account]) errors.push(`Compte inexistant: ${account}`);
+    if (account && !ACCOUNT_CODE_PATTERN.test(account)) errors.push(`Compte invalide (4 à 8 chiffres) : ${account}`);
+    else if (account && !ACCOUNTS[account] && !cgncParent(account)) errors.push(`Compte inexistant: ${account}`);
     if (isTiers) {
       const known = ACCOUNTS[auxiliary] || activeAuxiliaryAccounts().some(a => a.compte_auxiliaire === auxiliary);
       if (!known) errors.push(`Auxiliaire obligatoire et connu pour ${account}`);
@@ -1859,8 +1871,11 @@ function renderPlanComptable() {
     .slice()
     .sort((a, b) => a.code.localeCompare(b.code));
   tb.innerHTML = '';
+  if (!CGNC_CODES.size) {
+    tb.innerHTML = `<tr><td colspan="6" style="padding:14px;color:var(--danger);font-weight:600;">Plan comptable CGNC non chargé — ${menuEscape(cgncChartError || 'chargement en cours…')} Redémarrez le serveur (python run.py) puis rechargez la page. Seuls les sous-comptes locaux sont affichés.</td></tr>`;
+  }
   if (!list.length) {
-    tb.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:18px;">Aucun compte ne correspond à la recherche.</td></tr>`;
+    tb.innerHTML += `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:18px;">Aucun compte ne correspond à la recherche.</td></tr>`;
     return;
   }
   list.forEach(a => {
@@ -1889,7 +1904,7 @@ async function previewPcgeGeneral() {
     const body = await response.json();
     if (!response.ok) throw new Error(body.detail?.message || 'Source PCGE indisponible.');
     const rows = body.added || [];
-    document.getElementById('pcge-preview-summary').textContent = `${rows.length} à ajouter · ${(body.alreadyPresent || []).length} déjà présents · ${(body.needsReview || []).length} à vérifier · classes 0 et 9 séparées`;
+    document.getElementById('pcge-preview-summary').textContent = `${rows.length} à ajouter · ${(body.alreadyPresent || []).length} déjà présents · classes 0 et 9 séparées`;
     document.getElementById('pcge-preview-body').innerHTML = rows.slice(0, 150).map(a => `<tr><td>${escapeAux(a.code)}</td><td>${escapeAux(a.label)}</td><td>${escapeAux(a.parent || '—')}</td></tr>`).join('') || '<tr><td colspan="3">Aucun compte nouveau.</td></tr>';
     document.getElementById('pcge-preview-more').textContent = rows.length > 150 ? `... ${rows.length - 150} ligne(s) supplémentaire(s)` : '';
     document.getElementById('pcge-import-confirm').disabled = !rows.length;
@@ -1908,7 +1923,7 @@ async function importPcgeGeneral() {
       DATA.accounts.push(item); ACCOUNTS[item.code] = item.label; window.PCM_MAROC.push({code: item.code, libelle: item.label, classe: item.classe});
     });
     persistCustomizationState(); renderPlanComptable(); closeModal('modalPcgeImport');
-    showToast(`${report.importedCount || 0} compte(s) PCGE ajouté(s); ${(report.alreadyPresent || []).length} déjà présents; ${(report.needsReview || []).length} à vérifier.`, 'success');
+    showToast(`${report.importedCount || 0} compte(s) PCGE ajouté(s); ${(report.alreadyPresent || []).length} déjà présents.`, 'success');
   } catch (error) { button.disabled = false; showToast(error.message, 'error'); }
 }
 function openAuxImport() {
@@ -1953,8 +1968,9 @@ function validateAuxRows(rows) {
     const data = Object.fromEntries(AUX_FIELDS.map(field => [field, String(raw[field] ?? '').trim()]));
     const errors = [];
     if (!AUX_FIELDS.every(field => Object.prototype.hasOwnProperty.call(raw, field))) errors.push('En-têtes requis manquants');
-    if (!/^\d{5,}$/.test(data.compte_auxiliaire)) errors.push('Compte auxiliaire : au moins 5 chiffres requis');
-    if (!roots.has(data.compte_racine)) errors.push(`Compte racine ${data.compte_racine || 'vide'} inexistant dans le PCM`);
+    if (!/^\d{5,8}$/.test(data.compte_auxiliaire)) errors.push('Compte auxiliaire : 5 à 8 chiffres requis');
+    if (!(data.compte_racine.length === 4 && roots.has(data.compte_racine))) errors.push(`Compte racine ${data.compte_racine || 'vide'} : compte CGNC à 4 chiffres requis`);
+    else if (!data.compte_auxiliaire.startsWith(data.compte_racine)) errors.push(`Le compte auxiliaire doit commencer par son compte racine ${data.compte_racine}`);
     if (!data.libelle) errors.push('Libellé obligatoire');
     if (data.ice && !/^\d{15}$/.test(data.ice)) errors.push('ICE invalide : 15 chiffres exactement');
     if (!AUX_TYPES.includes(data.type_tiers)) errors.push('Type tiers invalide');
@@ -2438,7 +2454,7 @@ function addPcmAccount() {
   let code = window.prompt('Code du nouveau sous-compte CGNC (ex: 61251) :');
   code = (code || '').trim();
   if (!code) return;
-  if (!/^\d{5,}$/.test(code) || !cgncRoot(code)) { showToast('Un nouveau compte doit prolonger un compte du référentiel CGNC (au moins 5 chiffres)', 'error'); return; }
+  if (!/^\d{5,8}$/.test(code) || !cgncRoot(code)) { showToast('Un nouveau compte doit prolonger un compte à 4 chiffres du référentiel CGNC (5 à 8 chiffres)', 'error'); return; }
   if (DATA.accounts.some(a => a.code === code)) { showToast('Ce code existe déjà', 'error'); return; }
   const label = window.prompt('Intitulé du compte :') || 'Nouveau compte';
   const acc = { code, label, type: 'divisionnaire', parent: cgncRoot(code), classe: Number(code.charAt(0)) };

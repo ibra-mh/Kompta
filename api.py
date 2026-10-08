@@ -96,7 +96,7 @@ def save_fiscal_year(client_id: str, request: FiscalYearUpsert):
 
 @accounts_router.get("/cgnc")
 def list_cgnc_accounts():
-    """Official CGNC chart (standard dataset + documented supplement) used by every account lookup."""
+    """Official CGNC chart (cgnc_standard_accounts.json) used by every account lookup."""
     return list(chart_of_accounts())
 
 

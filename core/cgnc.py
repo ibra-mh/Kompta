@@ -1,20 +1,20 @@
 """CGNC (Code Général de Normalisation Comptable) chart of accounts and shared account roots.
 
-`cgnc_standard_accounts.json` is the single source of truth for the chart. The small
-`cgnc_supplement_accounts.json` only adds roots missing from that dataset that the app
-posts to. An account is valid when its code is listed, or extends a listed code
-(e.g. 44110002 under 4411, 3455220 under 34552).
+`cgnc_standard_accounts.json` is the single source of truth for the chart. An account
+code is valid when it has 4 to 8 digits and its first 4 digits are a listed CGNC
+account (e.g. 44110002 under 4411, 3455220 under 3455).
 """
 from __future__ import annotations
 
 import json
+import re
 from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 STANDARD_DATASET = PROJECT_ROOT / "cgnc_standard_accounts.json"
-SUPPLEMENT_DATASET = PROJECT_ROOT / "cgnc_supplement_accounts.json"
+ACCOUNT_CODE = re.compile(r"^\d{4,8}$")
 
 CLIENTS_ROOT = "3421"
 SUPPLIERS_ROOT = "4411"
@@ -26,11 +26,11 @@ TIER_ROOTS = tuple(TIER_ROOT_TYPES)
 
 
 def read_dataset(path: str | Path, source: str) -> list[dict[str, Any]]:
-    """Read one CGNC JSON dataset into normalized account records."""
+    """Read a CGNC JSON dataset into normalized account records, rejecting malformed entries."""
     accounts = []
     for item in json.loads(Path(path).read_text(encoding="utf-8")):
         code = str(item["account_code"]).strip()
-        if not code.isdigit() or str(item["class"]) != code[0]:
+        if not ACCOUNT_CODE.fullmatch(code) or str(item["class"]) != code[0]:
             raise ValueError(f"Invalid CGNC account record in {Path(path).name}: {item!r}")
         accounts.append({
             "code": code,
@@ -39,17 +39,19 @@ def read_dataset(path: str | Path, source: str) -> list[dict[str, Any]]:
             "status": str(item.get("status", "")),
             "source": source,
         })
+    codes = [account["code"] for account in accounts]
+    duplicates = sorted({code for code in codes if codes.count(code) > 1})
+    if duplicates:
+        raise ValueError(f"Duplicate CGNC account codes in {Path(path).name}: {', '.join(duplicates)}")
+    orphans = sorted(code for code in codes if len(code) > 4 and code[:4] not in codes)
+    if orphans:
+        raise ValueError(f"CGNC sub-accounts without a 4-digit parent in {Path(path).name}: {', '.join(orphans)}")
     return accounts
 
 
 @lru_cache(maxsize=1)
 def chart_of_accounts() -> tuple[dict[str, Any], ...]:
-    accounts = read_dataset(STANDARD_DATASET, "cgnc_standard") + read_dataset(SUPPLEMENT_DATASET, "cgnc_supplement")
-    codes = [account["code"] for account in accounts]
-    duplicates = sorted({code for code in codes if codes.count(code) > 1})
-    if duplicates:
-        raise ValueError(f"Duplicate CGNC account codes: {', '.join(duplicates)}")
-    return tuple(sorted(accounts, key=lambda account: account["code"]))
+    return tuple(sorted(read_dataset(STANDARD_DATASET, "cgnc_standard"), key=lambda account: account["code"]))
 
 
 @lru_cache(maxsize=1)
@@ -61,17 +63,22 @@ def official_label(code: str) -> str | None:
     return _labels().get(str(code).strip())
 
 
-def cgnc_root(code: str) -> str | None:
-    """Longest listed CGNC code that `code` equals or extends."""
+def cgnc_parent(code: str) -> str | None:
+    """4-digit CGNC account that a valid 4–8 digit code belongs to."""
     value = str(code).strip()
-    if not value.isdigit():
+    if not ACCOUNT_CODE.fullmatch(value) or value[:4] not in _labels():
         return None
+    return value[:4]
+
+
+def cgnc_root(code: str) -> str | None:
+    """Most specific listed CGNC code that a valid code equals or extends."""
+    if cgnc_parent(code) is None:
+        return None
+    value = str(code).strip()
     labels = _labels()
-    for length in range(len(value), 0, -1):
-        if value[:length] in labels:
-            return value[:length]
-    return None
+    return next(value[:length] for length in range(len(value), 3, -1) if value[:length] in labels)
 
 
 def is_cgnc_account(code: str) -> bool:
-    return cgnc_root(code) is not None
+    return cgnc_parent(code) is not None

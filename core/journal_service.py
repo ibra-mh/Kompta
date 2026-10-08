@@ -16,7 +16,7 @@ from typing import Any
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 from .storage import connect_database, resolve_database_path, utc_now_iso
 from .pcge_import import preview_import, extract_pcge_general_accounts
-from .cgnc import TIER_ROOT_TYPES, TIER_ROOTS, is_cgnc_account, official_label
+from .cgnc import ACCOUNT_CODE, TIER_ROOT_TYPES, TIER_ROOTS, is_cgnc_account, official_label
 
 
 JOURNAL_PIECE_PREFIXES = {"ACHATS": "JA", "VENTES": "JV", "BANQUE": "JB", "CAISSE": "JC"}
@@ -38,8 +38,8 @@ AUXILIARY_ACCOUNTS_DDL = """
 
 class JournalLine(BaseModel):
     model_config = ConfigDict(populate_by_name=True)
-    account: str = Field(..., min_length=1, alias="compte")
-    auxiliary: str | None = Field(None, alias="auxiliaire")
+    account: str = Field(..., pattern=r"^\s*\d{4,8}\s*$", alias="compte")
+    auxiliary: str | None = Field(None, pattern=r"^\s*\d{4,8}\s*$", alias="auxiliaire")
     label: str = Field("", alias="libelle")
     debit: float = Field(0, ge=0)
     credit: float = Field(0, ge=0)
@@ -215,7 +215,7 @@ class JournalRepository:
             code = str(account.get("code", "")).strip()
             root = code[:4]
             label = str(account.get("label", account.get("libelle", ""))).strip()
-            if root not in TIER_ROOT_TYPES or len(code) <= 4 or not code.isdigit() or not label:
+            if root not in TIER_ROOT_TYPES or len(code) <= 4 or not is_cgnc_account(code) or not label:
                 continue
             db.execute(
                 "INSERT OR IGNORE INTO pcm_accounts(code, label, account_type, catalog_source, updated_at) VALUES (?, ?, 'parent', 'cgnc_standard', ?)",
@@ -266,6 +266,8 @@ class JournalRepository:
         if round(debit - credit, 2) != 0 or debit <= 0:
             raise ValueError("Journal entry must be balanced and have a positive total")
         for line in request.lines:
+            if not ACCOUNT_CODE.fullmatch(line.account.strip()):
+                raise ValueError(f"Invalid account code: {line.account} (4 à 8 chiffres attendus)")
             if not is_cgnc_account(line.account):
                 raise ValueError(f"Unknown PCM account: {line.account} (absent du référentiel CGNC)")
             if line.account.startswith(TIER_ROOTS):
