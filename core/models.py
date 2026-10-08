@@ -122,7 +122,6 @@ class ReleveDeductionsData(BaseModel):
     ice_declarant: str = Field("", description="ICE of the declaring entity")
     if_declarant: str = Field("", description="IF of the declaring entity")
     periode: str = Field(..., description="e.g. '2026-08' or 'T3-2026'")
-    demo_only: bool = Field(False, alias="demoOnly")
     lines: list[DeductionLineData] = Field(default_factory=list)
 
     model_config = {"populate_by_name": True}
@@ -238,7 +237,6 @@ class Etat9421(BaseModel):
     ice_employeur: str
     if_employeur: str
     exercice: int = Field(..., ge=2000, le=2100)
-    demo_only: bool = Field(False, alias="demoOnly")
     lines: list[SalarieLine] = Field(default_factory=list)
 
     model_config = {"populate_by_name": True}

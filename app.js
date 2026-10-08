@@ -13,9 +13,10 @@ function apiConnectionErrorMessage(error, action) {
   return error?.message || `${action} impossible.`;
 }
 
-// ===== REAL CLIENT / FISCAL-YEAR SETUP =====
+// ===== CLIENT / FISCAL-YEAR SETUP =====
 let managedClients = [];
 let selectedManagedClientId = '';
+let syncedClientIds = new Set();
 
 function managedClientToDossier(client) {
   const openYear = (client.years || []).find(item => item.status === 'open') || (client.years || [])[0];
@@ -23,18 +24,19 @@ function managedClientToDossier(client) {
     id: client.id,
     name: client.name,
     ice: client.ice || '—',
+    identifiant_fiscal: client.identifiantFiscal || '',
     forme: client.legalForm || '—',
     exercice: openYear?.year || null,
     tva_regime: client.tvaRegime,
     tva_periodicite: client.tvaPeriodicite,
     status: openYear?.status === 'closed' ? 'clôturé' : 'actif',
-    balanceStatus: 'ok',
-    isDemo: false
+    balanceStatus: 'ok'
   };
 }
 
 function syncManagedClientsIntoData() {
-  DATA.dossiers = DATA.dossiers.filter(d => d.isDemo !== false);
+  DATA.dossiers = DATA.dossiers.filter(d => !syncedClientIds.has(d.id));
+  syncedClientIds = new Set(managedClients.map(client => client.id));
   managedClients.forEach(client => {
     const dossier = managedClientToDossier(client);
     DATA.dossiers.push(dossier);
@@ -52,13 +54,15 @@ function setClientManagerStatus(message, type = 'gray') {
 
 async function loadManagedClients() {
   try {
-    const response = await fetch(`${KOMPTA_API_BASE}/api/clients?include_demo=false`);
-    if (!response.ok) throw new Error('Impossible de charger les clients réels.');
+    const response = await fetch(`${KOMPTA_API_BASE}/api/clients`);
+    if (!response.ok) throw new Error('Impossible de charger les clients.');
     managedClients = await response.json();
     syncManagedClientsIntoData();
     renderManagedClients();
     renderDossierScreen();
-    setClientManagerStatus(`${managedClients.length} client(s) réel(s) enregistré(s).`, 'green');
+    renderHomeClientsTable();
+    if (document.getElementById('modalAllClients')?.classList.contains('open')) renderAllClientsTable();
+    setClientManagerStatus(`${managedClients.length} client(s) enregistré(s).`, 'green');
   } catch (error) {
     setClientManagerStatus(apiConnectionErrorMessage(error, 'Chargement des clients'), 'red');
   }
@@ -66,12 +70,12 @@ async function loadManagedClients() {
 
 function resetManagedClientForm() {
   selectedManagedClientId = '';
-  ['managed-client-id', 'managed-client-name', 'managed-client-ice', 'managed-client-form'].forEach(id => {
+  ['managed-client-id', 'managed-client-name', 'managed-client-ice', 'managed-client-if', 'managed-client-form', 'managed-client-year'].forEach(id => {
     const el = document.getElementById(id); if (el) el.value = '';
   });
   document.getElementById('managed-client-regime').value = 'Débit';
   document.getElementById('managed-client-period').value = 'Mensuelle';
-  document.getElementById('managed-years-list').textContent = 'Sélectionnez un client réel pour gérer ses exercices.';
+  document.getElementById('managed-years-list').textContent = 'Sélectionnez un client pour gérer ses exercices.';
 }
 
 function editManagedClient(clientId) {
@@ -81,6 +85,8 @@ function editManagedClient(clientId) {
   document.getElementById('managed-client-id').value = client.id;
   document.getElementById('managed-client-name').value = client.name;
   document.getElementById('managed-client-ice').value = client.ice || '';
+  document.getElementById('managed-client-if').value = client.identifiantFiscal || '';
+  document.getElementById('managed-client-year').value = '';
   document.getElementById('managed-client-form').value = client.legalForm || '';
   document.getElementById('managed-client-regime').value = client.tvaRegime;
   document.getElementById('managed-client-period').value = client.tvaPeriodicite;
@@ -105,10 +111,10 @@ function renderManagedClients() {
   const list = document.getElementById('managed-clients-list');
   if (!list) return;
   if (!managedClients.length) {
-    list.innerHTML = '<div style="padding:14px;color:var(--muted);font-size:11px;">Aucun client réel. Créez le premier client à gauche.</div>';
+    list.innerHTML = '<div style="padding:14px;color:var(--muted);font-size:11px;">Aucun client enregistré. Créez le premier client à gauche.</div>';
     return;
   }
-  list.innerHTML = managedClients.map(client => `<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border-bottom:1px solid var(--border);"><div><strong>${menuEscape(client.name)}</strong><div style="font-size:10px;color:var(--muted);">${menuEscape(client.legalForm || '—')} · ICE ${menuEscape(client.ice || '—')} · Réel</div></div><button class="btn btn-s btn-xs" data-action="editManagedClient('${client.id}')">Modifier</button></div>`).join('');
+  list.innerHTML = managedClients.map(client => `<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border-bottom:1px solid var(--border);"><div><strong>${menuEscape(client.name)}</strong><div style="font-size:10px;color:var(--muted);">${menuEscape(client.legalForm || '—')} · ICE ${menuEscape(client.ice || '—')}</div></div><button class="btn btn-s btn-xs" data-action="editManagedClient('${client.id}')">Modifier</button></div>`).join('');
   if (selectedManagedClientId) {
     const selected = managedClients.find(client => client.id === selectedManagedClientId);
     if (selected) renderManagedYears(selected);
@@ -116,27 +122,34 @@ function renderManagedClients() {
 }
 
 async function saveManagedClient() {
+  const yearValue = document.getElementById('managed-client-year').value.trim();
   const payload = {
     name: document.getElementById('managed-client-name').value,
     ice: document.getElementById('managed-client-ice').value,
+    identifiantFiscal: document.getElementById('managed-client-if').value,
     legalForm: document.getElementById('managed-client-form').value,
     tvaRegime: document.getElementById('managed-client-regime').value,
-    tvaPeriodicite: document.getElementById('managed-client-period').value
+    tvaPeriodicite: document.getElementById('managed-client-period').value,
+    fiscalYear: yearValue ? Number(yearValue) : null
   };
   if (!payload.name.trim() || !payload.legalForm.trim()) {
     setClientManagerStatus('La raison sociale et la forme juridique sont obligatoires.', 'red');
     return;
   }
+  if (payload.ice.trim() && !/^\d{15}$/.test(payload.ice.trim())) { setClientManagerStatus('L’ICE doit contenir exactement 15 chiffres.', 'red'); return; }
+  if (payload.identifiantFiscal.trim() && !/^\d{8}$/.test(payload.identifiantFiscal.trim())) { setClientManagerStatus('L’identifiant fiscal (IF) doit contenir exactement 8 chiffres.', 'red'); return; }
+  if (yearValue && !(Number.isInteger(payload.fiscalYear) && payload.fiscalYear >= 2000 && payload.fiscalYear <= 2100)) { setClientManagerStatus('Saisissez une année d’exercice entre 2000 et 2100.', 'red'); return; }
   const id = document.getElementById('managed-client-id').value;
   try {
     const response = await fetch(`${KOMPTA_API_BASE}/api/clients${id ? `/${encodeURIComponent(id)}` : ''}`, {
       method: id ? 'PUT' : 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload)
     });
+    if (!response.ok) throw new Error(await responseErrorMessage(response, 'Enregistrement impossible.'));
     const data = await response.json();
-    if (!response.ok) throw new Error(data.detail?.message || 'Enregistrement impossible.');
     await loadManagedClients();
     editManagedClient(data.id);
-    showToast(id ? 'Client réel mis à jour ✓' : 'Client réel créé ✓', 'success');
+    setClientManagerStatus(`${data.name} enregistré${payload.fiscalYear ? ` — exercice ${payload.fiscalYear} ouvert` : ''}.`, 'green');
+    showToast(id ? 'Client mis à jour ✓' : `Dossier ${data.name} créé ✓`, 'success');
   } catch (error) {
     setClientManagerStatus(apiConnectionErrorMessage(error, 'Enregistrement du client'), 'red');
   }
@@ -146,7 +159,7 @@ async function saveManagedFiscalYear() {
   const clientId = document.getElementById('managed-client-id').value || selectedManagedClientId;
   const year = Number(document.getElementById('managed-year').value);
   const status = document.getElementById('managed-year-status').value;
-  if (!clientId) { setClientManagerStatus('Sélectionnez d’abord un client réel.', 'red'); return; }
+  if (!clientId) { setClientManagerStatus('Sélectionnez d’abord un client.', 'red'); return; }
   if (!Number.isInteger(year) || year < 2000 || year > 2100) { setClientManagerStatus('Saisissez une année entre 2000 et 2100.', 'red'); return; }
   try {
     const response = await fetch(`${KOMPTA_API_BASE}/api/clients/${encodeURIComponent(clientId)}/fiscal-years`, {
@@ -166,6 +179,11 @@ function openClientManager() {
   resetManagedClientForm();
   openModal('modalClientManager');
   loadManagedClients();
+}
+function openNewClientForm() {
+  openClientManager();
+  document.getElementById('managed-client-year').value = String(currentYear);
+  document.getElementById('managed-client-name').focus();
 }
 
 // ===== DATA =====
@@ -310,11 +328,6 @@ const DATA = {
 };
 
 // ===== DERIVED LOOKUPS =====
-Object.values(DATA.clientData).forEach(client => {
-  (client.journal_entries || []).forEach(entry => { entry.demoOnly = true; });
-});
-DATA.dossiers.forEach(dossier => { dossier.isDemo = true; });
-
 // code → label map for quick resolution
 const ACCOUNTS = {};
 // Comptes divisionnaires fournisseurs (parent 4411) used by the account popup
@@ -696,7 +709,8 @@ function filterHomeClients(val) {
 function renderHomeClientsTable() {
   const q = (document.getElementById('home-clients-search')?.value || '').trim().toLowerCase();
   const filter = document.getElementById('home-clients-filter')?.value || '';
-  let list = DATA.dossiers.filter(d => !q || d.name.toLowerCase().includes(q) || d.ice.includes(q));
+  let list = DATA.dossiers.filter(d => !q || d.name.toLowerCase().includes(q) || d.ice.includes(q))
+    .sort((a, b) => a.name.localeCompare(b.name));
   if (filter === 'erreur') list = list.filter(d => d.balanceStatus === 'erreur');
   else if (filter === 'a-declarer') list = list.filter(d => tvaStatusFor(d) === 'a-declarer');
   else if (filter === 'docs') list = list.filter(d => docsPendingFor(d.id) > 0);
@@ -718,7 +732,7 @@ function renderHomeClientsTable() {
       const regime = `${d.tva_periodicite === 'Mensuelle' ? 'Mensuel' : d.tva_periodicite === 'Trimestrielle' ? 'Trim.' : d.tva_periodicite} / ${d.tva_regime === 'Encaissement' ? 'Enc.' : d.tva_regime === 'Débit' ? 'Débit' : d.tva_regime}`;
       return `<tr style="${rowBg}">
         <td><strong>${d.name}</strong>${isCurrent ? ' <span class="badge" style="font-size:9px;">Dossier ouvert</span>' : ''}</td>
-        <td>${d.exercice}</td>
+        <td>${d.exercice ?? '—'}</td>
         <td>${regime}</td>
         <td style="text-align:center;"><span class="status ${docsBadge.cls}">${docsBadge.label}</span></td>
         <td style="text-align:center;"><span class="status ${tva.cls}">${tva.label}</span></td>
@@ -850,8 +864,7 @@ function buildReleveDeductionsPayload(clientId = currentClientId, includeAllYear
     ice_declarant: dossier.ice,
     if_declarant: dossier.identifiant_fiscal || '00000000',
     periode: String(currentYear),
-    lines,
-    demoOnly: true
+    lines
   };
 }
 
@@ -1479,19 +1492,19 @@ function renderDossierScreen() {
   // Liste complète par défaut, triée par ordre alphabétique — l'accountant peut
   // simplement faire défiler pour trouver un client, ou taper pour filtrer.
   const matches = DATA.dossiers
-    .filter(d => !q || d.name.toLowerCase().includes(q) || d.ice.includes(q))
+    .filter(d => !q || d.name.toLowerCase().includes(q) || String(d.ice).toLowerCase().includes(q))
     .slice()
     .sort((a, b) => a.name.localeCompare(b.name));
   if (!matches.length) {
-    grid.innerHTML = `<div class="ds-empty">Aucun client ou société ne correspond à « ${q} »</div>`;
+    grid.innerHTML = `<div class="ds-empty">Aucun client ou société ne correspond à « ${menuEscape(q)} »</div>`;
     return;
   }
   matches.forEach(d => {
     const card = document.createElement('div');
     card.className = 'ds-card';
     card.innerHTML = `<div class="ds-avatar" style="background:${avatarColor(d.id)};">${initials(d.name)}</div>`
-      + `<div class="ds-card-body"><div class="ds-name">${d.name}</div><div class="ds-meta">${d.forme} · ICE ${d.ice} · TVA ${d.tva_regime} · ${d.tva_periodicite}</div></div>`
-      + `<span class="ds-ex">Exercice ${d.exercice}</span>`;
+      + `<div class="ds-card-body"><div class="ds-name">${menuEscape(d.name)}</div><div class="ds-meta">${menuEscape(d.forme)} · ICE ${menuEscape(d.ice)} · TVA ${menuEscape(d.tva_regime)} · ${menuEscape(d.tva_periodicite)}</div></div>`
+      + `<span class="ds-ex">${d.exercice ? `Exercice ${d.exercice}` : 'Exercice à configurer'}</span>`;
     // Un clic ouvre d'abord un aperçu (données clés + dernières écritures),
     // jamais directement le dossier complet — Req : ne pas "tout balancer" à l'accountant.
     card.onclick = () => previewClient(d);
@@ -2118,7 +2131,7 @@ const LIASSE_TABLES = [
 const LIASSE_STATE_KEY = 'kompta_liasse_state_v1';
 let liasseState = null;
 function liasseBalanceRows() {
-  return cgncAccounts(false).map(account => ({
+  return cgncAccounts().map(account => ({
     accountCode: account.code, label: ACCOUNTS[account.code] || '',
     openingDebit: account.anD, openingCredit: account.anC,
     movementDebit: account.mvD, movementCredit: account.mvC
@@ -2220,7 +2233,7 @@ function openLiasse() {
 }
 async function exportLiasseXml() {
   const balance = liasseBalanceRows();
-  const request = { fiscalYear: currentYear, identifiantFiscal: liasseState.identifiantFiscal, balance, adjustments: liasseState.adjustments, creditAnterieur: liasseState.creditAnterieur || 0, acomptesIS: liasseState.acomptesIS || 0, creditsFiscaux: liasseState.creditsFiscaux || 0, cmRate: liasseState.cmRate, mappingRules: liasseMappingRules(), demoOnly: true };
+  const request = { fiscalYear: currentYear, identifiantFiscal: liasseState.identifiantFiscal, balance, adjustments: liasseState.adjustments, creditAnterieur: liasseState.creditAnterieur || 0, acomptesIS: liasseState.acomptesIS || 0, creditsFiscaux: liasseState.creditsFiscaux || 0, cmRate: liasseState.cmRate, mappingRules: liasseMappingRules() };
   try {
     const response = await fetch(`${KOMPTA_API_BASE}/api/liasse/simpl-is.xml`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(request) });
     if (!response.ok) { showToast(await responseErrorMessage(response, 'Échec de l’export SIMPL-IS.'), 'error'); return; }
@@ -2229,11 +2242,11 @@ async function exportLiasseXml() {
 }
 let cgncReportState = { type:'', headers:[], exportRows:[] };
 const cgncMoney = value => `${fmtFR(value)} MAD`;
-function cgncAccounts(includeDemo = true) {
+function cgncAccounts() {
   const totals = {};
   const add = (code, key, value) => { code = String(code).trim(); const t = totals[code] || (totals[code] = { code, anD:0, anC:0, mvD:0, mvC:0 }); t[key] += Number(value) || 0; };
-  if (includeDemo) aNouveauxFor(currentYear).forEach(a => { add(a.code, 'anD', a.debit); add(a.code, 'anC', a.credit); });
-  clientEntries().filter(e => e.year === currentYear && (includeDemo || !e.demoOnly)).forEach(e => e.lines.forEach(l => { add(l.compte, 'mvD', lineDebit(l)); add(l.compte, 'mvC', lineCredit(l)); }));
+  aNouveauxFor(currentYear).forEach(a => { add(a.code, 'anD', a.debit); add(a.code, 'anC', a.credit); });
+  clientEntries().filter(e => e.year === currentYear).forEach(e => e.lines.forEach(l => { add(l.compte, 'mvD', lineDebit(l)); add(l.compte, 'mvC', lineCredit(l)); }));
   return Object.values(totals).sort((a, b) => a.code.localeCompare(b.code));
 }
 function cgncFilterBar(html) { document.getElementById('cgnc-report-filters').innerHTML = `<div style="display:flex;gap:8px;align-items:end;flex-wrap:wrap;">${html}</div>`; }
@@ -2335,7 +2348,8 @@ function renderThirdPartyLedger() {
 function menuSetting(label) { showPanel('parametrage'); showToast(label + ' : configuration disponible dans Paramètres', 'info'); }
 function handleMenuAction(action) {
   const reports = {'aged-balance':'Balance Âgée','report-ledger':'Grand Livre','report-journals':'Journaux','central-journal':'Journal Centralisateur','balance-sheet':'Bilan','client-invoices':'Factures Clients','tax-determination':"Détermination d'impôt",'payment-delays':'Délais de Paiement','professional-tax':'Taxes Professionnel',fees:'Honoraires','lawyer-edi':'EDI des avocats'};
-  if (action === 'new-dossier' || action === 'open-dossier') { showDossierScreen(); return; }
+  if (action === 'new-dossier') { openNewClientForm(); return; }
+  if (action === 'open-dossier') { showDossierScreen(); return; }
   if (action === 'quit') { if (window.confirm('Enregistrer l’état du dossier avant de quitter ?')) showToast('État du dossier conservé ✓', 'success'); showDossierScreen(); return; }
   if (action === 'guided-entry' || action === 'entry-template') { showPanel('saisie'); showToast(action === 'guided-entry' ? 'Saisie guidée activée' : 'Modèles de saisie prêts à utiliser', 'info'); return; }
   if (action === 'third-party-ledger') { renderThirdPartyLedger(); return; }
@@ -2839,40 +2853,6 @@ document.getElementById('ocr-file-input')?.addEventListener('change', event => {
 document.getElementById('ocr-drop-zone')?.addEventListener('dragover', event => { event.preventDefault(); event.stopPropagation(); event.currentTarget.classList.add('dragover'); });
 document.getElementById('ocr-drop-zone')?.addEventListener('dragleave', event => { event.stopPropagation(); event.currentTarget.classList.remove('dragover'); });
 document.getElementById('ocr-drop-zone')?.addEventListener('drop', event => { event.preventDefault(); event.stopPropagation(); event.currentTarget.classList.remove('dragover'); uploadOcrFile(event.dataTransfer.files[0]); });
-
-// Replace the demo-only dossier list with clearly separated real and demo sections.
-function renderDossierScreen() {
-  const grid = document.getElementById('dossier-grid');
-  const searchEl = document.getElementById('dossier-search');
-  const q = (searchEl ? searchEl.value : '').trim().toLowerCase();
-  grid.innerHTML = '';
-  const matches = DATA.dossiers
-    .filter(d => !q || d.name.toLowerCase().includes(q) || String(d.ice).toLowerCase().includes(q))
-    .slice()
-    .sort((a, b) => a.name.localeCompare(b.name));
-  if (!matches.length) {
-    grid.innerHTML = `<div class="ds-empty">Aucun client ou société ne correspond à « ${menuEscape(q)} »</div>`;
-    return;
-  }
-  const addSection = (title, records, demo) => {
-    if (!records.length) return;
-    const heading = document.createElement('div');
-    heading.style.cssText = 'font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:10px 2px 2px;';
-    heading.textContent = title;
-    grid.appendChild(heading);
-    records.forEach(d => {
-      const card = document.createElement('div');
-      card.className = 'ds-card';
-      card.innerHTML = `<div class="ds-avatar" style="background:${avatarColor(d.id)};">${initials(d.name)}</div>`
-        + `<div class="ds-card-body"><div class="ds-name">${menuEscape(d.name)} ${demo ? '<span class="status s-gray">Démo</span>' : '<span class="status s-green">Réel</span>'}</div><div class="ds-meta">${menuEscape(d.forme)} · ICE ${menuEscape(d.ice)} · TVA ${menuEscape(d.tva_regime)} · ${menuEscape(d.tva_periodicite)}</div></div>`
-        + `<span class="ds-ex">${d.exercice ? `Exercice ${d.exercice}` : 'Exercice à configurer'}</span>`;
-      card.onclick = () => previewClient(d);
-      grid.appendChild(card);
-    });
-  };
-  addSection('Clients réels', matches.filter(d => d.isDemo === false), false);
-  addSection('Données de démonstration', matches.filter(d => d.isDemo !== false), true);
-}
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {

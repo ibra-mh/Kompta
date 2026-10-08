@@ -47,7 +47,7 @@ app.add_middleware(
         "Content-Type", "X-Kompta-Client-Id", "X-Kompta-Year",
         "X-Kompta-Filename", "X-Kompta-Client-Ice",
     ],
-    expose_headers=["Content-Disposition", "X-Kompta-Export-Status"],
+    expose_headers=["Content-Disposition"],
 )
 
 app.include_router(exports_router)

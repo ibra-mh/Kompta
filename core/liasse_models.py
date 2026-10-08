@@ -83,7 +83,6 @@ class IsRateBracket(BaseModel):
 class LiasseComputeRequest(BaseModel):
     fiscal_year: int = Field(..., alias="fiscalYear", ge=2000, le=2100)
     identifiant_fiscal: str = Field("", alias="identifiantFiscal")
-    demo_only: bool = Field(False, alias="demoOnly")
     balance: list[BalanceLine] = Field(default_factory=list)
     adjustments: list[TaxAdjustment] = Field(default_factory=list)
     credit_anterieur: Decimal = Field(0, alias="creditAnterieur", ge=0)
