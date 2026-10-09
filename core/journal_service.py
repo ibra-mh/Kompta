@@ -8,13 +8,32 @@ from __future__ import annotations
 
 import json
 import sqlite3
-from datetime import datetime, timezone
+from contextlib import closing
+from datetime import datetime
 from pathlib import Path
 from typing import Any
 
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
-from .storage import connect_database, resolve_database_path
-from .pcge_import import preview_import, extract_pcge_general_accounts, account_parent
+from .storage import connect_database, resolve_database_path, utc_now_iso
+from .pcge_import import preview_import, extract_pcge_general_accounts
+from .cgnc import TIER_ROOT_TYPES, TIER_ROOTS, is_cgnc_account, official_label
+
+
+JOURNAL_PIECE_PREFIXES = {"ACHATS": "JA", "VENTES": "JV", "BANQUE": "JB", "CAISSE": "JC"}
+AUXILIARY_ACCOUNTS_DDL = """
+    CREATE TABLE IF NOT EXISTS auxiliary_accounts (
+        code TEXT NOT NULL,
+        label TEXT NOT NULL,
+        root_code TEXT NOT NULL,
+        client_id TEXT NOT NULL,
+        ice TEXT,
+        tax_id TEXT,
+        account_type TEXT NOT NULL,
+        updated_at TEXT NOT NULL,
+        PRIMARY KEY(client_id, code),
+        FOREIGN KEY(root_code) REFERENCES pcm_accounts(code)
+    );
+"""
 
 
 class JournalLine(BaseModel):
@@ -76,7 +95,7 @@ class JournalRepository:
         return connect_database(self.database, autocommit=True)
 
     def _initialize(self) -> None:
-        with self._connect() as db:
+        with closing(self._connect()) as db, db:
             db.executescript(
                 """
                 CREATE TABLE IF NOT EXISTS pcm_accounts (
@@ -86,17 +105,6 @@ class JournalRepository:
                     account_type TEXT NOT NULL DEFAULT 'parent',
                     catalog_source TEXT NOT NULL DEFAULT 'existing',
                     updated_at TEXT NOT NULL
-                );
-                CREATE TABLE IF NOT EXISTS auxiliary_accounts (
-                    code TEXT PRIMARY KEY,
-                    label TEXT NOT NULL,
-                    root_code TEXT NOT NULL,
-                    client_id TEXT NOT NULL,
-                    ice TEXT,
-                    tax_id TEXT,
-                    account_type TEXT NOT NULL,
-                    updated_at TEXT NOT NULL,
-                    FOREIGN KEY(root_code) REFERENCES pcm_accounts(code)
                 );
                 CREATE TABLE IF NOT EXISTS journal_entries (
                     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -157,17 +165,39 @@ class JournalRepository:
             columns = {row[1] for row in db.execute("PRAGMA table_info(pcm_accounts)").fetchall()}
             if "catalog_source" not in columns:
                 db.execute("ALTER TABLE pcm_accounts ADD COLUMN catalog_source TEXT NOT NULL DEFAULT 'existing'")
+            self._ensure_auxiliary_accounts_table(db)
+
+    @staticmethod
+    def _ensure_auxiliary_accounts_table(db: sqlite3.Connection) -> None:
+        info = db.execute("PRAGMA table_info(auxiliary_accounts)").fetchall()
+        if not info:
+            db.executescript(AUXILIARY_ACCOUNTS_DDL)
+            return
+        primary_key = [row[1] for row in sorted(info, key=lambda row: row[5]) if row[5]]
+        if primary_key == ["client_id", "code"]:
+            return
+        # Legacy schema keyed on code alone; shared supplier/client codes need per-dossier rows.
+        db.executescript(
+            "BEGIN IMMEDIATE;"
+            "ALTER TABLE auxiliary_accounts RENAME TO auxiliary_accounts_legacy;"
+            + AUXILIARY_ACCOUNTS_DDL
+            + "INSERT INTO auxiliary_accounts(code, label, root_code, client_id, ice, tax_id, account_type, updated_at)"
+            " SELECT code, label, root_code, client_id, ice, tax_id, account_type, updated_at FROM auxiliary_accounts_legacy;"
+            "DROP TABLE auxiliary_accounts_legacy;"
+            "COMMIT;"
+        )
 
     @staticmethod
     def _now() -> str:
-        return datetime.now(timezone.utc).isoformat()
+        return utc_now_iso()
 
     def _sync_catalog(self, db: sqlite3.Connection, catalog: list[dict[str, Any]]) -> None:
+        """Mirror catalog accounts accepted by the CGNC chart; listed codes keep their official label."""
         now = self._now()
         for account in catalog:
             code = str(account.get("code", "")).strip()
-            label = str(account.get("label", account.get("libelle", ""))).strip()
-            if not code or not label or not code.isdigit():
+            label = official_label(code) or str(account.get("label", account.get("libelle", ""))).strip()
+            if not code or not label or not is_cgnc_account(code):
                 continue
             db.execute(
                 """INSERT INTO pcm_accounts(code, label, parent, account_type, updated_at)
@@ -178,8 +208,35 @@ class JournalRepository:
                 (code, label, account.get("parent"), account.get("type", "parent"), now),
             )
 
+    def _sync_auxiliary_accounts(self, db: sqlite3.Connection, client_id: str, catalog: list[dict[str, Any]]) -> None:
+        """Register client (3421...) and supplier (4411...) sub-accounts sent with the entry for this dossier."""
+        now = self._now()
+        for account in catalog:
+            code = str(account.get("code", "")).strip()
+            root = code[:4]
+            label = str(account.get("label", account.get("libelle", ""))).strip()
+            if root not in TIER_ROOT_TYPES or len(code) <= 4 or not code.isdigit() or not label:
+                continue
+            db.execute(
+                "INSERT OR IGNORE INTO pcm_accounts(code, label, account_type, catalog_source, updated_at) VALUES (?, ?, 'parent', 'cgnc_standard', ?)",
+                (root, official_label(root), now),
+            )
+            db.execute(
+                """INSERT INTO auxiliary_accounts(code, label, root_code, client_id, ice, tax_id, account_type, updated_at)
+                   VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+                   ON CONFLICT(client_id, code) DO UPDATE SET label=excluded.label, ice=excluded.ice,
+                     tax_id=excluded.tax_id, account_type=excluded.account_type, updated_at=excluded.updated_at""",
+                (
+                    code, label, root, client_id,
+                    str(account.get("ice") or "").strip() or None,
+                    str(account.get("identifiant_fiscal") or "").strip() or None,
+                    str(account.get("type_tiers") or TIER_ROOT_TYPES[root]),
+                    now,
+                ),
+            )
+
     def preview_pcge_general(self, source_path: str | Path | None = None, existing: list[dict[str, Any]] | None = None) -> dict[str, Any]:
-        with self._connect() as db:
+        with closing(self._connect()) as db, db:
             catalog = existing
             if catalog is None:
                 catalog = [dict(row) for row in db.execute("SELECT code, label, parent, account_type AS type FROM pcm_accounts").fetchall()]
@@ -190,11 +247,11 @@ class JournalRepository:
         now = self._now()
         imported = []
         codes = {item["code"] for item in extract_pcge_general_accounts(source_path)}
-        with self._connect() as db:
+        with closing(self._connect()) as db, db:
             for account in report["added"]:
                 cursor = db.execute(
                     """INSERT OR IGNORE INTO pcm_accounts(code, label, parent, account_type, catalog_source, updated_at)
-                       VALUES (?, ?, ?, ?, 'pcge_general', ?)""",
+                       VALUES (?, ?, ?, ?, 'cgnc_standard', ?)""",
                     (account["code"], account["label"], account.get("parent"), "parent" if any(code.startswith(account["code"]) and code != account["code"] for code in codes) else "account", now),
                 )
                 if cursor.rowcount:
@@ -209,10 +266,9 @@ class JournalRepository:
         if round(debit - credit, 2) != 0 or debit <= 0:
             raise ValueError("Journal entry must be balanced and have a positive total")
         for line in request.lines:
-            account = db.execute("SELECT code FROM pcm_accounts WHERE code = ?", (line.account.strip(),)).fetchone()
-            if account is None:
-                raise ValueError(f"Unknown PCM account: {line.account}")
-            if line.account.startswith(("3421", "4411")):
+            if not is_cgnc_account(line.account):
+                raise ValueError(f"Unknown PCM account: {line.account} (absent du référentiel CGNC)")
+            if line.account.startswith(TIER_ROOTS):
                 if not line.auxiliary:
                     raise ValueError(f"Auxiliary account is required for tier account {line.account}")
                 auxiliary = db.execute(
@@ -227,40 +283,10 @@ class JournalRepository:
         try:
             db.execute("BEGIN IMMEDIATE")
             self._sync_catalog(db, request.account_catalog)
-            self._validate_lines(db, request)
-            sequence = db.execute(
-                "SELECT next_entry_number FROM journal_sequences WHERE client_id=? AND year=?",
-                (request.client_id, request.year),
-            ).fetchone()
-            number = int(sequence[0]) if sequence else 1
-            if sequence:
-                db.execute("UPDATE journal_sequences SET next_entry_number=? WHERE client_id=? AND year=?", (number + 1, request.client_id, request.year))
-            else:
-                db.execute("INSERT INTO journal_sequences VALUES (?, ?, ?)", (request.client_id, request.year, number + 1))
-            prefix = {"ACHATS": "JA", "VENTES": "JV", "BANQUE": "JB", "CAISSE": "JC"}.get(request.journal, "OD")
-            piece = f"{prefix}-{number:06d}"
-            now = self._now()
-            cursor = db.execute(
-                """INSERT INTO journal_entries(client_id, year, entry_number, piece_number, journal, entry_date, reference, label, user_id, posted_at)
-                   VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-                (request.client_id, request.year, number, piece, request.journal, request.entry_date, request.reference, request.label, request.user_id, now),
-            )
-            entry_id = int(cursor.lastrowid)
-            for line_number, line in enumerate(request.lines, 1):
-                db.execute(
-                    """INSERT INTO journal_lines(entry_id, line_number, account_code, auxiliary_code, label, debit, credit, invoice, vat_rate)
-                       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)""",
-                    (entry_id, line_number, line.account, line.auxiliary, line.label, line.debit, line.credit, line.invoice, line.vat_rate),
-                )
-            payload = request.model_dump(by_alias=True, mode="json")
-            payload.update({"entryId": entry_id, "entryNumber": number, "pieceNumber": piece})
-            for action in ("CREATE", "POST"):
-                db.execute(
-                    "INSERT INTO audit_logs(user_id, timestamp, action_type, entry_id, payload_diff) VALUES (?, ?, ?, ?, ?)",
-                    (request.user_id, now, action, entry_id, json.dumps(payload, sort_keys=True)),
-                )
+            self._sync_auxiliary_accounts(db, request.client_id, request.account_catalog)
+            result = self._post_in_transaction(db, request)
             db.commit()
-            return JournalEntryPosted(entryId=entry_id, entryNumber=number, pieceNumber=piece, clientId=request.client_id, year=request.year)
+            return result
         except Exception:
             db.rollback()
             raise
@@ -268,17 +294,21 @@ class JournalRepository:
             db.close()
 
     def list_entries(self, client_id: str, year: int) -> list[dict[str, Any]]:
-        with self._connect() as db:
+        with closing(self._connect()) as db, db:
             entries = db.execute(
                 "SELECT * FROM journal_entries WHERE client_id=? AND year=? ORDER BY entry_number",
                 (client_id, year),
             ).fetchall()
+            lines_by_entry: dict[int, list[sqlite3.Row]] = {}
+            for line in db.execute(
+                """SELECT l.* FROM journal_lines l JOIN journal_entries e ON e.id = l.entry_id
+                   WHERE e.client_id=? AND e.year=? ORDER BY l.entry_id, l.line_number""",
+                (client_id, year),
+            ):
+                lines_by_entry.setdefault(line["entry_id"], []).append(line)
             result = []
             for entry in entries:
-                lines = db.execute(
-                    "SELECT * FROM journal_lines WHERE entry_id=? ORDER BY line_number",
-                    (entry["id"],),
-                ).fetchall()
+                lines = lines_by_entry.get(entry["id"], [])
                 entry_date = entry["entry_date"]
                 result.append({
                     "serverEntryId": entry["id"],
@@ -345,7 +375,7 @@ class JournalRepository:
             db.execute("UPDATE journal_sequences SET next_entry_number=? WHERE client_id=? AND year=?", (number + 1, request.client_id, request.year))
         else:
             db.execute("INSERT INTO journal_sequences VALUES (?, ?, ?)", (request.client_id, request.year, number + 1))
-        prefix = {"ACHATS": "JA", "VENTES": "JV", "BANQUE": "JB", "CAISSE": "JC"}.get(request.journal, "OD")
+        prefix = JOURNAL_PIECE_PREFIXES.get(request.journal, "OD")
         piece = f"{prefix}-{number:06d}"
         now = self._now()
         cursor = db.execute("INSERT INTO journal_entries(client_id, year, entry_number, piece_number, journal, entry_date, reference, label, user_id, posted_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (request.client_id, request.year, number, piece, request.journal, request.entry_date, request.reference, request.label, request.user_id, now))

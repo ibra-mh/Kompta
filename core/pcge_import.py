@@ -1,71 +1,36 @@
-"""Source-backed import of the general-business PCGE chart.
+"""Source-backed import of the general-business chart from the official CGNC dataset.
 
-The supplied PCGE PDF is the source of labels and codes. Classes 1-8 are the
-general-business chart; classes 0 and 9 are deliberately left outside this
-import because they are special/analytical accounts.
+`cgnc_standard_accounts.json` (plus the documented supplement) is the source of
+labels and codes. It covers classes 1-8; classes 0 and 9 are special/analytical
+accounts and stay outside this import. Dataset entries whose status is
+`needs_review` are reported for review instead of being imported.
 """
 from __future__ import annotations
 
-import os
-import re
 from pathlib import Path
 from typing import Any
 
-from pypdf import PdfReader
-
-
-DEFAULT_PCGE_SOURCE = Path.home() / "Downloads" / "Plan-Comptable-Marocain-Upsilon-Consulting.pdf"
-ACCOUNT_CODE = re.compile(r"^[0-9]{2,5}$")
-CLASS_HEADING = re.compile(r"^Classe\s+([1-8])$")
+from .cgnc import STANDARD_DATASET, chart_of_accounts, read_dataset
 
 
 def resolve_pcge_source(path: str | Path | None = None) -> Path:
-    configured = path or os.environ.get("KOMPTA_PCGE_SOURCE_PDF") or DEFAULT_PCGE_SOURCE
-    source = Path(configured).expanduser().resolve()
+    source = Path(path or STANDARD_DATASET).expanduser().resolve()
     if not source.is_file():
-        raise FileNotFoundError(f"PCGE source PDF not found: {source}")
+        raise FileNotFoundError(f"CGNC source dataset not found: {source}")
     return source
 
 
-def parse_pcge_text(text: str) -> list[dict[str, Any]]:
-    """Parse code/label pairs without altering source labels."""
-    lines = [re.sub(r"\s+", " ", line).strip() for line in text.splitlines()]
-    accounts: dict[str, dict[str, Any]] = {}
-    conflicts: list[dict[str, Any]] = []
-    current_class: str | None = None
-
-    for index, line in enumerate(lines[:-1]):
-        class_match = CLASS_HEADING.fullmatch(line)
-        if class_match:
-            current_class = class_match.group(1)
-            continue
-        if not current_class or not ACCOUNT_CODE.fullmatch(line) or not line.startswith(current_class):
-            continue
-        label = lines[index + 1]
-        if not label or ACCOUNT_CODE.fullmatch(label) or label.startswith(("UPSILON", "Plan Comptable", "Page ")):
-            continue
-        candidate = {"code": line, "label": label, "class": int(current_class), "source": "pcge_general"}
-        previous = accounts.get(line)
-        if previous and previous["label"] != label:
-            conflicts.append({"code": line, "labels": [previous["label"], label], "reason": "duplicate_source_code"})
-        else:
-            accounts.setdefault(line, candidate)
-
-    for conflict in conflicts:
-        accounts[conflict["code"]]["needs_review"] = True
-        accounts[conflict["code"]]["review_reason"] = conflict["reason"]
-    for account in accounts.values():
-        if "\ufffd" in account["label"]:
-            account["needs_review"] = True
-            account["review_reason"] = "source_text_encoding"
-
-    return sorted(accounts.values(), key=lambda item: (item["class"], item["code"]))
-
-
 def extract_pcge_general_accounts(path: str | Path | None = None) -> list[dict[str, Any]]:
-    source = resolve_pcge_source(path)
-    text = "\n".join(page.extract_text() or "" for page in PdfReader(source).pages)
-    return parse_pcge_text(text)
+    resolve_pcge_source(path)
+    records = read_dataset(path, "cgnc_standard") if path else list(chart_of_accounts())
+    accounts = []
+    for record in records:
+        account = {"code": record["code"], "label": record["label"], "class": record["class"], "source": record["source"]}
+        if record["status"] == "needs_review":
+            account["needs_review"] = True
+            account["review_reason"] = "cgnc_dataset_status"
+        accounts.append(account)
+    return sorted(accounts, key=lambda item: (item["class"], item["code"]))
 
 
 def account_parent(code: str, codes: set[str]) -> str | None:

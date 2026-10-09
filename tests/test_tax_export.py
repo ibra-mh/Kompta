@@ -38,7 +38,7 @@ from core.models import (
     ReleveDeductions,
     SalarieLine,
 )
-from core.validators import validate_etat_9421, validate_releve_deductions
+from core.validators import validate_releve_deductions
 from core.xml_builders import build_etat_9421_xml, build_releve_deductions_xml
 from core.xsd_validator import validate_against_schema
 from core.journal_service import JournalEntryPost, JournalRepository, JournalLine
@@ -300,6 +300,76 @@ class TestAppendOnlyJournal:
         assert entries[0]["serverEntryId"] == 1
         assert entries[0]["year"] == 2026
 
+    @staticmethod
+    def _catalog_entry(client_id, supplier_code="44110002"):
+        catalog = [
+            {"code": "6125", "label": "Électricité et eau", "type": "parent"},
+            {"code": "4411", "label": "Fournisseurs", "type": "parent"},
+            {"code": supplier_code, "label": "Rédal Tétouan", "type": "divisionnaire", "parent": "4411",
+             "ice": "000123456789012", "identifiant_fiscal": "12345678"},
+        ]
+        return JournalEntryPost(
+            clientId=client_id, year=2026, journal="ACHATS", date="2026-06-01", accountCatalog=catalog,
+            lines=[
+                JournalLine(compte="6125", debit=6000),
+                JournalLine(compte=supplier_code, auxiliaire=supplier_code, credit=6000),
+            ],
+        )
+
+    def test_supplier_entry_auto_registers_auxiliary_from_catalog(self, tmp_path):
+        repository = JournalRepository(tmp_path / "journal.sqlite3")
+
+        posted = repository.post(self._catalog_entry("C001"))
+
+        assert posted.piece_number == "JA-000001"
+        with repository._connect() as db:
+            row = db.execute("SELECT root_code, client_id, ice, tax_id, account_type FROM auxiliary_accounts").fetchone()
+        assert tuple(row) == ("4411", "C001", "000123456789012", "12345678", "Fournisseur")
+
+    def test_shared_supplier_code_is_registered_per_dossier(self, tmp_path):
+        repository = JournalRepository(tmp_path / "journal.sqlite3")
+
+        repository.post(self._catalog_entry("C001"))
+        repository.post(self._catalog_entry("C002"))
+        repository.post(self._catalog_entry("C001"))
+
+        with repository._connect() as db:
+            clients = [row[0] for row in db.execute("SELECT client_id FROM auxiliary_accounts ORDER BY client_id")]
+        assert clients == ["C001", "C002"]
+
+    def test_unregistered_auxiliary_is_still_rejected(self, tmp_path):
+        repository = self._repository(tmp_path)
+        request = self._request().model_copy(update={"lines": [
+            JournalLine(compte="6125", debit=100),
+            JournalLine(compte="4411", auxiliaire="44119999", credit=100),
+        ]})
+
+        with pytest.raises(ValueError, match="Invalid auxiliary account"):
+            repository.post(request)
+
+    def test_legacy_auxiliary_table_is_migrated_to_per_dossier_key(self, tmp_path):
+        database = tmp_path / "legacy.sqlite3"
+        with sqlite3.connect(database) as db:
+            db.executescript(
+                """CREATE TABLE pcm_accounts (code TEXT PRIMARY KEY, label TEXT NOT NULL, parent TEXT,
+                       account_type TEXT NOT NULL DEFAULT 'parent', updated_at TEXT NOT NULL);
+                   INSERT INTO pcm_accounts(code, label, updated_at) VALUES ('4411', 'Fournisseurs', 'now');
+                   CREATE TABLE auxiliary_accounts (code TEXT PRIMARY KEY, label TEXT NOT NULL,
+                       root_code TEXT NOT NULL, client_id TEXT NOT NULL, ice TEXT, tax_id TEXT,
+                       account_type TEXT NOT NULL, updated_at TEXT NOT NULL,
+                       FOREIGN KEY(root_code) REFERENCES pcm_accounts(code));
+                   INSERT INTO auxiliary_accounts(code, label, root_code, client_id, account_type, updated_at)
+                       VALUES ('44110001', 'Fournisseur', '4411', 'C001', 'Fournisseur', 'now');"""
+            )
+
+        repository = JournalRepository(database)
+
+        with repository._connect() as db:
+            pk = [row[1] for row in sorted(db.execute("PRAGMA table_info(auxiliary_accounts)"), key=lambda r: r[5]) if row[5]]
+            rows = [tuple(row) for row in db.execute("SELECT code, client_id FROM auxiliary_accounts")]
+        assert pk == ["client_id", "code"]
+        assert rows == [("44110001", "C001")]
+
     def test_reversal_rejects_client_or_exercise_mismatch(self, tmp_path):
         repository = self._repository(tmp_path)
         original = repository.post(self._request())
@@ -347,7 +417,7 @@ class TestLiasseMappingSchema:
             LiasseMappingCatalog(rules=(rule, rule.model_copy(update={"order": 2})))
 
     def test_rule_rejects_wrong_table_for_cgnc_class(self):
-        with pytest.raises(ValidationError):
+        with pytest.raises(ValidationError, match="not valid for TABLEAU_1_BILAN_ACTIF; expected one of TABLEAU_3_CPC, TABLEAU_5_ESG"):
             LiasseMappingRule(
                 dgi_cell_code="BAD-01", label="Charges", table=LiasseTable.BILAN_ACTIF,
                 selector={"account_prefixes": ("6",), "cgnc_class": CgncClass.CHARGES},
@@ -605,6 +675,21 @@ class TestXsdValidation:
         result = validate_against_schema(xml_bytes, SCHEMA_IR)
         assert result.valid, result.diagnostics
 
+    def test_cached_schema_is_recompiled_when_file_changes(self, tmp_path):
+        import os
+
+        schema = tmp_path / "doc.xsd"
+        template = ('<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">'
+                    '<xs:element name="doc" type="xs:{}"/></xs:schema>')
+        schema.write_text(template.format("integer"))
+        assert validate_against_schema(b"<doc>12</doc>", schema).valid
+        assert not validate_against_schema(b"<doc>abc</doc>", schema).valid
+
+        schema.write_text(template.format("string"))
+        stat = schema.stat()
+        os.utime(schema, ns=(stat.st_atime_ns, stat.st_mtime_ns + 1_000_000_000))
+        assert validate_against_schema(b"<doc>abc</doc>", schema).valid
+
 
 # --------------------------------------------------------------------------
 # Full pipeline (service layer)
@@ -832,13 +917,13 @@ class TestSimplExportSafetyGate:
         )
 
         for export, payload, expected in (
-            (api.export_simpl_tva, tva, "TEST_ONLY_SIMPL_TVA_2026-08.zip"),
-            (api.export_simpl_ir, ir, "TEST_ONLY_ETAT_9421_2026.zip"),
-            (api.export_simpl_is, is_request, "TEST_ONLY_SIMPL_IS_2026.xml"),
+            (api.export_simpl_tva, tva, "SIMPL_TVA_2026-08.zip"),
+            (api.export_simpl_ir, ir, "ETAT_9421_2026.zip"),
+            (api.export_simpl_is, is_request, "SIMPL_IS_2026.xml"),
         ):
             response = export(payload)
             assert response.headers["x-kompta-export-status"] == EXPORT_SAFETY_HEADER
-            assert expected in response.headers["content-disposition"]
+            assert f'filename="{expected}"' in response.headers["content-disposition"]
 
     def test_excel_route_remains_available_without_simpl_demo_marker(self):
         import api
@@ -851,3 +936,23 @@ class TestSimplExportSafetyGate:
             ),
         ))
         assert response.media_type == "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+    def test_excel_export_keeps_lines_with_incomplete_supplier_identifiers(self):
+        line = {
+            "ord": 1, "numFacture": "F1", "designation": "Achat", "montantHT": "100",
+            "tauxTVA": "20", "montantTVA": "20", "montantTTC": "120",
+            "identifiantFiscal": "IF001", "ice": "001234567", "modePaiement": "VIREMENT",
+            "datePaiement": "2025-01-02", "dateFacture": "2025-01-02",
+        }
+        request = ExcelExportRequest.model_validate({
+            "dossierId": "C001", "companyName": "SARL Test", "regime": "Débit",
+            "releve": {"periode": "2025", "lines": [line]},
+        })
+
+        workbook = load_workbook(BytesIO(build_tva_excel(request)))
+        assert workbook["TVA_Déductible_Achats"]["E2"].value == "IF001"
+        with pytest.raises(ValidationError):
+            ReleveDeductions.model_validate({
+                "ice_declarant": "000111222333444", "if_declarant": "12345678",
+                "periode": "2025", "lines": [line],
+            })

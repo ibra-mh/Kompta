@@ -2,10 +2,12 @@
 from __future__ import annotations
 
 from decimal import Decimal, ROUND_HALF_UP
+from typing import Any, Iterable
 from xml.etree.ElementTree import Element, SubElement, fromstring, tostring
 
+from .cgnc import CHARGES_CLASS, PRODUCTS_CLASS
 from .liasse_models import (
-    BalanceAmountBasis, BalanceLine, LiasseComputeRequest, LiasseMappingCatalog,
+    BalanceAmountBasis, BalanceLine, IsRateBracket, LiasseComputeRequest, LiasseMappingCatalog,
     LiasseTable,
 )
 
@@ -23,7 +25,7 @@ def balance_amount(line: BalanceLine, basis: BalanceAmountBasis) -> Decimal:
     }[basis]
 
 
-def calculate_progressive_is(taxable_profit: Decimal, brackets) -> Decimal:
+def calculate_progressive_is(taxable_profit: Decimal, brackets: Iterable[IsRateBracket]) -> Decimal:
     remaining = max(Decimal("0"), taxable_profit)
     previous_limit = Decimal("0")
     tax = Decimal("0")
@@ -38,7 +40,7 @@ def calculate_progressive_is(taxable_profit: Decimal, brackets) -> Decimal:
     return _money(tax)
 
 
-def compute_liasse(request: LiasseComputeRequest, catalog: LiasseMappingCatalog | None = None) -> dict:
+def compute_liasse(request: LiasseComputeRequest, catalog: LiasseMappingCatalog | None = None) -> dict[str, Any]:
     catalog = catalog or LiasseMappingCatalog(rules=tuple(request.mapping_rules))
     mapped = {table.value: {} for table in LiasseTable}
     for rule in catalog.rules:
@@ -56,15 +58,15 @@ def compute_liasse(request: LiasseComputeRequest, catalog: LiasseMappingCatalog 
             "label": rule.label, "amount": _money(amount), "table": rule.table.value,
         }
 
-    charges = sum((line.movement_debit for line in request.balance if line.account_code.startswith("6")), Decimal("0"))
-    products = sum((line.movement_credit for line in request.balance if line.account_code.startswith("7")), Decimal("0"))
+    charges = sum((line.movement_debit for line in request.balance if line.account_code.startswith(CHARGES_CLASS)), Decimal("0"))
+    products = sum((line.movement_credit for line in request.balance if line.account_code.startswith(PRODUCTS_CLASS)), Decimal("0"))
     accounting_result = _money(products - charges)
     reintegrations = _money(sum(item.amount for item in request.adjustments if item.direction == "reintegrations"))
     deductions = _money(sum(item.amount for item in request.adjustments if item.direction == "deductions"))
     fiscal_result = _money(accounting_result + reintegrations - deductions)
     taxable_profit = max(Decimal("0"), fiscal_result)
     is_amount = calculate_progressive_is(taxable_profit, request.is_brackets)
-    revenue_base = sum((line.movement_credit for line in request.balance if line.account_code.startswith("7")), Decimal("0"))
+    revenue_base = products
     minimum_tax = _money(revenue_base * request.cm_rate)
     tax_before_credits = max(is_amount, minimum_tax)
     tax_due = _money(max(Decimal("0"), tax_before_credits - request.acomptes_is - request.credits_fiscaux))
@@ -84,7 +86,7 @@ def compute_liasse(request: LiasseComputeRequest, catalog: LiasseMappingCatalog 
     }
 
 
-def build_simpl_is_xml(result: dict) -> bytes:
+def build_simpl_is_xml(result: dict[str, Any]) -> bytes:
     root = Element("simplIS", {"version": "1.0", "fiscalYear": str(result["fiscal_year"])})
     SubElement(root, "IdentifiantFiscal").text = result["identifiant_fiscal"]
     tables = SubElement(root, "ValeursTableau")

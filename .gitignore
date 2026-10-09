@@ -3,6 +3,10 @@ __pycache__/
 .pytest_cache/
 *.py[cod]
 
+# Editor and OS files
+.vscode/settings.json
+.DS_Store
+
 # Local accounting data and SQLite journal files
 kompta.sqlite3
 kompta.sqlite3-shm

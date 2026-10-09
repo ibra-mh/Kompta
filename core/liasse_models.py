@@ -84,8 +84,8 @@ class LiasseComputeRequest(BaseModel):
     fiscal_year: int = Field(..., alias="fiscalYear", ge=2000, le=2100)
     identifiant_fiscal: str = Field("", alias="identifiantFiscal")
     demo_only: bool = Field(False, alias="demoOnly")
-    balance: list[BalanceLine] = ()
-    adjustments: list[TaxAdjustment] = ()
+    balance: list[BalanceLine] = Field(default_factory=list)
+    adjustments: list[TaxAdjustment] = Field(default_factory=list)
     credit_anterieur: Decimal = Field(0, alias="creditAnterieur", ge=0)
     acomptes_is: Decimal = Field(0, alias="acomptesIS", ge=0)
     credits_fiscaux: Decimal = Field(0, alias="creditsFiscaux", ge=0)
@@ -156,8 +156,8 @@ class LiasseMappingRule(BaseModel):
             raise ValueError("Class 5 treasury accounts are not assigned to the requested three tables")
         if self.table not in expected_tables:
             raise ValueError(
-                f"CGNC class {self.selector.cgnc_class.value} is not valid for {self.table.value}, "
-                f"not {self.table.value}"
+                f"CGNC class {self.selector.cgnc_class.value} is not valid for {self.table.value}; "
+                f"expected one of {', '.join(sorted(table.value for table in expected_tables))}"
             )
         return self
 

@@ -10,9 +10,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from enum import Enum
 
-from pydantic import ValidationError as PydanticValidationError
-
-from .models import DeductionLine, Etat9421, ReleveDeductions
+from .models import Etat9421, ReleveDeductions
 
 
 class Severity(str, Enum):
@@ -65,32 +63,6 @@ class ValidationReport:
                 for i in self.issues
             ],
         }
-
-
-def build_lines_from_raw(raw_lines: list[dict]) -> tuple[list[DeductionLine], ValidationReport]:
-    """
-    Parse raw dict rows (e.g. from a CSV/UI grid) into validated DeductionLine
-    objects. Pydantic field/model validators already enforce ICE/IF format
-    and HT+TVA==TTC arithmetic per line; here we collect those as blocking
-    issues instead of raising, so the whole batch can be reported at once.
-    """
-    report = ValidationReport()
-    parsed: list[DeductionLine] = []
-
-    for idx, raw in enumerate(raw_lines):
-        line_ord = raw.get("ord", idx + 1)
-        try:
-            parsed.append(DeductionLine.model_validate(raw))
-        except PydanticValidationError as e:
-            for err in e.errors():
-                report.add(
-                    Severity.BLOCKING,
-                    code="LINE_VALIDATION_ERROR",
-                    message=err["msg"],
-                    line_ord=line_ord,
-                    field=".".join(str(p) for p in err["loc"]),
-                )
-    return parsed, report
 
 
 def validate_releve_deductions(releve: ReleveDeductions) -> ValidationReport:

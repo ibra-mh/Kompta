@@ -19,12 +19,15 @@ from fastapi.responses import StreamingResponse
 from core.excel_export import build_portfolio_tva_excel, build_tva_excel
 from core.export_safety import require_demo_export, safety_download_headers
 from core.export_service import export_etat_9421, export_releve_deductions
+from core.export_service_types import ExportOutcome
 from core.liasse_models import LiasseComputeRequest
 from core.liasse_service import build_simpl_is_xml, compute_liasse, validate_simpl_is_xml
 from core.models import Etat9421, ExcelExportRequest, PortfolioExcelRequest, ReleveDeductions
 from core.journal_service import JournalEntryPost, JournalEntryPosted, JournalRepository
 from core.client_service import ClientRepository, ClientUpsert, FiscalYearUpsert
+from core.cgnc import chart_of_accounts
 from core.ocr_service import OcrDocumentStore
+from core.validators import validate_etat_9421, validate_releve_deductions
 
 
 journal_repository = JournalRepository()
@@ -37,6 +40,22 @@ accounts_router = APIRouter(prefix="/api/accounts", tags=["accounts"])
 
 ocr_router = APIRouter(prefix="/api/ocr", tags=["ocr"])
 LOCAL_ACTOR = "local-owner"
+XLSX_MEDIA_TYPE = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+
+
+def _stream(content: bytes, media_type: str, headers: dict[str, str]) -> StreamingResponse:
+    return StreamingResponse(io.BytesIO(content), media_type=media_type, headers=headers)
+
+
+def _zip_download(outcome: ExportOutcome) -> StreamingResponse:
+    if not outcome.success:
+        raise HTTPException(status_code=422, detail=outcome.to_dict())
+    return _stream(outcome.zip_bytes, "application/zip", safety_download_headers(outcome.zip_filename))
+
+
+def _request_catalog(request: dict[str, object]) -> list:
+    catalog = request.get("accountCatalog", [])
+    return catalog if isinstance(catalog, list) else []
 
 
 @clients_router.get("")
@@ -72,6 +91,12 @@ def save_fiscal_year(client_id: str, request: FiscalYearUpsert):
         raise HTTPException(status_code=422, detail={"message": str(error)}) from error
 
 
+@accounts_router.get("/cgnc")
+def list_cgnc_accounts():
+    """Official CGNC chart (standard dataset + documented supplement) used by every account lookup."""
+    return list(chart_of_accounts())
+
+
 @accounts_router.get("/pcge-general/preview")
 def preview_pcge_general_accounts():
     try:
@@ -83,8 +108,7 @@ def preview_pcge_general_accounts():
 @accounts_router.post("/pcge-general/preview")
 def preview_pcge_general_accounts_with_catalog(request: dict[str, object]):
     try:
-        catalog = request.get("accountCatalog", [])
-        return journal_repository.preview_pcge_general(existing=catalog if isinstance(catalog, list) else [])
+        return journal_repository.preview_pcge_general(existing=_request_catalog(request))
     except (FileNotFoundError, ValueError) as error:
         raise HTTPException(status_code=503, detail={"message": str(error)}) from error
 
@@ -92,8 +116,7 @@ def preview_pcge_general_accounts_with_catalog(request: dict[str, object]):
 @accounts_router.post("/pcge-general/import")
 def import_pcge_general_accounts(request: dict[str, object]):
     try:
-        catalog = request.get("accountCatalog", [])
-        return journal_repository.import_pcge_general(existing=catalog if isinstance(catalog, list) else [])
+        return journal_repository.import_pcge_general(existing=_request_catalog(request))
     except (FileNotFoundError, ValueError) as error:
         raise HTTPException(status_code=503, detail={"message": str(error)}) from error
 
@@ -161,24 +184,13 @@ def export_simpl_is(request: LiasseComputeRequest):
     valid, diagnostics = validate_simpl_is_xml(xml_bytes)
     if not valid:
         raise HTTPException(status_code=422, detail={"message": "SIMPL-IS XML invalide", "diagnostics": diagnostics})
-    return StreamingResponse(
-        io.BytesIO(xml_bytes), media_type="application/xml",
-        headers=safety_download_headers(f"SIMPL_IS_{request.fiscal_year}.xml"),
-    )
+    return _stream(xml_bytes, "application/xml", safety_download_headers(f"SIMPL_IS_{request.fiscal_year}.xml"))
 
 
 @router.post("/simpl-tva")
 def export_simpl_tva(releve: ReleveDeductions):
     require_demo_export(releve.demo_only)
-    outcome = export_releve_deductions(releve)
-    if not outcome.success:
-        raise HTTPException(status_code=422, detail=outcome.to_dict())
-
-    return StreamingResponse(
-        io.BytesIO(outcome.zip_bytes),
-        media_type="application/zip",
-        headers=safety_download_headers(outcome.zip_filename),
-    )
+    return _zip_download(export_releve_deductions(releve))
 
 
 @router.post("/export-excel")
@@ -187,50 +199,31 @@ def export_simpl_tva(releve: ReleveDeductions):
 def export_tva_excel(request: ExcelExportRequest):
     workbook_bytes = build_tva_excel(request)
     filename = f"TVA_{request.releve.periode}.xlsx"
-    return StreamingResponse(
-        io.BytesIO(workbook_bytes),
-        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        headers={"Content-Disposition": f'attachment; filename="{filename}"'},
-    )
+    return _stream(workbook_bytes, XLSX_MEDIA_TYPE, {"Content-Disposition": f'attachment; filename="{filename}"'})
 
 
 @router.post("/export-portfolio-tva-excel")
 def export_portfolio_tva_excel(request: PortfolioExcelRequest):
     workbook_bytes = build_portfolio_tva_excel(request)
-    return StreamingResponse(
-        io.BytesIO(workbook_bytes),
-        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        headers={"Content-Disposition": 'attachment; filename="Recapitulatif_TVA_Portefeuille.xlsx"'},
+    return _stream(
+        workbook_bytes, XLSX_MEDIA_TYPE,
+        {"Content-Disposition": 'attachment; filename="Recapitulatif_TVA_Portefeuille.xlsx"'},
     )
 
 
 @router.post("/simpl-ir")
 def export_simpl_ir(etat: Etat9421):
     require_demo_export(etat.demo_only)
-    outcome = export_etat_9421(etat)
-    if not outcome.success:
-        raise HTTPException(status_code=422, detail=outcome.to_dict())
-
-    return StreamingResponse(
-        io.BytesIO(outcome.zip_bytes),
-        media_type="application/zip",
-        headers=safety_download_headers(outcome.zip_filename),
-    )
+    return _zip_download(export_etat_9421(etat))
 
 
 @router.post("/simpl-tva/validate")
 def validate_simpl_tva(releve: ReleveDeductions):
     """Dry-run: run business validation only, without generating XML/zip."""
-    from core.validators import validate_releve_deductions
-
-    report = validate_releve_deductions(releve)
-    return report.to_dict()
+    return validate_releve_deductions(releve).to_dict()
 
 
 @router.post("/simpl-ir/validate")
 def validate_simpl_ir(etat: Etat9421):
     """Dry-run: run business validation only, without generating XML/zip."""
-    from core.validators import validate_etat_9421
-
-    report = validate_etat_9421(etat)
-    return report.to_dict()
+    return validate_etat_9421(etat).to_dict()

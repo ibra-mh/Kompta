@@ -42,8 +42,8 @@ class CategorieSalarie(str, Enum):
 # SIMPL-TVA : Relevé des Déductions
 # --------------------------------------------------------------------------
 
-class DeductionLine(BaseModel):
-    """A single line of the Relevé des Déductions (TVA deductible)."""
+class DeductionLineData(BaseModel):
+    """Deduction line fields without SIMPL-TVA checks; used for internal Excel workbooks."""
 
     ord: int = Field(..., ge=1, description="Sequential line order number")
     num_facture: str = Field(..., min_length=1, max_length=50, alias="numFacture")
@@ -61,6 +61,10 @@ class DeductionLine(BaseModel):
     prorata: Decimal = Field(default=Decimal("100"), ge=0, le=100)
 
     model_config = {"populate_by_name": True}
+
+
+class DeductionLine(DeductionLineData):
+    """A single line of the Relevé des Déductions (TVA deductible)."""
 
     @field_validator("ice")
     @classmethod
@@ -112,16 +116,24 @@ class DeductionLine(BaseModel):
         return (self.num_facture.strip().upper(), identifier)
 
 
-class ReleveDeductions(BaseModel):
+class ReleveDeductionsData(BaseModel):
+    """Deduction statement without SIMPL-TVA checks; used for internal Excel workbooks."""
+
+    ice_declarant: str = Field("", description="ICE of the declaring entity")
+    if_declarant: str = Field("", description="IF of the declaring entity")
+    periode: str = Field(..., description="e.g. '2026-08' or 'T3-2026'")
+    demo_only: bool = Field(False, alias="demoOnly")
+    lines: list[DeductionLineData] = Field(default_factory=list)
+
+    model_config = {"populate_by_name": True}
+
+
+class ReleveDeductions(ReleveDeductionsData):
     """The full SIMPL-TVA deduction statement for one declaration period."""
 
     ice_declarant: str = Field(..., description="ICE of the declaring entity")
     if_declarant: str = Field(..., description="IF of the declaring entity")
-    periode: str = Field(..., description="e.g. '2026-08' or 'T3-2026'")
-    demo_only: bool = Field(False, alias="demoOnly")
     lines: list[DeductionLine] = Field(default_factory=list)
-
-    model_config = {"populate_by_name": True}
 
 
 class SalesLine(BaseModel):
@@ -149,7 +161,7 @@ class ExcelExportRequest(BaseModel):
     regime: str = Field(..., min_length=1)
     tva_collectee: Decimal = Field(default=Decimal("0"), alias="tvaCollectee", ge=0)
     ventes: list[SalesLine] = Field(default_factory=list)
-    releve: ReleveDeductions
+    releve: ReleveDeductionsData
 
     model_config = {"populate_by_name": True}
 

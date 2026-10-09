@@ -28,10 +28,6 @@ def _fmt_amount(d: Decimal) -> str:
     return str(d.quantize(Decimal("0.01"), rounding=ROUND_HALF_UP))
 
 
-def _fmt_int_amount(d: Decimal) -> str:
-    return str(int(d.quantize(Decimal("1"), rounding=ROUND_HALF_UP)))
-
-
 def _pretty(elem: Element) -> bytes:
     rough = tostring(elem, encoding="utf-8")
     return minidom.parseString(rough).toprettyxml(indent="  ", encoding="utf-8")

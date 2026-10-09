@@ -72,7 +72,7 @@ for off in official:
             "classe": classe
         })
 
-print(f"Comparison Summary:")
+print("Comparison Summary:")
 print(f"- Already present (exact/matching label): {len(already_present)}")
 print(f"- Needs review (code exists but label difference): {len(needs_review)}")
 print(f"- Missing (not in Kompta): {len(missing)}")

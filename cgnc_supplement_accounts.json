@@ -1,0 +1,16 @@
+[
+  {
+    "account_code": "3455",
+    "label_fr": "État - TVA récupérable",
+    "class": 3,
+    "status": "supplement",
+    "reason": "Absent from cgnc_standard_accounts.json; root of the TVA récupérable sub-accounts (3455207/10/14/20) posted by the app."
+  },
+  {
+    "account_code": "4455",
+    "label_fr": "État - TVA facturée",
+    "class": 4,
+    "status": "supplement",
+    "reason": "Absent from cgnc_standard_accounts.json; root of the TVA facturée sub-accounts (e.g. 445520) posted by the app."
+  }
+]

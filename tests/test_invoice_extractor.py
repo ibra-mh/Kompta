@@ -6,7 +6,6 @@ from core.invoice_extractor import (
     parse_date,
     extract_text_from_pdf,
     parse_invoice_text,
-    ExtractedInvoiceData,
 )
 from core.ocr_service import OcrDocumentStore
 import core.ocr_service as ocr_service

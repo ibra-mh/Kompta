@@ -1,0 +1,5434 @@
+[
+  {
+    "account_code": "1111",
+    "label_fr": "Capital social",
+    "class": 1,
+    "page_pdf": 9,
+    "page_printed": 31,
+    "status": "standard"
+  },
+  {
+    "account_code": "1112",
+    "label_fr": "Fonds de dotation",
+    "class": 1,
+    "page_pdf": 9,
+    "page_printed": 31,
+    "status": "standard"
+  },
+  {
+    "account_code": "1117",
+    "label_fr": "Capital personnel",
+    "class": 1,
+    "page_pdf": 9,
+    "page_printed": 31,
+    "status": "standard"
+  },
+  {
+    "account_code": "11171",
+    "label_fr": "Capital individuel",
+    "class": 1,
+    "page_pdf": 9,
+    "page_printed": 31,
+    "status": "standard"
+  },
+  {
+    "account_code": "11175",
+    "label_fr": "Compte de l'exploitant",
+    "class": 1,
+    "page_pdf": 9,
+    "page_printed": 31,
+    "status": "standard"
+  },
+  {
+    "account_code": "1119",
+    "label_fr": "Actionnaires, capital souscrit-non appelé",
+    "class": 1,
+    "page_pdf": 9,
+    "page_printed": 31,
+    "status": "standard"
+  },
+  {
+    "account_code": "1121",
+    "label_fr": "Primes d'émission",
+    "class": 1,
+    "page_pdf": 9,
+    "page_printed": 31,
+    "status": "standard"
+  },
+  {
+    "account_code": "1122",
+    "label_fr": "Primes de fusion",
+    "class": 1,
+    "page_pdf": 9,
+    "page_printed": 31,
+    "status": "standard"
+  },
+  {
+    "account_code": "1123",
+    "label_fr": "Primes d'apport",
+    "class": 1,
+    "page_pdf": 9,
+    "page_printed": 31,
+    "status": "standard"
+  },
+  {
+    "account_code": "1130",
+    "label_fr": "Ecarts de réévaluation",
+    "class": 1,
+    "page_pdf": 10,
+    "page_printed": 32,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1140",
+    "label_fr": "Réserve légale",
+    "class": 1,
+    "page_pdf": 10,
+    "page_printed": 32,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1151",
+    "label_fr": "Réserves statutaires ou contractuelles",
+    "class": 1,
+    "page_pdf": 10,
+    "page_printed": 32,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1152",
+    "label_fr": "Réserves facultatives",
+    "class": 1,
+    "page_pdf": 10,
+    "page_printed": 32,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1155",
+    "label_fr": "Réserves réglementées",
+    "class": 1,
+    "page_pdf": 10,
+    "page_printed": 32,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1161",
+    "label_fr": "Report à nouveau (solde créditeur)",
+    "class": 1,
+    "page_pdf": 10,
+    "page_printed": 32,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1169",
+    "label_fr": "Report à nouveau (solde débiteur)",
+    "class": 1,
+    "page_pdf": 10,
+    "page_printed": 32,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1181",
+    "label_fr": "Résultats nets en instance d'affectation (solde créditeur)",
+    "class": 1,
+    "page_pdf": 10,
+    "page_printed": 32,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1189",
+    "label_fr": "Résultats nets en instance d'affectation (solde débiteur)",
+    "class": 1,
+    "page_pdf": 10,
+    "page_printed": 32,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1191",
+    "label_fr": "Résultat net de l'exercice (créditeur)",
+    "class": 1,
+    "page_pdf": 10,
+    "page_printed": 32,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1199",
+    "label_fr": "Résultat net de l'exercice (débiteur)",
+    "class": 1,
+    "page_pdf": 10,
+    "page_printed": 32,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1311",
+    "label_fr": "Subventions d'investissement reçues",
+    "class": 1,
+    "page_pdf": 11,
+    "page_printed": 33,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1319",
+    "label_fr": "Subventions d'investissement inscrites au : compte de produits et charges",
+    "class": 1,
+    "page_pdf": 11,
+    "page_printed": 33,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1352",
+    "label_fr": "Provisions pour plus-values en | instance d'imposition",
+    "class": 1,
+    "page_pdf": 11,
+    "page_printed": 33,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1354",
+    "label_fr": "Provisions Pour investissements",
+    "class": 1,
+    "page_pdf": 11,
+    "page_printed": 33,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1355",
+    "label_fr": "Provisions pour reconstitution des gisements",
+    "class": 1,
+    "page_pdf": 11,
+    "page_printed": 33,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1356",
+    "label_fr": "Provisions Pour acquisition et construc- tion de logements",
+    "class": 1,
+    "page_pdf": 11,
+    "page_printed": 33,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1358",
+    "label_fr": "Autres provisions réglementées",
+    "class": 1,
+    "page_pdf": 11,
+    "page_printed": 33,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1410",
+    "label_fr": "Emprunts obligataires",
+    "class": 1,
+    "page_pdf": 12,
+    "page_printed": 34,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1481",
+    "label_fr": "Emprunts auprès des établissements de crédit",
+    "class": 1,
+    "page_pdf": 12,
+    "page_printed": 34,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1482",
+    "label_fr": "Avances de l'Etat",
+    "class": 1,
+    "page_pdf": 12,
+    "page_printed": 34,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1483",
+    "label_fr": "Dettes rattachées à des participations",
+    "class": 1,
+    "page_pdf": 12,
+    "page_printed": 34,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1484",
+    "label_fr": "Billets de fonds",
+    "class": 1,
+    "page_pdf": 12,
+    "page_printed": 34,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1485",
+    "label_fr": "Avances reçues et comptes courants bloqués",
+    "class": 1,
+    "page_pdf": 12,
+    "page_printed": 34,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1486",
+    "label_fr": "Fournisseurs d'immobilisations",
+    "class": 1,
+    "page_pdf": 12,
+    "page_printed": 34,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1487",
+    "label_fr": "Dépôts et cautionnements reçus",
+    "class": 1,
+    "page_pdf": 12,
+    "page_printed": 34,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1488",
+    "label_fr": "Dettes de financement diverses",
+    "class": 1,
+    "page_pdf": 12,
+    "page_printed": 34,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1511",
+    "label_fr": "Provisions pour litiges",
+    "class": 1,
+    "page_pdf": 13,
+    "page_printed": 35,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1512",
+    "label_fr": "Provisions POur garanties données aux clients",
+    "class": 1,
+    "page_pdf": 13,
+    "page_printed": 35,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1513",
+    "label_fr": "Provisions POuT propre assureur",
+    "class": 1,
+    "page_pdf": 13,
+    "page_printed": 35,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1518",
+    "label_fr": "Autres Provisions pour risques",
+    "class": 1,
+    "page_pdf": 13,
+    "page_printed": 35,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1551",
+    "label_fr": "Provisions Pour impôts",
+    "class": 1,
+    "page_pdf": 13,
+    "page_printed": 35,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1552",
+    "label_fr": "Provisions POuT pensions de retraite et obligations Similaires",
+    "class": 1,
+    "page_pdf": 13,
+    "page_printed": 35,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1555",
+    "label_fr": "Provisions POurT charges à répartir sur plusieurs exercices",
+    "class": 1,
+    "page_pdf": 13,
+    "page_printed": 35,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1558",
+    "label_fr": "Autres provisions pour charges + COMPTES DE LIAISON DES ETABLISSEMENTS ET SUCCURSALES",
+    "class": 1,
+    "page_pdf": 13,
+    "page_printed": 35,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1601",
+    "label_fr": "Comptes de liaison du Siège",
+    "class": 1,
+    "page_pdf": 13,
+    "page_printed": 35,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1710",
+    "label_fr": "Augmentation des créances immobilisées",
+    "class": 1,
+    "page_pdf": 14,
+    "page_printed": 36,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "1720",
+    "label_fr": "Diminution des dettes de financement",
+    "class": 1,
+    "page_pdf": 14,
+    "page_printed": 36,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2111",
+    "label_fr": "Frais de constitution",
+    "class": 2,
+    "page_pdf": 15,
+    "page_printed": 37,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2112",
+    "label_fr": "Frais préalables au démarrage",
+    "class": 2,
+    "page_pdf": 15,
+    "page_printed": 37,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2113",
+    "label_fr": "Frais d'augmentation du capital",
+    "class": 2,
+    "page_pdf": 15,
+    "page_printed": 37,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2114",
+    "label_fr": "Frais sur opérations de fusions, scissions et transformations",
+    "class": 2,
+    "page_pdf": 15,
+    "page_printed": 37,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2116",
+    "label_fr": "Frais de prospection",
+    "class": 2,
+    "page_pdf": 15,
+    "page_printed": 37,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2117",
+    "label_fr": "Frais de publicité",
+    "class": 2,
+    "page_pdf": 15,
+    "page_printed": 37,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2118",
+    "label_fr": "Autres frais préliminaires",
+    "class": 2,
+    "page_pdf": 15,
+    "page_printed": 37,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2121",
+    "label_fr": "Frais d'acquisition des immobilisations",
+    "class": 2,
+    "page_pdf": 15,
+    "page_printed": 37,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2125",
+    "label_fr": "Frais d'émission des emprunts",
+    "class": 2,
+    "page_pdf": 15,
+    "page_printed": 37,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2128",
+    "label_fr": "Autres charges à répartir",
+    "class": 2,
+    "page_pdf": 15,
+    "page_printed": 37,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2130",
+    "label_fr": "Primes de remboursement des obligations",
+    "class": 2,
+    "page_pdf": 15,
+    "page_printed": 37,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2210",
+    "label_fr": "Immobilisation en recherche et dévelop- pement",
+    "class": 2,
+    "page_pdf": 16,
+    "page_printed": 38,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2220",
+    "label_fr": "Brevets, marques, droits et valeurs similaires",
+    "class": 2,
+    "page_pdf": 16,
+    "page_printed": 38,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2230",
+    "label_fr": "Fonds commercial",
+    "class": 2,
+    "page_pdf": 16,
+    "page_printed": 38,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2285",
+    "label_fr": "Immobilisations incorporelles en cours",
+    "class": 2,
+    "page_pdf": 16,
+    "page_printed": 38,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2312",
+    "label_fr": "Terrains aménagés",
+    "class": 2,
+    "page_pdf": 17,
+    "page_printed": 39,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2313",
+    "label_fr": "Terrains bâtis ] 2314. Terrains de gisement",
+    "class": 2,
+    "page_pdf": 17,
+    "page_printed": 39,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2318",
+    "label_fr": "Autres terrains",
+    "class": 2,
+    "page_pdf": 17,
+    "page_printed": 39,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2321",
+    "label_fr": "Bâtiments",
+    "class": 2,
+    "page_pdf": 17,
+    "page_printed": 39,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "23211",
+    "label_fr": "Bâtiments industriels (A,B...)",
+    "class": 2,
+    "page_pdf": 17,
+    "page_printed": 39,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "23214",
+    "label_fr": "Bâtiments administratifs et commerciaux (A,B...)",
+    "class": 2,
+    "page_pdf": 17,
+    "page_printed": 39,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "23218",
+    "label_fr": "Autres bâtiments",
+    "class": 2,
+    "page_pdf": 17,
+    "page_printed": 39,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2323",
+    "label_fr": "Constructions sur terrains d'autrui",
+    "class": 2,
+    "page_pdf": 17,
+    "page_printed": 39,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2325",
+    "label_fr": "Ouvrages d'infrastructure",
+    "class": 2,
+    "page_pdf": 17,
+    "page_printed": 39,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2327",
+    "label_fr": "Agencements et aménagements des constructions",
+    "class": 2,
+    "page_pdf": 17,
+    "page_printed": 39,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2328",
+    "label_fr": "Autres constructions",
+    "class": 2,
+    "page_pdf": 17,
+    "page_printed": 39,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2331",
+    "label_fr": "Installations techniques",
+    "class": 2,
+    "page_pdf": 18,
+    "page_printed": 40,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2332",
+    "label_fr": "Matériel et outillage",
+    "class": 2,
+    "page_pdf": 18,
+    "page_printed": 40,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "23321",
+    "label_fr": "Matériel",
+    "class": 2,
+    "page_pdf": 18,
+    "page_printed": 40,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "23324",
+    "label_fr": "Outillage",
+    "class": 2,
+    "page_pdf": 18,
+    "page_printed": 40,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2333",
+    "label_fr": "Emballages récupérables identifiables",
+    "class": 2,
+    "page_pdf": 18,
+    "page_printed": 40,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2338",
+    "label_fr": "Autres installations techniques, matériel et outillage",
+    "class": 2,
+    "page_pdf": 18,
+    "page_printed": 40,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2340",
+    "label_fr": "Matériel de transport",
+    "class": 2,
+    "page_pdf": 18,
+    "page_printed": 40,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2351",
+    "label_fr": "Mobilier de bureau",
+    "class": 2,
+    "page_pdf": 18,
+    "page_printed": 40,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2352",
+    "label_fr": "Matériel de bureau",
+    "class": 2,
+    "page_pdf": 18,
+    "page_printed": 40,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2355",
+    "label_fr": "Matériel informatique",
+    "class": 2,
+    "page_pdf": 18,
+    "page_printed": 40,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2356",
+    "label_fr": "Agencements, installations et aménagements divers (biens n'appartenant pas à l'entreprise)",
+    "class": 2,
+    "page_pdf": 18,
+    "page_printed": 40,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2358",
+    "label_fr": "Autres mobilier, matériel de bureau et aménagements divers",
+    "class": 2,
+    "page_pdf": 18,
+    "page_printed": 40,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2380",
+    "label_fr": "Autres immobilisations corporelles",
+    "class": 2,
+    "page_pdf": 18,
+    "page_printed": 40,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2392",
+    "label_fr": "Immobilisations corporelles en cours de terrains et Constructions",
+    "class": 2,
+    "page_pdf": 19,
+    "page_printed": 41,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2395",
+    "label_fr": "Immobilisations corporelles en cours de mobilier, matériel de bureau et | aménagements divers",
+    "class": 2,
+    "page_pdf": 19,
+    "page_printed": 41,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2397",
+    "label_fr": "Avances et acomptes versés sur commandes d'immobilisations corporelles",
+    "class": 2,
+    "page_pdf": 19,
+    "page_printed": 41,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2398",
+    "label_fr": "Autres immobilisations corporelles en cours",
+    "class": 2,
+    "page_pdf": 19,
+    "page_printed": 41,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2411",
+    "label_fr": "Prêts au personnel",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2415",
+    "label_fr": "Prêts aux associés",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2416",
+    "label_fr": "Billets de fonds",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2418",
+    "label_fr": "Autres prêts",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2481",
+    "label_fr": "Titres immobilisés (droits de créance)",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "24811",
+    "label_fr": "Obligations",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "24813",
+    "label_fr": "Bons d'équipement",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "24818",
+    "label_fr": "Bons divers",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2483",
+    "label_fr": "Créances rattachées à des participations",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2486",
+    "label_fr": "Dépôts et cautionnements versés",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "24861",
+    "label_fr": "Dépôts",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "24864",
+    "label_fr": "Cautionnements",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2487",
+    "label_fr": "Créances immobilisées",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2488",
+    "label_fr": "Créances financières diverses",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2510",
+    "label_fr": "Titres de participation",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2581",
+    "label_fr": "Actions",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2588",
+    "label_fr": "Titres divers",
+    "class": 2,
+    "page_pdf": 20,
+    "page_printed": 42,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2710",
+    "label_fr": "Diminution des créances immobilisées",
+    "class": 2,
+    "page_pdf": 21,
+    "page_printed": 43,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2720",
+    "label_fr": "Augmentation des dettes de financement",
+    "class": 2,
+    "page_pdf": 21,
+    "page_printed": 43,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2811",
+    "label_fr": "Amortissements des Frais préliminaires",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28111",
+    "label_fr": "Amortissements des Frais de constitution",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28112",
+    "label_fr": "Amortissements des Frais prélimi- naires au démarrage",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28113",
+    "label_fr": "Amortissements des Frais d'augmen- tation du capital",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28114",
+    "label_fr": "Amortissements des Frais sur opérations de fusions, scissions et transformations",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28116",
+    "label_fr": "Amortissements des Frais de prospection",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28117",
+    "label_fr": "Amortissements des Frais de publicité",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28118",
+    "label_fr": "Amortissements des Autres frais préliminaires",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2812",
+    "label_fr": "Amortissements des charges à répartir",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28121",
+    "label_fr": "Amortissements des Frais d'acquisition des immobilisations",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28125",
+    "label_fr": "Amortissements des frais d'émission des emprunts",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28128",
+    "label_fr": "Amortissements des Autres charges à répartir",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2813",
+    "label_fr": "Amortissements des primes de remboursement des obligations",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2821",
+    "label_fr": "Amortissements de l'immobilisation en recherche et développement",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2822",
+    "label_fr": "Amortissements des brevets, marques, droits et valeurs similaires",
+    "class": 2,
+    "page_pdf": 22,
+    "page_printed": 44,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2823",
+    "label_fr": "Amortissements du Fonds commercial",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2828",
+    "label_fr": "Amortissements des autres immobilisations incorporelles",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2831",
+    "label_fr": "Amortissements des Terrains",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28311",
+    "label_fr": "Amortissements des terrains nus",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28312",
+    "label_fr": "Amortissements des terrains aménagés",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28313",
+    "label_fr": "Amortissements des terrains bâtis",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28314",
+    "label_fr": "Amortissements des Terrains de gisement",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28316",
+    "label_fr": "Amortissements des agencements et aménagements de terrains",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28318",
+    "label_fr": "Amortissements des autres terrains",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2832",
+    "label_fr": "Amortissements des constructions",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28321",
+    "label_fr": "Amortissements des batiments",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28323",
+    "label_fr": "Amortissements des Constructions sur terrains d'autrui",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28325",
+    "label_fr": "Amortissements des ouvrages d'infrastructure",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28327",
+    "label_fr": "Amortissements des installations, agencements et aménagements des constructions",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28328",
+    "label_fr": "Amortissements des Autres constructions",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2833",
+    "label_fr": "Amortissements des installations techniques, matériel et outillage",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28331",
+    "label_fr": "Amortissements des installations techniques",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28332",
+    "label_fr": "Amortissements du matériel et outillage",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28333",
+    "label_fr": "Amortissements des emballages récupérables identifiables",
+    "class": 2,
+    "page_pdf": 23,
+    "page_printed": 45,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28338",
+    "label_fr": "Amortissements des autres instal- lations techniques, matériel et outillage",
+    "class": 2,
+    "page_pdf": 24,
+    "page_printed": 46,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2834",
+    "label_fr": "Amortissements du matériel de transport",
+    "class": 2,
+    "page_pdf": 24,
+    "page_printed": 46,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2835",
+    "label_fr": "Amortissements du mobilier, matériel de bureau et aménagements divers",
+    "class": 2,
+    "page_pdf": 24,
+    "page_printed": 46,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28351",
+    "label_fr": "Amortissements du mobilier de bureau",
+    "class": 2,
+    "page_pdf": 24,
+    "page_printed": 46,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28352",
+    "label_fr": "Amortissements du matériel de bureau",
+    "class": 2,
+    "page_pdf": 24,
+    "page_printed": 46,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28355",
+    "label_fr": "Amortissements du matériel informatique",
+    "class": 2,
+    "page_pdf": 24,
+    "page_printed": 46,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28356",
+    "label_fr": "Amortissements des agencements, installations et aménagements divers",
+    "class": 2,
+    "page_pdf": 24,
+    "page_printed": 46,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "28358",
+    "label_fr": "Amortissements des autres mobilier, ‘ matériel de bureau et aménagements divers",
+    "class": 2,
+    "page_pdf": 24,
+    "page_printed": 46,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2838",
+    "label_fr": "Amortissements des autres immobilisations corporelles",
+    "class": 2,
+    "page_pdf": 24,
+    "page_printed": 46,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2920",
+    "label_fr": "Provisions pour dépréciation des immobili- sations incorporelles",
+    "class": 2,
+    "page_pdf": 25,
+    "page_printed": 47,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2941",
+    "label_fr": "Provisions pour dépréciation des prêts immobilisés",
+    "class": 2,
+    "page_pdf": 25,
+    "page_printed": 47,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2948",
+    "label_fr": "Provisions pour dépréciation des autres créances financières",
+    "class": 2,
+    "page_pdf": 25,
+    "page_printed": 47,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2951",
+    "label_fr": "Provisions pour dépréciation des titres de participation",
+    "class": 2,
+    "page_pdf": 25,
+    "page_printed": 47,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "2958",
+    "label_fr": "Provisions pour dépréciation des autres titres immobilisés",
+    "class": 2,
+    "page_pdf": 25,
+    "page_printed": 47,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3111",
+    "label_fr": "Marchandises ( groupe A)",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3112",
+    "label_fr": "Marchandises ({ groupe B)",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3116",
+    "label_fr": "Marchandises en cours de route",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3118",
+    "label_fr": "Autres marchandises",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3121",
+    "label_fr": "Matières premières",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31211",
+    "label_fr": "Matières premières ( groupe A)",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31212",
+    "label_fr": "Matières premières ( groupe B)",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3122",
+    "label_fr": "Matières et fournitures consommables",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31221",
+    "label_fr": "Matières consommables ( groupe A)",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31222",
+    "label_fr": "Matières consommables ( groupe B)",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31223",
+    "label_fr": "Combustibles",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31224",
+    "label_fr": "Produits d'entretien",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31225",
+    "label_fr": "Fournitures d'atelier et d'usine",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31226",
+    "label_fr": "Fournitures de magasin",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31227",
+    "label_fr": "Fournitures de bureau",
+    "class": 3,
+    "page_pdf": 27,
+    "page_printed": 49,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3123",
+    "label_fr": "Emballages",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31231",
+    "label_fr": "Emballages perdus",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31232",
+    "label_fr": "Emballages récupérables non identi- fiables",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31233",
+    "label_fr": "Emballages à usage mixte",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3126",
+    "label_fr": "Matières et fournitures consommables en cours de route",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3128",
+    "label_fr": "Autres matières et fournitures consommables",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31311",
+    "label_fr": "Biens produits en cours",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31312",
+    "label_fr": "Biens intermédiaires en cours",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31317",
+    "label_fr": "Biens résiduels en cours",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3134",
+    "label_fr": "Services en cours",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31341",
+    "label_fr": "Travaux en cours",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31342",
+    "label_fr": "Etudes en cours",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31343",
+    "label_fr": "Prestations en cours",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3138",
+    "label_fr": "Autres produits en cours",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3141",
+    "label_fr": "Produits intermédiaires",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31411",
+    "label_fr": "Produits intermédiaires (groupe A)",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31412",
+    "label_fr": "Produits intermédiaires (groupe B)",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3145",
+    "label_fr": "Produits résiduels (ou matières de récupération)",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31451",
+    "label_fr": "Déchets",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31452",
+    "label_fr": "Rebuts",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "31453",
+    "label_fr": "Matières de récupération",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3148",
+    "label_fr": "Autres produits intermédiaires et produits résiduels",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3152",
+    "label_fr": "Produits finis (groupe B) j 3156. Produits finis en cours de route",
+    "class": 3,
+    "page_pdf": 29,
+    "page_printed": 51,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3158",
+    "label_fr": "Autres produits finis É",
+    "class": 3,
+    "page_pdf": 29,
+    "page_printed": 51,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3411",
+    "label_fr": "Fournisseurs - avances et acomptes versés sur commandes d'exploitation",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3413",
+    "label_fr": "Fournisseurs - créances pour emballages et matériel à rendre",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3417",
+    "label_fr": "Rabais, remises et ristournes à obtenir- avoirs non encore reçus",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3418",
+    "label_fr": "Autres fournisseurs débiteurs",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3421",
+    "label_fr": "Clients",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "34211",
+    "label_fr": "Clients - catégorie A",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "34212",
+    "label_fr": "Clients - catégorie B",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3424",
+    "label_fr": "Clients douteux ou litigieux |",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3425",
+    "label_fr": "Clients - effets à recevoir",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3427",
+    "label_fr": "Clients - factures à établir et créances sur travaux non encore facturables",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "34271",
+    "label_fr": "Clients - factures à établir",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "34272",
+    "label_fr": "Créances sur travaux non encore facturables",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3431",
+    "label_fr": "Avances et acomptes au personnel",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3438",
+    "label_fr": "Personnel - autres débiteurs L",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "34511",
+    "label_fr": "Subventions d'investissement à recevoir",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "34512",
+    "label_fr": "subventions d'exploitation à recevoir à 34513. Subventions d'équilibre à recevoir",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "34552",
+    "label_fr": "ETAT - T.V.A. récupérable sur les charges",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3456",
+    "label_fr": "ETAT - Crédit de T.V.A. (suivant déclara- tions)",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3458",
+    "label_fr": "Etat - Autres Comptes débiteurs k 346. COMPTES D'ASSOCIES 2 DEBITEURS",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3461",
+    "label_fr": "Associés - Comptes d'apport en société",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3462",
+    "label_fr": "Actionnaires — Capital souscrit et appelé non versé",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3463",
+    "label_fr": "Comptes Courants des associés - débiteurs",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3464",
+    "label_fr": "Associés - Opérations faites en commun",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3467",
+    "label_fr": "Créances rattachées aux comptes d'associés",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3481",
+    "label_fr": "Créances sur cessions d'immobilisations",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3482",
+    "label_fr": "Créances sur cessions d'éléments d'actif circulant",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3487",
+    "label_fr": "Créances rattachées aux autres débiteurs",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3488",
+    "label_fr": "Divers débiteurs",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3491",
+    "label_fr": "Charges constatées d'avance",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3493",
+    "label_fr": "Intérêts courus et non échus à percevoir",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3495",
+    "label_fr": "Comptes de répartition périodique des charges",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3497",
+    "label_fr": "Comptes transitoires ou d'attente - débiteurs",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3501",
+    "label_fr": "Actions, partie libérée",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3502",
+    "label_fr": "Actions, partie non libérée",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3504",
+    "label_fr": "Obligations",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3506",
+    "label_fr": "Bons de caisse et bons du Trésor",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "35061",
+    "label_fr": "Bons de caisse",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "35062",
+    "label_fr": "Bons du Trésor",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3508",
+    "label_fr": "Autres titres et valeurs de placement similaires",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3701",
+    "label_fr": "Diminution des créances circulantes",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "3911",
+    "label_fr": "Provisions pour dépréciation des marchandises",
+    "class": 3,
+    "page_pdf": 33,
+    "page_printed": 55,
+    "status": "standard"
+  },
+  {
+    "account_code": "3912",
+    "label_fr": "Provisions pour dépréciation des matières et fournitures",
+    "class": 3,
+    "page_pdf": 33,
+    "page_printed": 55,
+    "status": "standard"
+  },
+  {
+    "account_code": "3913",
+    "label_fr": "Provisions pour dépréciation des produits en cours",
+    "class": 3,
+    "page_pdf": 33,
+    "page_printed": 55,
+    "status": "standard"
+  },
+  {
+    "account_code": "3914",
+    "label_fr": "Provisions pour dépréciation des produits intermédiaires",
+    "class": 3,
+    "page_pdf": 33,
+    "page_printed": 55,
+    "status": "standard"
+  },
+  {
+    "account_code": "3915",
+    "label_fr": "Provisions pour dépréciation des produits finis",
+    "class": 3,
+    "page_pdf": 33,
+    "page_printed": 55,
+    "status": "standard"
+  },
+  {
+    "account_code": "3941",
+    "label_fr": "Provisions pour dépréciation-fournisseurs débiteurs, avances et acomptes",
+    "class": 3,
+    "page_pdf": 33,
+    "page_printed": 55,
+    "status": "standard"
+  },
+  {
+    "account_code": "3942",
+    "label_fr": "Provisions pour dépréciation des clients et comptes rattachés",
+    "class": 3,
+    "page_pdf": 33,
+    "page_printed": 55,
+    "status": "standard"
+  },
+  {
+    "account_code": "3943",
+    "label_fr": "Provisions pour dépréciation du personnel - débiteur",
+    "class": 3,
+    "page_pdf": 33,
+    "page_printed": 55,
+    "status": "standard"
+  },
+  {
+    "account_code": "3946",
+    "label_fr": "Provisions pour dépréciation des comptes d'associés débiteurs",
+    "class": 3,
+    "page_pdf": 33,
+    "page_printed": 55,
+    "status": "standard"
+  },
+  {
+    "account_code": "3948",
+    "label_fr": "Provisions pour dépréciation des autres débiteurs",
+    "class": 3,
+    "page_pdf": 33,
+    "page_printed": 55,
+    "status": "standard"
+  },
+  {
+    "account_code": "3950",
+    "label_fr": "Provisions pour dépréciation des titres et valeurs de placement",
+    "class": 3,
+    "page_pdf": 33,
+    "page_printed": 55,
+    "status": "standard"
+  },
+  {
+    "account_code": "4411",
+    "label_fr": "Fournisseurs",
+    "class": 4,
+    "page_pdf": 34,
+    "page_printed": 57,
+    "status": "standard"
+  },
+  {
+    "account_code": "44111",
+    "label_fr": "Fournisseurs - catégorie A",
+    "class": 4,
+    "page_pdf": 34,
+    "page_printed": 57,
+    "status": "standard"
+  },
+  {
+    "account_code": "44112",
+    "label_fr": "Fournisseurs - catégorie B",
+    "class": 4,
+    "page_pdf": 34,
+    "page_printed": 57,
+    "status": "standard"
+  },
+  {
+    "account_code": "4413",
+    "label_fr": "Fournisseurs - retenues de garantie",
+    "class": 4,
+    "page_pdf": 34,
+    "page_printed": 57,
+    "status": "standard"
+  },
+  {
+    "account_code": "4415",
+    "label_fr": "Fournisseurs - effets à payer",
+    "class": 4,
+    "page_pdf": 34,
+    "page_printed": 57,
+    "status": "standard"
+  },
+  {
+    "account_code": "4417",
+    "label_fr": "Fournisseurs - factures non parvenues",
+    "class": 4,
+    "page_pdf": 34,
+    "page_printed": 57,
+    "status": "standard"
+  },
+  {
+    "account_code": "4418",
+    "label_fr": "Autres fournisseurs et comptes rattachés",
+    "class": 4,
+    "page_pdf": 34,
+    "page_printed": 57,
+    "status": "standard"
+  },
+  {
+    "account_code": "14525",
+    "label_fr": "Etat, PTS et PSN",
+    "class": 1,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4421",
+    "label_fr": "Clients - avances et acomptes reçus sur commandes en cours",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4427",
+    "label_fr": "Rabais, remises et ristournes à accorder - avoirs à établir",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4428",
+    "label_fr": "Autres clients créditeurs",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4432",
+    "label_fr": "Rémunérations dûes au personnel",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4433",
+    "label_fr": "Dépôts du personnel créditeurs",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4434",
+    "label_fr": "Oppositions sur salaires",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4437",
+    "label_fr": "Charges du personnel à payer",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4438",
+    "label_fr": "Personnel - autres créditeurs",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4441",
+    "label_fr": "Caisse Nationale de la Sécurité Sociale",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4443",
+    "label_fr": "Caisses de retraite",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4447",
+    "label_fr": "Charges sociales à payer",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4452",
+    "label_fr": "Etat Impôts, taxes et assimilés",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "44521",
+    "label_fr": "Etat,taxe urbaine et taxe d'édilité",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "44522",
+    "label_fr": "Etar, patente",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4456",
+    "label_fr": "Etat, T V À aue (suivant déclarations)",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4457",
+    "label_fr": "Etat, impôts et taxes à payer",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4458",
+    "label_fr": "Etat - Autres comptes créditeurs",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4461",
+    "label_fr": "Associés - capital à rembourser",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4462",
+    "label_fr": "Associés - versements reçus sur augmen- tation de capital",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4463",
+    "label_fr": "Comptes courants des associés créditeurs",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4464",
+    "label_fr": "Associés - opérations faites en commun",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4465",
+    "label_fr": "Associés Dividendes à payer",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4468",
+    "label_fr": "Autres comptes d'associés - créditeurs",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4481",
+    "label_fr": "Dettes sur acquisition d'immobilisations",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4483",
+    "label_fr": "Dettes sur acquisitions de titres et valeurs de placement",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4484",
+    "label_fr": "Obligations échues à rembourser",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4485",
+    "label_fr": "Obligations, coupons à payer",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4487",
+    "label_fr": "Dettes rattachées aux autres créanciers",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4488",
+    "label_fr": "Divers créanciers",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4491",
+    "label_fr": "Produits constatés d'avance",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4493",
+    "label_fr": "Intérêts courus et non échus à payer",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4495",
+    "label_fr": "Comptes de répartition périodique des produits",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4497",
+    "label_fr": "Comptes transitoires ou d'attente - créditeurs",
+    "class": 4,
+    "page_pdf": 36,
+    "page_printed": 59,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4501",
+    "label_fr": "Provisions pour litiges",
+    "class": 4,
+    "page_pdf": 37,
+    "page_printed": 60,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4502",
+    "label_fr": "Provisions pour garanties données aux clients",
+    "class": 4,
+    "page_pdf": 37,
+    "page_printed": 60,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4505",
+    "label_fr": "Provisions pour amendes, doubles droits et pénalités",
+    "class": 4,
+    "page_pdf": 37,
+    "page_printed": 60,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4506",
+    "label_fr": "Provisions pour pertes de change",
+    "class": 4,
+    "page_pdf": 37,
+    "page_printed": 60,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4507",
+    "label_fr": "Provisions pour impôts",
+    "class": 4,
+    "page_pdf": 37,
+    "page_printed": 60,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4508",
+    "label_fr": "Autres provisions pour risques et charges :",
+    "class": 4,
+    "page_pdf": 37,
+    "page_printed": 60,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4701",
+    "label_fr": "Augmentation des créances circulantes",
+    "class": 4,
+    "page_pdf": 37,
+    "page_printed": 60,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "4702",
+    "label_fr": "Diminution des dettes circulantes",
+    "class": 4,
+    "page_pdf": 37,
+    "page_printed": 60,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5111",
+    "label_fr": "Chèques à encaisser ou à l'encaissement",
+    "class": 5,
+    "page_pdf": 38,
+    "page_printed": 61,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "51111",
+    "label_fr": "Chèques en Portefeuille",
+    "class": 5,
+    "page_pdf": 38,
+    "page_printed": 61,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "51112",
+    "label_fr": "Chèques à l'encaissement",
+    "class": 5,
+    "page_pdf": 38,
+    "page_printed": 61,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5113",
+    "label_fr": "Effets à encaisser ou à l'encaissement",
+    "class": 5,
+    "page_pdf": 38,
+    "page_printed": 61,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "51131",
+    "label_fr": "Effets échus à encaisser",
+    "class": 5,
+    "page_pdf": 38,
+    "page_printed": 61,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "51132",
+    "label_fr": "Effets à l'encaissement",
+    "class": 5,
+    "page_pdf": 38,
+    "page_printed": 61,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5115",
+    "label_fr": "Virements de fonds",
+    "class": 5,
+    "page_pdf": 38,
+    "page_printed": 61,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5118",
+    "label_fr": "Autres Valeurs à encaisser",
+    "class": 5,
+    "page_pdf": 38,
+    "page_printed": 61,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5141",
+    "label_fr": "Banques (soldes débiteurs)",
+    "class": 5,
+    "page_pdf": 38,
+    "page_printed": 61,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5143",
+    "label_fr": "Trésorerie Générale",
+    "class": 5,
+    "page_pdf": 38,
+    "page_printed": 61,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5146",
+    "label_fr": "Chèques postaux",
+    "class": 5,
+    "page_pdf": 38,
+    "page_printed": 61,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5148",
+    "label_fr": "Autres établissements financiers et assimilés (soldes débiteurs)",
+    "class": 5,
+    "page_pdf": 38,
+    "page_printed": 61,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5161",
+    "label_fr": "Caisses",
+    "class": 5,
+    "page_pdf": 39,
+    "page_printed": 62,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "51611",
+    "label_fr": "Caisse centrale",
+    "class": 5,
+    "page_pdf": 39,
+    "page_printed": 62,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "51613",
+    "label_fr": "Caisse (succursale ou agence A)",
+    "class": 5,
+    "page_pdf": 39,
+    "page_printed": 62,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "51614",
+    "label_fr": "Caisse (succursale ou agence B)",
+    "class": 5,
+    "page_pdf": 39,
+    "page_printed": 62,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5165",
+    "label_fr": "Régies d'avances et accréditifs",
+    "class": 5,
+    "page_pdf": 39,
+    "page_printed": 62,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5520",
+    "label_fr": "Crédits d'escompte",
+    "class": 5,
+    "page_pdf": 39,
+    "page_printed": 62,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5530",
+    "label_fr": "Crédits de trésorerie",
+    "class": 5,
+    "page_pdf": 39,
+    "page_printed": 62,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5541",
+    "label_fr": "Banques (soldes créditeurs) :",
+    "class": 5,
+    "page_pdf": 39,
+    "page_printed": 62,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5548",
+    "label_fr": "Autres établissements financiers et assimilés (soldes créditeurs)",
+    "class": 5,
+    "page_pdf": 39,
+    "page_printed": 62,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "5900",
+    "label_fr": "Provisions pour dépréciation des comntes de trésorerie",
+    "class": 5,
+    "page_pdf": 39,
+    "page_printed": 62,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6111",
+    "label_fr": "Achats de marchandises “groupe A\"",
+    "class": 6,
+    "page_pdf": 40,
+    "page_printed": 63,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6112",
+    "label_fr": "Achats de marchandises “groupe B*",
+    "class": 6,
+    "page_pdf": 40,
+    "page_printed": 63,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6114",
+    "label_fr": "Variation de stocks de marchandises",
+    "class": 6,
+    "page_pdf": 40,
+    "page_printed": 63,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6118",
+    "label_fr": "Achats revendus de marchandises des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 40,
+    "page_printed": 63,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6119",
+    "label_fr": "Rabais, remises, et ristournes obtenus sur achats de marchandises",
+    "class": 6,
+    "page_pdf": 40,
+    "page_printed": 63,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6121",
+    "label_fr": "Achats de matières premières",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61211",
+    "label_fr": "Achats de matières premières A",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61212",
+    "label_fr": "Achats de matières premières B",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6122",
+    "label_fr": "Achats de matières et fournitures consommables",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61221",
+    "label_fr": "Achats de matières et fournitures À",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61222",
+    "label_fr": "Achats de matières et fournitures B",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61224",
+    "label_fr": "Achats de produits d'entretien",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61225",
+    "label_fr": "Achats de fournitures d'atelier et d'usine",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61226",
+    "label_fr": "Achats de fournitures de magasin",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61227",
+    "label_fr": "Achats de fournitures de bureau",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6123",
+    "label_fr": "Achats d'emballages",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61231",
+    "label_fr": "Achats d'emballages perdus",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61232",
+    "label_fr": "Achats d'emballages récupérables non identifiables",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61233",
+    "label_fr": "Achats d'emballages à usage mixte",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6124",
+    "label_fr": "Variation des stocks de matières et fournitures",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61241",
+    "label_fr": "Variation des stocks de matières premières",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61242",
+    "label_fr": "Variation des stocks de matières et fournitures consommables",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61243",
+    "label_fr": "Variation des stocks des emballages",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6125",
+    "label_fr": "Achats non stockés de matières et de fourni- tures",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61251",
+    "label_fr": "Achats de fournitures non stockables (eau, électricité .....) |",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61252",
+    "label_fr": "Achats de fournitures d'entretien",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61253",
+    "label_fr": "Achats de petit outillage et de petit équipement",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61254",
+    "label_fr": "Achats de fournitures de bureau",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6126",
+    "label_fr": "Achats de travaux , études et Prestations de service",
+    "class": 6,
+    "page_pdf": 42,
+    "page_printed": 65,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61261",
+    "label_fr": "Achats des travaux",
+    "class": 6,
+    "page_pdf": 42,
+    "page_printed": 65,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61262",
+    "label_fr": "Achats des études",
+    "class": 6,
+    "page_pdf": 42,
+    "page_printed": 65,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61263",
+    "label_fr": "Achats des Prestations de service",
+    "class": 6,
+    "page_pdf": 42,
+    "page_printed": 65,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6128",
+    "label_fr": "Achats de matières et de fournitures des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 42,
+    "page_printed": 65,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6129",
+    "label_fr": "Rabais, remises et ristournes obtenus sur achats consommés de matières et fournitures",
+    "class": 6,
+    "page_pdf": 42,
+    "page_printed": 65,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61291",
+    "label_fr": "R.R.R obtenus sur achats de matières premières",
+    "class": 6,
+    "page_pdf": 42,
+    "page_printed": 65,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61292",
+    "label_fr": "R.R.R. obtenus sur achats de matières et fournitures consommables",
+    "class": 6,
+    "page_pdf": 42,
+    "page_printed": 65,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61293",
+    "label_fr": "R.R.R. obtenus sur achat's des embal- lages",
+    "class": 6,
+    "page_pdf": 42,
+    "page_printed": 65,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61295",
+    "label_fr": "R.R.R. obtenus sur achats non stockés",
+    "class": 6,
+    "page_pdf": 42,
+    "page_printed": 65,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61296",
+    "label_fr": "R.R.R. obtenus sur achats de travaux, études et prestations de service",
+    "class": 6,
+    "page_pdf": 42,
+    "page_printed": 65,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61298",
+    "label_fr": "R.R.R. obtenus sur achats de matières et fournitures des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 42,
+    "page_printed": 65,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6131",
+    "label_fr": "Locations et charges locatives",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61311",
+    "label_fr": "Location de terrains",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61312",
+    "label_fr": "Location de constructions",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61313",
+    "label_fr": "Location de matériel et d'outillage",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61314",
+    "label_fr": "Location de mobilier et matériel de bureau",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61315",
+    "label_fr": "Location de matériel informatique",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61316",
+    "label_fr": "Location de matériel de transport",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61317",
+    "label_fr": "Malis sur emballages rendus",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61318",
+    "label_fr": "Locations et charges locatives diverses",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6132",
+    "label_fr": "Redevances de crédit-bail",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61321",
+    "label_fr": "Redevances de crédit-bail - mobilier et matériel",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6133",
+    "label_fr": "Entretien et réparations",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61331",
+    "label_fr": "Entretien et Réparations des biens immobiliers",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61332",
+    "label_fr": "Entretien et réparations des biens mobiliers",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61335",
+    "label_fr": "Maintenance",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6134",
+    "label_fr": "Primes d'assurances",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61341",
+    "label_fr": "Assurances multirisques (voi. incendie, responsabilité civile....)",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61343",
+    "label_fr": "Assurances - Risques d'exploitation",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61345",
+    "label_fr": "Assurances - Matériel de transport",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61348",
+    "label_fr": "Autres assurances | |",
+    "class": 6,
+    "page_pdf": 43,
+    "page_printed": 66,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6135",
+    "label_fr": "Rémunérations du personnel extérieur à l'entreprise",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61352",
+    "label_fr": "Rémunérations du Personnel intérimaire",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61353",
+    "label_fr": "Rémunérations du personnel détaché ou prêté à l'entreprise",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6136",
+    "label_fr": "Rémunérations d'intermédiaires et honoraires",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61361",
+    "label_fr": "Commissions et courtages",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61365",
+    "label_fr": "Honoraires",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61367",
+    "label_fr": "Frais d'actes et de contentieux",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6137",
+    "label_fr": "Redevances pour brevets marques, droits et valeurs similaires",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61371",
+    "label_fr": "Redevances Pour brevets",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61378",
+    "label_fr": "Autres redevances",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6141",
+    "label_fr": "Etudes, recherches et documentation",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61411",
+    "label_fr": "Etudes générales",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61413",
+    "label_fr": "Recherches",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61415",
+    "label_fr": "Documentation générale",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61416",
+    "label_fr": "Documentation technique",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6142",
+    "label_fr": "Transports",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61421",
+    "label_fr": "Transports du personnel",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61426",
+    "label_fr": "Transports sur ventes",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61428",
+    "label_fr": "Autres transports",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6143",
+    "label_fr": "Déplacements, missions et réceptions ° 61431. Voyages et déplacements",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61433",
+    "label_fr": "Frais de déménagement",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61435",
+    "label_fr": "Missions",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61436",
+    "label_fr": "Réceptions",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6144",
+    "label_fr": "Publicité, publications et relations publiques",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61441",
+    "label_fr": "Annonces et insertions",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61442",
+    "label_fr": "Echantillons, catalogues et imprimés publicitaires",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61443",
+    "label_fr": "Foires et expositions",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61444",
+    "label_fr": "Primes de publicité",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61446",
+    "label_fr": "Publications",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61447",
+    "label_fr": "Cadeaux à la clientèle",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61448",
+    "label_fr": "Autres charges de publicité et relations publiques",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6145",
+    "label_fr": "Frais postaux et frais de télécommunications",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61451",
+    "label_fr": "Frais postaux",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61455",
+    "label_fr": "Frais de téléphone",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61456",
+    "label_fr": "Frais de télex et de télégrammes",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6146",
+    "label_fr": "Cotisations et dons",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61461",
+    "label_fr": "Cotisations",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61462",
+    "label_fr": "Dons",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6147",
+    "label_fr": "Services bancaires",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61471",
+    "label_fr": "Frais d'achat et de vente des titres",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61472",
+    "label_fr": "Frais sur effets de commerce",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61473",
+    "label_fr": "Frais et commissions sur services bancaires",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6148",
+    "label_fr": "Autres charges externes des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6149",
+    "label_fr": "Rabais, Remises et ristournes obtenus sur autres charges externes",
+    "class": 6,
+    "page_pdf": 45,
+    "page_printed": 68,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6161",
+    "label_fr": "Impôts et taxes directs",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61611",
+    "label_fr": "Taxe urbaine et taxe d'édilité",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61612",
+    "label_fr": "Patente",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61615",
+    "label_fr": "Taxes locales",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6165",
+    "label_fr": "Impôts et Taxes Indirectes",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6167",
+    "label_fr": "Impôts, taxes et droits assimilés",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61671",
+    "label_fr": "Droits d'enregistrement et de timbre",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61673",
+    "label_fr": "Taxes sur les véhicules",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61678",
+    "label_fr": "Autres impôts, taxes et droits assimilés",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6168",
+    "label_fr": "Impôts et taxes des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6171",
+    "label_fr": "Rémunérations du personnel",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61711",
+    "label_fr": "Appointements et salaires",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61712",
+    "label_fr": "Primes et gratifications",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61713",
+    "label_fr": "Indemnités et avantages divers",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61714",
+    "label_fr": "Commissions au personnel",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61715",
+    "label_fr": "Rémunérations des administrateurs, gérants et associés",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6174",
+    "label_fr": "Charges sociales",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61741",
+    "label_fr": "Cotisations de Sécurité sociale",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61742",
+    "label_fr": "Cotisations aux Caisses de retraite",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61743",
+    "label_fr": "Cotisations aux mutuelles",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61744",
+    "label_fr": "Prestations familiales",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61745",
+    "label_fr": "Assurances accidents de travail",
+    "class": 6,
+    "page_pdf": 46,
+    "page_printed": 69,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6176",
+    "label_fr": "Charges sociales diverses",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61761",
+    "label_fr": "Assurances groupe",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61762",
+    "label_fr": "Prestations de retraites",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61763",
+    "label_fr": "Allocations aux oeuvres sociales",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61764",
+    "label_fr": "Habillement et vêtements de travail",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61765",
+    "label_fr": "Indemnités de préavis et de licenciement",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61766",
+    "label_fr": "Médecine de travail, pharmacie",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61768",
+    "label_fr": "Autres charges sociales diverses",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6177",
+    "label_fr": "Rémunération de l'exploitant",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61771",
+    "label_fr": "Appointements et salaires",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61774",
+    "label_fr": "Charges sociales sur appointements et salaires de l'exploitant",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6178",
+    "label_fr": "Charges de personnel des exercices antérieurs.",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6181",
+    "label_fr": "Jetons de présence",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6182",
+    "label_fr": "Pertes sur créances irrécouvrables",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6185",
+    "label_fr": "Pertes sur opérations faites en commun",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6186",
+    "label_fr": "Transfert de profits sur opérations faites en commun",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6188",
+    "label_fr": "Autres charges d'exploitation des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6191",
+    "label_fr": "Dotations d'exploitation aux amortissements de l'immobilisation en non-valeurs",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61911",
+    "label_fr": "D.E.A. des frais préliminaires",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61912",
+    "label_fr": "D.E.A. des charges à répartir",
+    "class": 6,
+    "page_pdf": 47,
+    "page_printed": 70,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6192",
+    "label_fr": "Dotations d'exploitation aux amortissements des immobilisations incorporelles",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61921",
+    "label_fr": "D.E.A, de l'immobilisations en recherche et développement",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61922",
+    "label_fr": "D.E.A. des brevets, marques, droits et valeurs similaires",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61923",
+    "label_fr": "D.E.A. du fonds commercial",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61928",
+    "label_fr": "D.E.A. des autres immobilisations incor- porelles",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6193",
+    "label_fr": "Dotations d'exploitaion aux amortissements des immobilisations corporelles",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61931",
+    "label_fr": "D.E.A. des terrains",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61932",
+    "label_fr": "D.E.A, des constructions",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61933",
+    "label_fr": "D.E.A. des installations techniques, matériel et outillage",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61935",
+    "label_fr": "D.E.A. des mobilier, matériel de bureau et aménagements divers",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61938",
+    "label_fr": "D.E.A des autres immobilisations corporelles",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6194",
+    "label_fr": "Dotations d'exploitation aux provisions pour dépréciation des liamobilisations",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61942",
+    "label_fr": "D.E.P, pour dépréciation des immobilisa- tions incorporelles",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61943",
+    "label_fr": "D.E.P pour dépréciation des immobilisa- tions corporelles",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6195",
+    "label_fr": "Dotations d'exploitation aux provisions pour risques et charges",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61955",
+    "label_fr": "D.E.P, pour risques et charges durables",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61957",
+    "label_fr": "D.E.P. pour risques et charges momentanés",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6196",
+    "label_fr": "Dotations d'exploitation aux provisions pour dépréciation de l'actif circulant",
+    "class": 6,
+    "page_pdf": 49,
+    "page_printed": 72,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61961",
+    "label_fr": "D.E.P. pour dépréciation des stocks",
+    "class": 6,
+    "page_pdf": 49,
+    "page_printed": 72,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61964",
+    "label_fr": "D.E.P. pour dépréciation des créances de l'actif circulant",
+    "class": 6,
+    "page_pdf": 49,
+    "page_printed": 72,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6198",
+    "label_fr": "Dotations d'exploitation des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 49,
+    "page_printed": 72,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61981",
+    "label_fr": "D.E. aux amortissements des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 49,
+    "page_printed": 72,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "61984",
+    "label_fr": "D.E. aux provisions des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 49,
+    "page_printed": 72,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "63111",
+    "label_fr": "Intérêts des emprunts",
+    "class": 6,
+    "page_pdf": 50,
+    "page_printed": 73,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "63113",
+    "label_fr": "Intérêts des dettes rattachées à des participations",
+    "class": 6,
+    "page_pdf": 50,
+    "page_printed": 73,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "63114",
+    "label_fr": "Intérêts des comptes courants et dépôts créditeurs",
+    "class": 6,
+    "page_pdf": 50,
+    "page_printed": 73,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "63115",
+    "label_fr": "Intérêts bancaires et sur opéra- tions de financement",
+    "class": 6,
+    "page_pdf": 50,
+    "page_printed": 73,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "63118",
+    "label_fr": "Autres intérêts des emprunts et dettes",
+    "class": 6,
+    "page_pdf": 50,
+    "page_printed": 73,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6318",
+    "label_fr": "Charges d'intérêts des exercices anté- rieurs",
+    "class": 6,
+    "page_pdf": 50,
+    "page_printed": 73,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6338",
+    "label_fr": "Pertes de change des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 50,
+    "page_printed": 73,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6382",
+    "label_fr": "pertes sur créances liées à des participations",
+    "class": 6,
+    "page_pdf": 50,
+    "page_printed": 73,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6385",
+    "label_fr": "Charges nettes sur cessions de titres et valeurs de placement",
+    "class": 6,
+    "page_pdf": 50,
+    "page_printed": 73,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6386",
+    "label_fr": "Escomptes accordés",
+    "class": 6,
+    "page_pdf": 50,
+    "page_printed": 73,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6388",
+    "label_fr": "Autres charges financières des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 51,
+    "page_printed": 74,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6391",
+    "label_fr": "Dotations aux amortissements des primes de remboursement des obligations",
+    "class": 6,
+    "page_pdf": 51,
+    "page_printed": 74,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6392",
+    "label_fr": "Dotations aux provisions pour dépréciation des immobilisations financières",
+    "class": 6,
+    "page_pdf": 51,
+    "page_printed": 74,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6393",
+    "label_fr": "Dotations aux provisions pour risques et charges financiers",
+    "class": 6,
+    "page_pdf": 51,
+    "page_printed": 74,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6394",
+    "label_fr": "Dotations aux provisions pour déprécia- tion des titres et valeurs de placement",
+    "class": 6,
+    "page_pdf": 51,
+    "page_printed": 74,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6396",
+    "label_fr": "Dotations aux provisions pour dépréciation des comptes de trésorerie",
+    "class": 6,
+    "page_pdf": 51,
+    "page_printed": 74,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6398",
+    "label_fr": "Dotations financières des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 51,
+    "page_printed": 74,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6512",
+    "label_fr": "V.N.A des immobilisations incorporelles cédées",
+    "class": 6,
+    "page_pdf": 52,
+    "page_printed": 75,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6513",
+    "label_fr": "V.N.A des immobilisations corporelles cédées",
+    "class": 6,
+    "page_pdf": 52,
+    "page_printed": 75,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6514",
+    "label_fr": "V.N.A des immobilisations financières cédées (droits de propriété)",
+    "class": 6,
+    "page_pdf": 52,
+    "page_printed": 75,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6518",
+    "label_fr": "V.N.A des immobilisations cédées des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 52,
+    "page_printed": 75,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6561",
+    "label_fr": "Subventions accordées de l'exercice",
+    "class": 6,
+    "page_pdf": 52,
+    "page_printed": 75,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6568",
+    "label_fr": "Subventions accordées des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 52,
+    "page_printed": 75,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6581",
+    "label_fr": "Pénalités sur marchés et dédits",
+    "class": 6,
+    "page_pdf": 52,
+    "page_printed": 75,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "65811",
+    "label_fr": "Pénalités sur marchés",
+    "class": 6,
+    "page_pdf": 52,
+    "page_printed": 75,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "65812",
+    "label_fr": "Dédits",
+    "class": 6,
+    "page_pdf": 52,
+    "page_printed": 75,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6582",
+    "label_fr": "Rappels d'impôts (autres qu'impôts sur les résultats)",
+    "class": 6,
+    "page_pdf": 52,
+    "page_printed": 75,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6583",
+    "label_fr": "Pénalités et amendes fiscales ou pénales",
+    "class": 6,
+    "page_pdf": 52,
+    "page_printed": 75,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "65831",
+    "label_fr": "Pénalités et amendes fiscales",
+    "class": 6,
+    "page_pdf": 52,
+    "page_printed": 75,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "65833",
+    "label_fr": "Pénalités et amendes pénales",
+    "class": 6,
+    "page_pdf": 52,
+    "page_printed": 75,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6585",
+    "label_fr": "Créances devenues irrécouvrables",
+    "class": 6,
+    "page_pdf": 52,
+    "page_printed": 75,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6586",
+    "label_fr": "Dons, libéralités et lots",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "65861",
+    "label_fr": "Dons",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "65862",
+    "label_fr": "Libéralités",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "65863",
+    "label_fr": "Lots",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6588",
+    "label_fr": "Autres charges non courantes des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6591",
+    "label_fr": "Dotations aux amortissements exception- nels des immobilisations",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "65911",
+    "label_fr": "D.A.E. de l'immobilisation en non- valeurs",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "65912",
+    "label_fr": "D.A.E. des immobilisations incor- porelles",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "65913",
+    "label_fr": "D.A.E. des immobilisations corpo- relles",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6594",
+    "label_fr": "Dotations non courantes aux provisions réglementées",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "65941",
+    "label_fr": "DNC pour amortissements dérogatoires",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "65944",
+    "label_fr": "DNC pour investissements",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "65945",
+    "label_fr": "DNC pour reconstitution de gisements",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "65946",
+    "label_fr": "DNC pour acquisition et construction de logements",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "6595",
+    "label_fr": "Dotations non courantes aux provisions pour risques et charges",
+    "class": 6,
+    "page_pdf": 54,
+    "page_printed": 77,
+    "status": "standard"
+  },
+  {
+    "account_code": "65955",
+    "label_fr": "DNC aux provisions pour risques et charges durables",
+    "class": 6,
+    "page_pdf": 54,
+    "page_printed": 77,
+    "status": "standard"
+  },
+  {
+    "account_code": "65957",
+    "label_fr": "DNC aux provisions pour risques et charges momentanés",
+    "class": 6,
+    "page_pdf": 54,
+    "page_printed": 77,
+    "status": "standard"
+  },
+  {
+    "account_code": "6596",
+    "label_fr": "Dotations non courantes aux provisions pour dépréciation",
+    "class": 6,
+    "page_pdf": 54,
+    "page_printed": 77,
+    "status": "standard"
+  },
+  {
+    "account_code": "65962",
+    "label_fr": "DNC aux provisions pour dépréciation de l'actif immobilisé",
+    "class": 6,
+    "page_pdf": 54,
+    "page_printed": 77,
+    "status": "standard"
+  },
+  {
+    "account_code": "65963",
+    "label_fr": "DNC aux provisions pour dépréciation de l'actif circulant",
+    "class": 6,
+    "page_pdf": 54,
+    "page_printed": 77,
+    "status": "standard"
+  },
+  {
+    "account_code": "6598",
+    "label_fr": "Dotations non courantes des exercices antérieurs",
+    "class": 6,
+    "page_pdf": 54,
+    "page_printed": 77,
+    "status": "standard"
+  },
+  {
+    "account_code": "6701",
+    "label_fr": "Impôts sur les bénéfices",
+    "class": 6,
+    "page_pdf": 54,
+    "page_printed": 77,
+    "status": "standard"
+  },
+  {
+    "account_code": "6705",
+    "label_fr": "Imposition minimale annuelle des sociétés",
+    "class": 6,
+    "page_pdf": 54,
+    "page_printed": 77,
+    "status": "standard"
+  },
+  {
+    "account_code": "6708",
+    "label_fr": "Rappels et dégrèvements des impôts sur les résultats",
+    "class": 6,
+    "page_pdf": 54,
+    "page_printed": 77,
+    "status": "standard"
+  },
+  {
+    "account_code": "7111",
+    "label_fr": "Ventes de marchandises au Maroc",
+    "class": 7,
+    "page_pdf": 55,
+    "page_printed": 79,
+    "status": "standard"
+  },
+  {
+    "account_code": "7113",
+    "label_fr": "Ventes de marchandises à l'étranger",
+    "class": 7,
+    "page_pdf": 55,
+    "page_printed": 79,
+    "status": "standard"
+  },
+  {
+    "account_code": "7118",
+    "label_fr": "Ventes de marchandises des exercices antérieurs",
+    "class": 7,
+    "page_pdf": 55,
+    "page_printed": 79,
+    "status": "standard"
+  },
+  {
+    "account_code": "7119",
+    "label_fr": "Rabais, remises et ristournes accordés par l'entreprise",
+    "class": 7,
+    "page_pdf": 55,
+    "page_printed": 79,
+    "status": "standard"
+  },
+  {
+    "account_code": "7121",
+    "label_fr": "Ventes de biens produits au Maroc",
+    "class": 7,
+    "page_pdf": 55,
+    "page_printed": 79,
+    "status": "standard"
+  },
+  {
+    "account_code": "71211",
+    "label_fr": "Ventes de produits finis",
+    "class": 7,
+    "page_pdf": 55,
+    "page_printed": 79,
+    "status": "standard"
+  },
+  {
+    "account_code": "71212",
+    "label_fr": "Ventes de produits intermédiaires",
+    "class": 7,
+    "page_pdf": 55,
+    "page_printed": 79,
+    "status": "standard"
+  },
+  {
+    "account_code": "71217",
+    "label_fr": "Ventes de produits résiduels",
+    "class": 7,
+    "page_pdf": 55,
+    "page_printed": 79,
+    "status": "standard"
+  },
+  {
+    "account_code": "7122",
+    "label_fr": "Ventes de biens produits à l'étranger",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71221",
+    "label_fr": "Ventes de produits finis",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71222",
+    "label_fr": "Ventes de produits intermédiaires",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7124",
+    "label_fr": "Ventes de services produits au Maroc",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71241",
+    "label_fr": "Travaux",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71242",
+    "label_fr": "Etudes",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71243",
+    "label_fr": "Prestations de service",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7125",
+    "label_fr": "Ventes de services produits à l'étranger",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71251",
+    "label_fr": "Travaux",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71252",
+    "label_fr": "Etudes",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71253",
+    "label_fr": "Prestations de service",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7126",
+    "label_fr": "Redevances pour brevets, marques, droits et valeurs similaires",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7127",
+    "label_fr": "Ventes et produits accessoires",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71271",
+    "label_fr": "Locations diverses reçues",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71272",
+    "label_fr": "Commissions et courtages reçus",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71273",
+    "label_fr": "Produits de services exploités dans l'intérêt du personnel",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71275",
+    "label_fr": "Bonis sur reprises d'emballages consignés",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71276",
+    "label_fr": "Ports et frais accessoires facturés",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71278",
+    "label_fr": "Autres ventes et produits accessoires",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7128",
+    "label_fr": "Ventes de biens et services produits des exercices antérieurs",
+    "class": 7,
+    "page_pdf": 56,
+    "page_printed": 80,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7129",
+    "label_fr": "Rabais, Remises,et Ristournes accordés par l'entreprise",
+    "class": 7,
+    "page_pdf": 57,
+    "page_printed": 81,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71291",
+    "label_fr": "R.R.R. accordés sur ventes au Maroc des biens produits",
+    "class": 7,
+    "page_pdf": 57,
+    "page_printed": 81,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71292",
+    "label_fr": "R.R.R. accordés sur ventes à l'étranger des biens produits",
+    "class": 7,
+    "page_pdf": 57,
+    "page_printed": 81,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71294",
+    "label_fr": "R.R.R. accordés sur ventes au Maroc des services produits",
+    "class": 7,
+    "page_pdf": 57,
+    "page_printed": 81,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71295",
+    "label_fr": "R.R.R. accordés sur ventes à l'étranger des services produits",
+    "class": 7,
+    "page_pdf": 57,
+    "page_printed": 81,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71298",
+    "label_fr": "R.R.R. accordés sur ventes de biens et services produits des exercices antérieurs",
+    "class": 7,
+    "page_pdf": 57,
+    "page_printed": 81,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7131",
+    "label_fr": "Variation des stocks de produits en cours",
+    "class": 7,
+    "page_pdf": 57,
+    "page_printed": 81,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71311",
+    "label_fr": "Variation des stocks de Biens produits en cours",
+    "class": 7,
+    "page_pdf": 57,
+    "page_printed": 81,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71312",
+    "label_fr": "Variation des stocks de produits intermédiaires en cours",
+    "class": 7,
+    "page_pdf": 57,
+    "page_printed": 81,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71317",
+    "label_fr": "Variation des stocks de produits résiduels en cours",
+    "class": 7,
+    "page_pdf": 57,
+    "page_printed": 81,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7132",
+    "label_fr": "Variation des stocks de biens produits",
+    "class": 7,
+    "page_pdf": 57,
+    "page_printed": 81,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71321",
+    "label_fr": "Variation des stocks de produits finis",
+    "class": 7,
+    "page_pdf": 57,
+    "page_printed": 81,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71322",
+    "label_fr": "Variation des stocks de produits intermédiaires",
+    "class": 7,
+    "page_pdf": 57,
+    "page_printed": 81,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71327",
+    "label_fr": "Variation des stocks de produits résiduels",
+    "class": 7,
+    "page_pdf": 57,
+    "page_printed": 81,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7134",
+    "label_fr": "Variations des stocks de services en cours",
+    "class": 7,
+    "page_pdf": 58,
+    "page_printed": 82,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71341",
+    "label_fr": "Variation des stocks de travaux",
+    "class": 7,
+    "page_pdf": 58,
+    "page_printed": 82,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71342",
+    "label_fr": "Variation des stocks d'études en cours",
+    "class": 7,
+    "page_pdf": 58,
+    "page_printed": 82,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71343",
+    "label_fr": "Variation des stocks de prestations en cours",
+    "class": 7,
+    "page_pdf": 58,
+    "page_printed": 82,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7141",
+    "label_fr": "Immobilisation en non-valeurs produite",
+    "class": 7,
+    "page_pdf": 58,
+    "page_printed": 82,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7142",
+    "label_fr": "Immobilisations incorporelles produites",
+    "class": 7,
+    "page_pdf": 58,
+    "page_printed": 82,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7143",
+    "label_fr": "Immobilisations coporelles produites",
+    "class": 7,
+    "page_pdf": 58,
+    "page_printed": 82,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7148",
+    "label_fr": "Immobilisations produites des exercices antérieurs.",
+    "class": 7,
+    "page_pdf": 58,
+    "page_printed": 82,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7161",
+    "label_fr": "Subventions d'exploitation reçues de l'exercice",
+    "class": 7,
+    "page_pdf": 58,
+    "page_printed": 82,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7168",
+    "label_fr": "Subventions d'exploitation reçues des exercices antérieurs",
+    "class": 7,
+    "page_pdf": 58,
+    "page_printed": 82,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7181",
+    "label_fr": "Jetons de présence reçus",
+    "class": 7,
+    "page_pdf": 58,
+    "page_printed": 82,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7182",
+    "label_fr": "Revenus des immeubles non affectés à l'exploitation",
+    "class": 7,
+    "page_pdf": 58,
+    "page_printed": 82,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7185",
+    "label_fr": "Profits sur opérations faites en commun",
+    "class": 7,
+    "page_pdf": 58,
+    "page_printed": 82,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7188",
+    "label_fr": "Autres produits d'exploitation des exercices antérieurs",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7191",
+    "label_fr": "Reprises sur amortissements de l'immobi-",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7192",
+    "label_fr": "Reprises sur amortissements des",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7194",
+    "label_fr": "Reprises sur provisions pour F dépréciation des immobilisations",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7195",
+    "label_fr": "Reprises sur provisions pour jisques et charges",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7196",
+    "label_fr": "Reprises sur provisions pour dépréciation de l'actif circulant",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7197",
+    "label_fr": "Transferts de charges d'exploitation",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71971",
+    "label_fr": "T.C.E-achats de marchandises",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71972",
+    "label_fr": "T.C.E-achats consommés de matières et fournitures",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71973",
+    "label_fr": "T.C.E - Autres charges externes",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71975",
+    "label_fr": "T.C.E - Impôt et taxes",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71976",
+    "label_fr": "T.C.E - Charges du personne!",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71978",
+    "label_fr": "T.C.E - Autres charges d'exploitation",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7198",
+    "label_fr": "Reprises sur amortissements et provisions des exercices antérieurs L 71981. Reprises sur amortissements des exercices antérieurs",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "71984",
+    "label_fr": "Reprises sur provisions des exer-",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7321",
+    "label_fr": "Revenus des titres de participation",
+    "class": 7,
+    "page_pdf": 60,
+    "page_printed": 84,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7325",
+    "label_fr": "Revenus des titres immobilisés",
+    "class": 7,
+    "page_pdf": 60,
+    "page_printed": 84,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7328",
+    "label_fr": "Produits des titres de participation et des autres titres immobilisés des exer- cices antérieurs",
+    "class": 7,
+    "page_pdf": 60,
+    "page_printed": 84,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7331",
+    "label_fr": "Gains de change propres à l'exercice",
+    "class": 7,
+    "page_pdf": 60,
+    "page_printed": 84,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7338",
+    "label_fr": "Gains de change des exercices antérieurs",
+    "class": 7,
+    "page_pdf": 60,
+    "page_printed": 84,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7381",
+    "label_fr": "Intérêts et produits assimilés",
+    "class": 7,
+    "page_pdf": 60,
+    "page_printed": 84,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "73811",
+    "label_fr": "Intérêts des prêts",
+    "class": 7,
+    "page_pdf": 60,
+    "page_printed": 84,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "73813",
+    "label_fr": "Revenus des autres créances financières",
+    "class": 7,
+    "page_pdf": 60,
+    "page_printed": 84,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7383",
+    "label_fr": "Revenus des créances rattachées à des participations",
+    "class": 7,
+    "page_pdf": 60,
+    "page_printed": 84,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7384",
+    "label_fr": "Revenus des titres et valeurs de placement",
+    "class": 7,
+    "page_pdf": 60,
+    "page_printed": 84,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7385",
+    "label_fr": "Produits nets sur cessions de titres et valeurs de placement",
+    "class": 7,
+    "page_pdf": 60,
+    "page_printed": 84,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7386",
+    "label_fr": "Escomptes obtenus",
+    "class": 7,
+    "page_pdf": 60,
+    "page_printed": 84,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7388",
+    "label_fr": "Intérêts et autres produits financiers des exercices antérieurs",
+    "class": 7,
+    "page_pdf": 60,
+    "page_printed": 84,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7391",
+    "label_fr": "Reprises sur amortissements des primes de remboursement des obligations",
+    "class": 7,
+    "page_pdf": 61,
+    "page_printed": 85,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7392",
+    "label_fr": "Reprises sur provisions pour dépréciation - des immobilisations financières",
+    "class": 7,
+    "page_pdf": 61,
+    "page_printed": 85,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7393",
+    "label_fr": "Reprises sur provisions pour risques et charges financiers",
+    "class": 7,
+    "page_pdf": 61,
+    "page_printed": 85,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7394",
+    "label_fr": "Reprises sur provisions pour | dépréciation des titres et valeurs de placement",
+    "class": 7,
+    "page_pdf": 61,
+    "page_printed": 85,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7396",
+    "label_fr": "Reprises sur provisions pour dépréciation des comptes de trésorerie",
+    "class": 7,
+    "page_pdf": 61,
+    "page_printed": 85,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7397",
+    "label_fr": "Transferts de charges financières",
+    "class": 7,
+    "page_pdf": 61,
+    "page_printed": 85,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "73971",
+    "label_fr": "Transferts - charges d'intér”ets",
+    "class": 7,
+    "page_pdf": 61,
+    "page_printed": 85,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "73973",
+    "label_fr": "Transferts - pertes de change",
+    "class": 7,
+    "page_pdf": 61,
+    "page_printed": 85,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "73978",
+    "label_fr": "Transferts autres charges financières",
+    "class": 7,
+    "page_pdf": 61,
+    "page_printed": 85,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7398",
+    "label_fr": "Reprises sur dotations financières des exercices antérieurs",
+    "class": 7,
+    "page_pdf": 61,
+    "page_printed": 85,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7512",
+    "label_fr": "P.C des immobilisations incorporelles",
+    "class": 7,
+    "page_pdf": 62,
+    "page_printed": 86,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7513",
+    "label_fr": "P.C des immobilisations corporelles",
+    "class": 7,
+    "page_pdf": 62,
+    "page_printed": 86,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7514",
+    "label_fr": "P.C des immobilisations financières (droits de propriété)",
+    "class": 7,
+    "page_pdf": 62,
+    "page_printed": 86,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7518",
+    "label_fr": "P.C des immobilisations des exercices antérieurs",
+    "class": 7,
+    "page_pdf": 62,
+    "page_printed": 86,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7561",
+    "label_fr": "Subventions d'équilibre reçues de l'exercice",
+    "class": 7,
+    "page_pdf": 62,
+    "page_printed": 86,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7568",
+    "label_fr": "Subventions d'équilibre reçues des exer- cices antérieurs",
+    "class": 7,
+    "page_pdf": 62,
+    "page_printed": 86,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7577",
+    "label_fr": "Reprises sur subventions d'investissement de l'exercice",
+    "class": 7,
+    "page_pdf": 62,
+    "page_printed": 86,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7578",
+    "label_fr": "Reprises. sur subventions d'investissement des exercices antérieurs",
+    "class": 7,
+    "page_pdf": 62,
+    "page_printed": 86,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7581",
+    "label_fr": "Pénalités et dédits reçus",
+    "class": 7,
+    "page_pdf": 62,
+    "page_printed": 86,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75811",
+    "label_fr": "Pénalités reçues sur marchés",
+    "class": 7,
+    "page_pdf": 62,
+    "page_printed": 86,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75812",
+    "label_fr": "Dédits reçus",
+    "class": 7,
+    "page_pdf": 62,
+    "page_printed": 86,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7582",
+    "label_fr": "Dégrèvements d'impôts (autres qu'impôts sur les résultats )",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7585",
+    "label_fr": "Rentrées SUT créances soldées",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7586",
+    "label_fr": "Dons, libéralités et lots reçus",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75861",
+    "label_fr": "Dons",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75862",
+    "label_fr": "libéralités",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75863",
+    "label_fr": "Lots",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7588",
+    "label_fr": "Autres Produits non Courants des exercices antérieurs",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7591",
+    "label_fr": "Reprises non courantes sur amortissements exceptionnels des immobilisations",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75911",
+    "label_fr": "R.A.E. de l'immobilisation en non valeurs",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75912",
+    "label_fr": "R.A.E. des immobilisations incorporelles",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75913",
+    "label_fr": "R.A.E des immobilisations corporelles",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7594",
+    "label_fr": "Reprises non courantes sur provisions réglementées",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75941",
+    "label_fr": "Reprises sur amortissements dérogatoires",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75945",
+    "label_fr": "Reprises Sur provisions pour reconstitution de gisements",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75946",
+    "label_fr": "Reprises sur provisions pour acquisition et construction de logements",
+    "class": 7,
+    "page_pdf": 64,
+    "page_printed": 88,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7595",
+    "label_fr": "Reprises non courantes sur provisions pour risques et charges",
+    "class": 7,
+    "page_pdf": 64,
+    "page_printed": 88,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75955",
+    "label_fr": "Reprises sur provisions pour risques et charges durables",
+    "class": 7,
+    "page_pdf": 64,
+    "page_printed": 88,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75957",
+    "label_fr": "Reprises sur provisions pour risques et charges momentanés",
+    "class": 7,
+    "page_pdf": 64,
+    "page_printed": 88,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7596",
+    "label_fr": "Reprises non courantes Sur provisions pour dépréciation",
+    "class": 7,
+    "page_pdf": 64,
+    "page_printed": 88,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75962",
+    "label_fr": "R.N.C. sur provisions pour dépréciation de l'actif immobilisé",
+    "class": 7,
+    "page_pdf": 64,
+    "page_printed": 88,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "75963",
+    "label_fr": "R.N.C sur provisions pour dépréciation de l'actif circulant",
+    "class": 7,
+    "page_pdf": 64,
+    "page_printed": 88,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7597",
+    "label_fr": "Transferts de charges non courantes",
+    "class": 7,
+    "page_pdf": 64,
+    "page_printed": 88,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "7598",
+    "label_fr": "Reprises non courantes des exercices antérieurs",
+    "class": 7,
+    "page_pdf": 64,
+    "page_printed": 88,
+    "status": "needs_review"
+  },
+  {
+    "account_code": "8100",
+    "label_fr": "Résultat d'exploitation",
+    "class": 8,
+    "page_pdf": 65,
+    "page_printed": 89,
+    "status": "standard"
+  },
+  {
+    "account_code": "8110",
+    "label_fr": "Marge brute",
+    "class": 8,
+    "page_pdf": 65,
+    "page_printed": 89,
+    "status": "standard"
+  },
+  {
+    "account_code": "8140",
+    "label_fr": "Valeur ajoutée",
+    "class": 8,
+    "page_pdf": 65,
+    "page_printed": 89,
+    "status": "standard"
+  },
+  {
+    "account_code": "8171",
+    "label_fr": "Excédent brut d'exploitation (créditeur)",
+    "class": 8,
+    "page_pdf": 66,
+    "page_printed": 90,
+    "status": "standard"
+  },
+  {
+    "account_code": "8179",
+    "label_fr": "Insuffisance brute d'exploitation (débiteur)",
+    "class": 8,
+    "page_pdf": 66,
+    "page_printed": 90,
+    "status": "standard"
+  },
+  {
+    "account_code": "8300",
+    "label_fr": "Résultat financier",
+    "class": 8,
+    "page_pdf": 66,
+    "page_printed": 90,
+    "status": "standard"
+  },
+  {
+    "account_code": "8400",
+    "label_fr": "Résultat courant",
+    "class": 8,
+    "page_pdf": 66,
+    "page_printed": 90,
+    "status": "standard"
+  },
+  {
+    "account_code": "8500",
+    "label_fr": "Résultat non courant",
+    "class": 8,
+    "page_pdf": 66,
+    "page_printed": 90,
+    "status": "standard"
+  },
+  {
+    "account_code": "8600",
+    "label_fr": "Résultat avant impôts",
+    "class": 8,
+    "page_pdf": 66,
+    "page_printed": 90,
+    "status": "standard"
+  },
+  {
+    "account_code": "8800",
+    "label_fr": "Résultat après impôts",
+    "class": 8,
+    "page_pdf": 67,
+    "page_printed": 91,
+    "status": "standard"
+  }
+]

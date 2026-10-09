@@ -2,10 +2,12 @@
 from __future__ import annotations
 
 from io import BytesIO
+from typing import Any, Sequence
 
 from openpyxl import Workbook
 from openpyxl.styles import Alignment, Font, PatternFill
 from openpyxl.utils import get_column_letter
+from openpyxl.worksheet.worksheet import Worksheet
 
 from .models import ExcelExportRequest, PortfolioExcelRequest
 
@@ -24,12 +26,10 @@ LIGHT_BLUE = "DBEAFE"
 CURRENCY_FORMAT = '#,##0.00 "DH"'
 
 
-def _style_sheet(sheet, headers, rows, total_columns):
-    for column, header in enumerate(headers, start=1):
-        cell = sheet.cell(1, column, header)
-        cell.fill = PatternFill("solid", fgColor=NAVY)
-        cell.font = Font(color="FFFFFF", bold=True)
-        cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
+def _style_sheet(
+    sheet: Worksheet, headers: Sequence[str], rows: Sequence[Sequence[Any]], total_columns: int
+) -> int:
+    _style_header(sheet, headers)
     for row_number, values in enumerate(rows, start=2):
         for column, value in enumerate(values, start=1):
             sheet.cell(row_number, column, value)
@@ -187,7 +187,7 @@ def build_portfolio_tva_excel(request: PortfolioExcelRequest) -> bytes:
     return output.getvalue()
 
 
-def _style_header(sheet, headers):
+def _style_header(sheet: Worksheet, headers: Sequence[str]) -> None:
     for column, header in enumerate(headers, start=1):
         cell = sheet.cell(1, column, header)
         cell.fill = PatternFill("solid", fgColor=NAVY)
@@ -195,7 +195,7 @@ def _style_header(sheet, headers):
         cell.alignment = Alignment(horizontal="center", vertical="center", wrap_text=True)
 
 
-def _finish_sheet(sheet, total_columns, total_row):
+def _finish_sheet(sheet: Worksheet, total_columns: int, total_row: int) -> None:
     for cell in sheet[total_row][:total_columns]:
         cell.fill = PatternFill("solid", fgColor=LIGHT_BLUE)
         cell.font = Font(bold=True)
@@ -211,7 +211,12 @@ def _finish_sheet(sheet, total_columns, total_row):
                 sheet.cell(row, column).number_format = CURRENCY_FORMAT
 
 
-def _style_portfolio_sheet(sheet, headers, rows, date_columns=()):
+def _style_portfolio_sheet(
+    sheet: Worksheet,
+    headers: Sequence[str],
+    rows: Sequence[Sequence[Any]],
+    date_columns: Sequence[int] = (),
+) -> None:
     _style_header(sheet, headers)
     for row_number, values in enumerate(rows, start=2):
         for column, value in enumerate(values, start=1):

@@ -3,6 +3,9 @@
 // Start the backend first: `python run.py` inside kompta_tax_export/
 // It must be running at this address for export buttons to work.
 const KOMPTA_API_BASE = 'http://127.0.0.1:8000';
+// CGNC account roots shared by every prefix check in the UI.
+const CGNC = Object.freeze({ CLIENTS:'3421', FOURNISSEURS:'4411', TVA_RECUPERABLE:'3455', TVA_FACTUREE:'4455', CHARGES:'6', PRODUITS:'7', CAISSE:'516' });
+function isAccount(code, ...roots) { const value = String(code); return roots.some(root => value.startsWith(root)); }
 function apiConnectionErrorMessage(error, action) {
   if (error instanceof TypeError) {
     return `${action} : le navigateur ne peut pas lire ${KOMPTA_API_BASE} depuis ${window.location.origin} (serveur arrêté ou réponse CORS bloquée). Redémarrez avec python run.py; Live Server est autorisé par défaut sur http://127.0.0.1:5500.`;
@@ -179,472 +182,16 @@ const DATA = {
     { id:'C009', name:'Traiteur Doha Events', ice:'009012345000011', forme:'Auto-entrepreneur', exercice:2026, tva_regime:'Encaissement', tva_periodicite:'Trimestrielle', status:'actif', balanceStatus:'ok', demoTresorerie:12750, demoChiffreAffaires:22000, demoTvaRate:20 },
     { id:'C010', name:'Transport Salim & Co', ice:'010123456000022', forme:'SARL', exercice:2026, tva_regime:'Débit', tva_periodicite:'Mensuelle', status:'actif', balanceStatus:'ok', demoTresorerie:38900, demoChiffreAffaires:48000, demoTvaRate:20 }
   ],
+  // Dossier-level sub-accounts only. The official chart is loaded from
+  // GET /api/accounts/cgnc (cgnc_standard_accounts.json) by loadCgncChart().
   accounts: [
-    { code:'1111', label:'Capital social', type:'parent', classe:1 },
-    { code:'3421', label:'Clients', type:'parent', classe:3 },
     { code:'34210001', label:'Client Karim', type:'divisionnaire', parent:'3421' },
     { code:'34210002', label:'Client Maroine', type:'divisionnaire', parent:'3421' },
-    { code:'3455', label:'État TVA récupérable', type:'parent', classe:3 },
     { code:'3455220', label:'État TVA récupérable 20%', type:'divisionnaire', parent:'3455' },
-    { code:'4411', label:'Fournisseurs', type:'parent', classe:4 },
     { code:'44110001', label:'Orange Maroc', type:'divisionnaire', parent:'4411', ice:'001234567', identifiant_fiscal:'IF001', type_bien:'Service' },
     { code:'44110002', label:'Rédal Tétouan', type:'divisionnaire', parent:'4411', ice:'000123456789012', identifiant_fiscal:'12345678', type_bien:'Service' },
     { code:'44110003', label:'STE Azulex', type:'divisionnaire', parent:'4411', ice:'003456789', identifiant_fiscal:'IF003', type_bien:'Marchandises' },
-    { code:'4453', label:'État impôts sur les résultats', type:'parent', classe:4 },
-    { code:'4455', label:'État TVA facturée', type:'parent', classe:4 },
-    { code:'445520', label:'État TVA facturée 20%', type:'divisionnaire', parent:'4455' },
-    { code:'5141', label:'Banque CIH', type:'parent', classe:5 },
-    { code:'5161', label:'Caisse', type:'parent', classe:5 },
-    { code:'6125', label:'Électricité et eau', type:'parent', classe:6 },
-    { code:'61211', label:'Achats matières consommables', type:'parent', classe:6 },
-    { code:'7111', label:'Ventes de marchandises', type:'parent', classe:7 },
-    // ===== Plan Comptable Marocain (CGNC) — comptes standards additionnels (Req 1.6) =====
-    // Classe 1 — Comptes de financement permanent (BILAN / AN)
-    { code:'1119', label:'Actionnaires, capital souscrit non appelé', type:'parent', classe:1 },
-    { code:'1140', label:'Primes d\'émission, de fusion, d\'apport', type:'parent', classe:1 },
-    { code:'1151', label:'Réserve légale', type:'parent', classe:1 },
-    { code:'1181', label:'Report à nouveau (solde créditeur)', type:'parent', classe:1 },
-    { code:'1191', label:'Résultat net de l\'exercice (bénéfice)', type:'parent', classe:1 },
-    { code:'1310', label:'Subventions d\'investissement', type:'parent', classe:1 },
-    { code:'1410', label:'Emprunts obligataires', type:'parent', classe:1 },
-    { code:'1481', label:'Emprunts auprès des établissements de crédit', type:'parent', classe:1 },
-    { code:'1486', label:'Fournisseurs d\'immobilisations', type:'parent', classe:1 },
-    // Classe 2 — Comptes d'actif immobilisé (BILAN / AN)
-    { code:'2110', label:'Frais préliminaires', type:'parent', classe:2 },
-    { code:'2160', label:'Droit au bail', type:'parent', classe:2 },
-    { code:'2220', label:'Terrains', type:'parent', classe:2 },
-    { code:'2230', label:'Constructions', type:'parent', classe:2 },
-    { code:'2340', label:'Matériel de transport', type:'parent', classe:2 },
-    { code:'2351', label:'Mobilier de bureau', type:'parent', classe:2 },
-    { code:'2355', label:'Matériel informatique', type:'parent', classe:2 },
-    { code:'2510', label:'Titres de participation', type:'parent', classe:2 },
-    { code:'2832', label:'Amortissements des constructions', type:'parent', classe:2 },
-    { code:'2834', label:'Amortissements du matériel de transport', type:'parent', classe:2 },
-    // Classe 3 — Comptes d'actif circulant hors trésorerie (BILAN / AN)
-    { code:'3111', label:'Marchandises (stocks)', type:'parent', classe:3 },
-    { code:'34211', label:'Clients douteux ou litigieux', type:'parent', classe:3 },
-    { code:'3425', label:'Personnel débiteur', type:'parent', classe:3 },
-    { code:'3431', label:'Créances sur cessions d\'immobilisations', type:'parent', classe:3 },
-    { code:'34552', label:'État, TVA récupérable sur immobilisations', type:'parent', classe:3 },
-    { code:'3488', label:'Autres débiteurs divers', type:'parent', classe:3 },
-    // Classe 4 — Comptes de passif circulant hors trésorerie (BILAN / AN)
-    { code:'4413', label:'Fournisseurs, retenues de garantie', type:'parent', classe:4 },
-    { code:'4421', label:'Clients créditeurs, avances reçues', type:'parent', classe:4 },
-    { code:'4432', label:'Rémunérations dues au personnel', type:'parent', classe:4 },
-    { code:'4441', label:'CNSS', type:'parent', classe:4 },
-    { code:'4443', label:'Caisses de retraite', type:'parent', classe:4 },
-    { code:'4452', label:'État, impôts et taxes retenus à la source', type:'parent', classe:4 },
-    { code:'4456', label:'État, TVA due', type:'parent', classe:4 },
-    // Classe 5 — Comptes de trésorerie (BILAN / AN)
-    { code:'5148', label:'Autres établissements financiers', type:'parent', classe:5 },
-    { code:'5165', label:'Caisse succursale', type:'parent', classe:5 },
-    // Classe 6 — Comptes de charges (CPC / NON)
-    { code:'6111', label:'Achats de marchandises', type:'parent', classe:6 },
-    { code:'6134', label:'Locations et charges locatives', type:'parent', classe:6 },
-    { code:'6147', label:'Services bancaires', type:'parent', classe:6 },
-    { code:'6161', label:'Impôts et taxes directs', type:'parent', classe:6 },
-    { code:'6171', label:'Rémunérations du personnel', type:'parent', classe:6 },
-    { code:'6174', label:'Charges sociales', type:'parent', classe:6 },
-    { code:'6311', label:'Intérêts des emprunts et dettes', type:'parent', classe:6 },
-    { code:'6391', label:'Dotations aux amortissements d\'exploitation', type:'parent', classe:6 },
-    // Classe 7 — Comptes de produits (CPC / NON)
-    { code:'7121', label:'Ventes de biens produits', type:'parent', classe:7 },
-    { code:'7127', label:'Ventes et produits accessoires', type:'parent', classe:7 },
-    { code:'7151', label:'Redevances pour brevets, marques', type:'parent', classe:7 },
-    { code:'7381', label:'Intérêts et produits assimilés', type:'parent', classe:7 },
-    { code:'7391', label:'Reprises sur amortissements', type:'parent', classe:7 },
-    // Classe 8 — Comptes de résultats
-    { code:'8600', label:'Résultat avant impôts', type:'parent', classe:8 },
-    { code:'8900', label:'Résultat net de l\'exercice', type:'parent', classe:8 },
-
-    // ===== Plan Comptable Marocain (CGNC) — extension complète des comptes principaux (classes 1 à 8) =====
-    // Source : Code Général de Normalisation Comptable (PCGE). Comptes non déjà présents ci-dessus.
-
-    // --- Classe 1 — Financement permanent ---
-    { code:'1112', label:'Fonds de dotation', type:'parent', classe:1 },
-    { code:'1117', label:'Capital personnel', type:'parent', classe:1 },
-    { code:'1121', label:'Primes d\'émission', type:'parent', classe:1 },
-    { code:'1122', label:'Primes de fusion', type:'parent', classe:1 },
-    { code:'1123', label:'Primes d\'apport', type:'parent', classe:1 },
-    { code:'1130', label:'Écarts de réévaluation', type:'parent', classe:1 },
-    { code:'1152', label:'Réserves facultatives', type:'parent', classe:1 },
-    { code:'1155', label:'Réserves réglementées', type:'parent', classe:1 },
-    { code:'1161', label:'Report à nouveau (solde créditeur)', type:'parent', classe:1 },
-    { code:'1169', label:'Report à nouveau (solde débiteur)', type:'parent', classe:1 },
-    { code:'1189', label:'Résultats nets en instance d\'affectation (solde débiteur)', type:'parent', classe:1 },
-    { code:'1199', label:'Résultat net de l\'exercice (solde débiteur)', type:'parent', classe:1 },
-    { code:'1311', label:'Subventions d\'investissement reçues', type:'parent', classe:1 },
-    { code:'1319', label:'Subventions d\'investissement inscrites au CPC', type:'parent', classe:1 },
-    { code:'1351', label:'Provisions pour amortissements dérogatoires', type:'parent', classe:1 },
-    { code:'1352', label:'Provisions pour plus-values en instance d\'imposition', type:'parent', classe:1 },
-    { code:'1354', label:'Provisions pour investissements', type:'parent', classe:1 },
-    { code:'1355', label:'Provisions pour reconstitution des gisements', type:'parent', classe:1 },
-    { code:'1356', label:'Provisions pour acquisition et construction de logements', type:'parent', classe:1 },
-    { code:'1358', label:'Autres provisions réglementées', type:'parent', classe:1 },
-    { code:'1482', label:'Avances de l\'État', type:'parent', classe:1 },
-    { code:'1483', label:'Dettes rattachées à des participations', type:'parent', classe:1 },
-    { code:'1484', label:'Billets de fonds', type:'parent', classe:1 },
-    { code:'1485', label:'Avances reçues et comptes courants bloqués', type:'parent', classe:1 },
-    { code:'1487', label:'Dépôts et cautionnements reçus', type:'parent', classe:1 },
-    { code:'1488', label:'Dettes de financement diverses', type:'parent', classe:1 },
-    { code:'1511', label:'Provisions pour litiges', type:'parent', classe:1 },
-    { code:'1512', label:'Provisions pour garanties données aux clients', type:'parent', classe:1 },
-    { code:'1513', label:'Provisions pour propre assureur', type:'parent', classe:1 },
-    { code:'1514', label:'Provisions pour pertes sur marchés à terme', type:'parent', classe:1 },
-    { code:'1515', label:'Provisions pour amendes, doubles droits, pénalités', type:'parent', classe:1 },
-    { code:'1516', label:'Provisions pour pertes de change', type:'parent', classe:1 },
-    { code:'1518', label:'Autres provisions pour risques', type:'parent', classe:1 },
-    { code:'1551', label:'Provisions pour impôts', type:'parent', classe:1 },
-    { code:'1552', label:'Provisions pour pensions de retraite et obligations similaires', type:'parent', classe:1 },
-    { code:'1555', label:'Provisions pour charges à répartir sur plusieurs exercices', type:'parent', classe:1 },
-    { code:'1558', label:'Autres provisions pour charges', type:'parent', classe:1 },
-    { code:'1601', label:'Comptes de liaison du siège', type:'parent', classe:1 },
-    { code:'1605', label:'Comptes de liaison des établissements', type:'parent', classe:1 },
-    { code:'1710', label:'Écarts de conversion-passif — Augmentation des créances immobilisées', type:'parent', classe:1 },
-    { code:'1720', label:'Écarts de conversion-passif — Diminution des dettes de financement', type:'parent', classe:1 },
-
-    // --- Classe 2 — Actif immobilisé ---
-    { code:'2111', label:'Frais de constitution', type:'parent', classe:2 },
-    { code:'2112', label:'Frais préalables au démarrage', type:'parent', classe:2 },
-    { code:'2113', label:'Frais d\'augmentation du capital', type:'parent', classe:2 },
-    { code:'2114', label:'Frais sur opérations de fusions, scissions et transformations', type:'parent', classe:2 },
-    { code:'2116', label:'Frais de prospection', type:'parent', classe:2 },
-    { code:'2117', label:'Frais de publicité', type:'parent', classe:2 },
-    { code:'2118', label:'Autres frais préliminaires', type:'parent', classe:2 },
-    { code:'2121', label:'Frais d\'acquisition des immobilisations', type:'parent', classe:2 },
-    { code:'2125', label:'Frais d\'émission des emprunts', type:'parent', classe:2 },
-    { code:'2128', label:'Autres charges à répartir', type:'parent', classe:2 },
-    { code:'2130', label:'Primes de remboursement des obligations', type:'parent', classe:2 },
-    { code:'2210', label:'Immobilisation en recherche et développement', type:'parent', classe:2 },
-    { code:'2285', label:'Autres immobilisations incorporelles', type:'parent', classe:2 },
-    { code:'2311', label:'Terrains nus', type:'parent', classe:2 },
-    { code:'2312', label:'Terrains aménagés', type:'parent', classe:2 },
-    { code:'2313', label:'Terrains bâtis', type:'parent', classe:2 },
-    { code:'2314', label:'Terrains de gisement', type:'parent', classe:2 },
-    { code:'2316', label:'Agencements et aménagements de terrains', type:'parent', classe:2 },
-    { code:'2318', label:'Autres terrains', type:'parent', classe:2 },
-    { code:'2321', label:'Bâtiments', type:'parent', classe:2 },
-    { code:'2323', label:'Constructions sur terrains d\'autrui', type:'parent', classe:2 },
-    { code:'2325', label:'Ouvrages d\'infrastructure', type:'parent', classe:2 },
-    { code:'2327', label:'Agencements et aménagements des constructions', type:'parent', classe:2 },
-    { code:'2328', label:'Autres constructions', type:'parent', classe:2 },
-    { code:'2331', label:'Installations techniques', type:'parent', classe:2 },
-    { code:'2332', label:'Matériel et outillage', type:'parent', classe:2 },
-    { code:'2333', label:'Emballages récupérables identifiables', type:'parent', classe:2 },
-    { code:'2338', label:'Autres installations techniques, matériel et outillage', type:'parent', classe:2 },
-    { code:'2352', label:'Matériel de bureau', type:'parent', classe:2 },
-    { code:'2356', label:'Agencements, installations et aménagements divers', type:'parent', classe:2 },
-    { code:'2358', label:'Autres mobilier, matériel de bureau et aménagements divers', type:'parent', classe:2 },
-    { code:'2380', label:'Autres immobilisations corporelles', type:'parent', classe:2 },
-    { code:'2392', label:'Immo. corporelles en cours — terrains et constructions', type:'parent', classe:2 },
-    { code:'2393', label:'Immo. corporelles en cours — installations techniques', type:'parent', classe:2 },
-    { code:'2394', label:'Immo. corporelles en cours — matériel de transport', type:'parent', classe:2 },
-    { code:'2395', label:'Immo. corporelles en cours — mobilier et matériel de bureau', type:'parent', classe:2 },
-    { code:'2397', label:'Avances et acomptes sur commandes d\'immobilisations corporelles', type:'parent', classe:2 },
-    { code:'2398', label:'Autres immobilisations corporelles en cours', type:'parent', classe:2 },
-    { code:'2441', label:'Prêts au personnel', type:'parent', classe:2 },
-    { code:'2415', label:'Prêts aux associés', type:'parent', classe:2 },
-    { code:'2416', label:'Billets de fonds (créance)', type:'parent', classe:2 },
-    { code:'2418', label:'Autres prêts', type:'parent', classe:2 },
-    { code:'2481', label:'Titres immobilisés (droits de créance)', type:'parent', classe:2 },
-    { code:'2483', label:'Créances rattachées à des participations', type:'parent', classe:2 },
-    { code:'2486', label:'Dépôts et cautionnements versés', type:'parent', classe:2 },
-    { code:'2487', label:'Créances immobilisées', type:'parent', classe:2 },
-    { code:'2488', label:'Créances financières diverses', type:'parent', classe:2 },
-    { code:'2581', label:'Actions (autres titres immobilisés)', type:'parent', classe:2 },
-    { code:'2588', label:'Titres divers', type:'parent', classe:2 },
-    { code:'2710', label:'Écarts de conversion-actif — Diminution des créances immobilisées', type:'parent', classe:2 },
-    { code:'2720', label:'Écarts de conversion-actif — Augmentation des dettes de financement', type:'parent', classe:2 },
-    { code:'2811', label:'Amortissements des frais préliminaires', type:'parent', classe:2 },
-    { code:'2812', label:'Amortissements des charges à répartir', type:'parent', classe:2 },
-    { code:'2813', label:'Amortissements des primes de remboursement des obligations', type:'parent', classe:2 },
-    { code:'2821', label:'Amortissements — recherche et développement', type:'parent', classe:2 },
-    { code:'2822', label:'Amortissements des brevets, marques, droits similaires', type:'parent', classe:2 },
-    { code:'2823', label:'Amortissements du fonds commercial', type:'parent', classe:2 },
-    { code:'2828', label:'Amortissements des autres immobilisations incorporelles', type:'parent', classe:2 },
-    { code:'2831', label:'Amortissements des terrains', type:'parent', classe:2 },
-    { code:'2833', label:'Amortissements des installations techniques, matériel et outillage', type:'parent', classe:2 },
-    { code:'2835', label:'Amortissements du mobilier, matériel de bureau et aménagements divers', type:'parent', classe:2 },
-    { code:'2838', label:'Amortissements des autres immobilisations corporelles', type:'parent', classe:2 },
-    { code:'2920', label:'Provisions pour dépréciation des immobilisations incorporelles', type:'parent', classe:2 },
-    { code:'2930', label:'Provisions pour dépréciation des immobilisations corporelles', type:'parent', classe:2 },
-    { code:'2941', label:'Provisions pour dépréciation des prêts immobilisés', type:'parent', classe:2 },
-    { code:'2948', label:'Provisions pour dépréciation des autres créances financières', type:'parent', classe:2 },
-    { code:'2951', label:'Provisions pour dépréciation des titres de participation', type:'parent', classe:2 },
-    { code:'2958', label:'Provisions pour dépréciation des autres titres immobilisés', type:'parent', classe:2 },
-
-    // --- Classe 3 — Actif circulant (hors trésorerie) ---
-    { code:'3112', label:'Marchandises (groupe B)', type:'parent', classe:3 },
-    { code:'3116', label:'Marchandises en cours de route', type:'parent', classe:3 },
-    { code:'3118', label:'Autres marchandises', type:'parent', classe:3 },
-    { code:'3121', label:'Matières premières', type:'parent', classe:3 },
-    { code:'3122', label:'Matières et fournitures consommables', type:'parent', classe:3 },
-    { code:'3123', label:'Emballages (stocks)', type:'parent', classe:3 },
-    { code:'3126', label:'Matières et fournitures consommables en cours de route', type:'parent', classe:3 },
-    { code:'3128', label:'Autres matières et fournitures consommables', type:'parent', classe:3 },
-    { code:'3131', label:'Biens en cours', type:'parent', classe:3 },
-    { code:'3134', label:'Services en cours', type:'parent', classe:3 },
-    { code:'3138', label:'Autres produits en cours', type:'parent', classe:3 },
-    { code:'3141', label:'Produits intermédiaires', type:'parent', classe:3 },
-    { code:'3145', label:'Produits résiduels (matières de récupération)', type:'parent', classe:3 },
-    { code:'3148', label:'Autres produits intermédiaires et résiduels', type:'parent', classe:3 },
-    { code:'3151', label:'Produits finis (groupe A)', type:'parent', classe:3 },
-    { code:'3152', label:'Produits finis (groupe B)', type:'parent', classe:3 },
-    { code:'3156', label:'Produits finis en cours de route', type:'parent', classe:3 },
-    { code:'3158', label:'Autres produits finis', type:'parent', classe:3 },
-    { code:'3411', label:'Fournisseurs — avances et acomptes versés sur commandes', type:'parent', classe:3 },
-    { code:'3413', label:'Fournisseurs — créances pour emballages et matériel à rendre', type:'parent', classe:3 },
-    { code:'3417', label:'Rabais, remises et ristournes à obtenir', type:'parent', classe:3 },
-    { code:'3418', label:'Autres fournisseurs débiteurs', type:'parent', classe:3 },
-    { code:'3423', label:'Clients — retenues de garantie', type:'parent', classe:3 },
-    { code:'3424', label:'Clients douteux ou litigieux', type:'parent', classe:3 },
-    { code:'3427', label:'Clients — factures à établir et créances non facturées', type:'parent', classe:3 },
-    { code:'3428', label:'Autres clients et comptes rattachés', type:'parent', classe:3 },
-    { code:'3438', label:'Personnel — autres débiteurs', type:'parent', classe:3 },
-    { code:'3451', label:'État — subventions à recevoir', type:'parent', classe:3 },
-    { code:'3453', label:'État — acomptes sur impôts sur les résultats', type:'parent', classe:3 },
-    { code:'3456', label:'État — crédit de TVA', type:'parent', classe:3 },
-    { code:'3458', label:'État — autres comptes débiteurs', type:'parent', classe:3 },
-    { code:'3461', label:'Associés — comptes d\'apport en société', type:'parent', classe:3 },
-    { code:'3462', label:'Actionnaires — capital souscrit et appelé non versé', type:'parent', classe:3 },
-    { code:'3463', label:'Comptes courants des associés débiteurs', type:'parent', classe:3 },
-    { code:'3464', label:'Associés — opérations faites en commun', type:'parent', classe:3 },
-    { code:'3467', label:'Créances rattachées aux comptes d\'associés', type:'parent', classe:3 },
-    { code:'3468', label:'Autres comptes d\'associés débiteurs', type:'parent', classe:3 },
-    { code:'3481', label:'Créances sur cessions d\'immobilisations', type:'parent', classe:3 },
-    { code:'3482', label:'Créances sur cessions d\'éléments d\'actif circulant', type:'parent', classe:3 },
-    { code:'3487', label:'Créances rattachées aux autres débiteurs', type:'parent', classe:3 },
-    { code:'3491', label:'Charges constatées d\'avance', type:'parent', classe:3 },
-    { code:'3493', label:'Intérêts courus et non échus à percevoir', type:'parent', classe:3 },
-    { code:'3495', label:'Comptes de répartition périodique des charges', type:'parent', classe:3 },
-    { code:'3497', label:'Comptes transitoires ou d\'attente — débiteurs', type:'parent', classe:3 },
-    { code:'3501', label:'Actions, partie libérée', type:'parent', classe:3 },
-    { code:'3502', label:'Actions, partie non libérée', type:'parent', classe:3 },
-    { code:'3504', label:'Obligations (titres de placement)', type:'parent', classe:3 },
-    { code:'3506', label:'Bons de caisse et bons de trésor', type:'parent', classe:3 },
-    { code:'3508', label:'Autres titres et valeurs de placement similaires', type:'parent', classe:3 },
-    { code:'3701', label:'Écart de conversion-actif — Diminution des créances circulantes', type:'parent', classe:3 },
-    { code:'3702', label:'Écart de conversion-actif — Augmentation des dettes circulantes', type:'parent', classe:3 },
-    { code:'3911', label:'Provisions pour dépréciation des marchandises', type:'parent', classe:3 },
-    { code:'3912', label:'Provisions pour dépréciation des matières et fournitures', type:'parent', classe:3 },
-    { code:'3913', label:'Provisions pour dépréciation des produits en cours', type:'parent', classe:3 },
-    { code:'3914', label:'Provisions pour dépréciation des produits intermédiaires', type:'parent', classe:3 },
-    { code:'3915', label:'Provisions pour dépréciation des produits finis', type:'parent', classe:3 },
-    { code:'3941', label:'Provisions pour dépréciation — fournisseurs débiteurs', type:'parent', classe:3 },
-    { code:'3942', label:'Provisions pour dépréciation des clients et comptes rattachés', type:'parent', classe:3 },
-    { code:'3943', label:'Provisions pour dépréciation du personnel débiteur', type:'parent', classe:3 },
-    { code:'3946', label:'Provisions pour dépréciation des comptes d\'associés débiteurs', type:'parent', classe:3 },
-    { code:'3948', label:'Provisions pour dépréciation des autres débiteurs', type:'parent', classe:3 },
-    { code:'3950', label:'Provisions pour dépréciation des titres et valeurs de placement', type:'parent', classe:3 },
-
-    // --- Classe 4 — Passif circulant (hors trésorerie) ---
-    { code:'4415', label:'Fournisseurs — effets à payer', type:'parent', classe:4 },
-    { code:'4417', label:'Fournisseurs — factures non parvenues', type:'parent', classe:4 },
-    { code:'4418', label:'Autres fournisseurs et comptes rattachés', type:'parent', classe:4 },
-    { code:'4425', label:'Clients — dettes pour emballages et matériel consignés', type:'parent', classe:4 },
-    { code:'4427', label:'Rabais, remises et ristournes à accorder', type:'parent', classe:4 },
-    { code:'4428', label:'Autres clients créditeurs', type:'parent', classe:4 },
-    { code:'4433', label:'Dépôts du personnel créditeurs', type:'parent', classe:4 },
-    { code:'4434', label:'Oppositions sur salaires', type:'parent', classe:4 },
-    { code:'4437', label:'Charges du personnel à payer', type:'parent', classe:4 },
-    { code:'4438', label:'Personnel — autres créditeurs', type:'parent', classe:4 },
-    { code:'4445', label:'Mutuelles', type:'parent', classe:4 },
-    { code:'4447', label:'Charges sociales à payer', type:'parent', classe:4 },
-    { code:'4448', label:'Autres organismes sociaux', type:'parent', classe:4 },
-    { code:'4457', label:'État — impôts et taxes à payer', type:'parent', classe:4 },
-    { code:'4458', label:'État — autres comptes créditeurs', type:'parent', classe:4 },
-    { code:'4461', label:'Associés — capital à rembourser', type:'parent', classe:4 },
-    { code:'4462', label:'Associés — versements reçus sur augmentation de capital', type:'parent', classe:4 },
-    { code:'4463', label:'Comptes courants des associés créditeurs', type:'parent', classe:4 },
-    { code:'4464', label:'Associés — opérations faites en commun', type:'parent', classe:4 },
-    { code:'4465', label:'Associés — dividendes à payer', type:'parent', classe:4 },
-    { code:'4468', label:'Autres comptes d\'associés créditeurs', type:'parent', classe:4 },
-    { code:'4481', label:'Dettes sur acquisitions d\'immobilisations', type:'parent', classe:4 },
-    { code:'4483', label:'Dettes sur acquisitions de titres et valeurs de placement', type:'parent', classe:4 },
-    { code:'4484', label:'Obligations échues à rembourser', type:'parent', classe:4 },
-    { code:'4485', label:'Obligations, coupons à payer', type:'parent', classe:4 },
-    { code:'4487', label:'Dettes rattachées aux autres créanciers', type:'parent', classe:4 },
-    { code:'4488', label:'Divers créanciers', type:'parent', classe:4 },
-    { code:'4491', label:'Produits constatés d\'avance', type:'parent', classe:4 },
-    { code:'4493', label:'Intérêts courus et non échus à payer', type:'parent', classe:4 },
-    { code:'4495', label:'Comptes de répartition périodique des produits', type:'parent', classe:4 },
-    { code:'4497', label:'Comptes transitoires ou d\'attente — créditeurs', type:'parent', classe:4 },
-    { code:'4501', label:'Provisions pour litiges', type:'parent', classe:4 },
-    { code:'4502', label:'Provisions pour garanties données aux clients', type:'parent', classe:4 },
-    { code:'4505', label:'Provisions pour amendes, doubles droits et pénalités', type:'parent', classe:4 },
-    { code:'4506', label:'Provisions pour pertes de change', type:'parent', classe:4 },
-    { code:'4507', label:'Provisions pour impôts', type:'parent', classe:4 },
-    { code:'4508', label:'Autres provisions pour risques et charges', type:'parent', classe:4 },
-    { code:'4701', label:'Écarts de conversion-passif — Augmentation des créances circulantes', type:'parent', classe:4 },
-    { code:'4702', label:'Écarts de conversion-passif — Diminution des dettes circulantes', type:'parent', classe:4 },
-
-    // --- Classe 5 — Trésorerie ---
-    { code:'5111', label:'Chèques à encaisser ou à l\'encaissement', type:'parent', classe:5 },
-    { code:'5113', label:'Effets à encaisser ou à l\'encaissement', type:'parent', classe:5 },
-    { code:'5115', label:'Virement de fonds', type:'parent', classe:5 },
-    { code:'5118', label:'Autres valeurs à encaisser', type:'parent', classe:5 },
-    { code:'5143', label:'Trésorerie Générale', type:'parent', classe:5 },
-    { code:'5146', label:'Chèques postaux', type:'parent', classe:5 },
-    { code:'5520', label:'Crédits d\'escompte', type:'parent', classe:5 },
-    { code:'5530', label:'Crédits de trésorerie', type:'parent', classe:5 },
-    { code:'5541', label:'Banques (solde créditeur)', type:'parent', classe:5 },
-    { code:'5548', label:'Autres établissements financiers (soldes créditeurs)', type:'parent', classe:5 },
-    { code:'5900', label:'Provisions pour dépréciation des comptes de trésorerie', type:'parent', classe:5 },
-
-    // --- Classe 6 — Charges ---
-    { code:'6112', label:'Achats de marchandises (groupe B)', type:'parent', classe:6 },
-    { code:'6114', label:'Variation de stocks de marchandises', type:'parent', classe:6 },
-    { code:'6118', label:'Achats revendus de marchandises des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6119', label:'Rabais, remises et ristournes obtenus sur achats de marchandises', type:'parent', classe:6 },
-    { code:'6121', label:'Achats de matières premières', type:'parent', classe:6 },
-    { code:'6122', label:'Achats de matières et fournitures consommables', type:'parent', classe:6 },
-    { code:'6123', label:'Achats d\'emballages', type:'parent', classe:6 },
-    { code:'6124', label:'Variation des stocks de matières et fournitures', type:'parent', classe:6 },
-    { code:'6126', label:'Achats de travaux, études et prestations de service', type:'parent', classe:6 },
-    { code:'6128', label:'Achats de matières et fournitures des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6129', label:'Rabais, remises et ristournes obtenus sur achats consommés', type:'parent', classe:6 },
-    { code:'6131', label:'Locations et charges locatives', type:'parent', classe:6 },
-    { code:'6132', label:'Redevances de crédit-bail', type:'parent', classe:6 },
-    { code:'6133', label:'Entretien et réparations', type:'parent', classe:6 },
-    { code:'6135', label:'Rémunérations du personnel extérieur à l\'entreprise', type:'parent', classe:6 },
-    { code:'6136', label:'Rémunérations d\'intermédiaires et honoraires', type:'parent', classe:6 },
-    { code:'6137', label:'Redevances pour brevets, marques, droits et valeurs similaires', type:'parent', classe:6 },
-    { code:'6141', label:'Études, recherches et documentation', type:'parent', classe:6 },
-    { code:'6142', label:'Transports', type:'parent', classe:6 },
-    { code:'6143', label:'Déplacements, missions et réceptions', type:'parent', classe:6 },
-    { code:'6144', label:'Publicité, publications et relations publiques', type:'parent', classe:6 },
-    { code:'6145', label:'Frais postaux et frais de télécommunications', type:'parent', classe:6 },
-    { code:'6146', label:'Cotisations et dons', type:'parent', classe:6 },
-    { code:'6148', label:'Autres charges externes des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6149', label:'Rabais, remises et ristournes obtenus sur autres charges externes', type:'parent', classe:6 },
-    { code:'6165', label:'Impôts et taxes indirects', type:'parent', classe:6 },
-    { code:'6167', label:'Impôts, taxes et droits assimilés', type:'parent', classe:6 },
-    { code:'6168', label:'Impôts et taxes des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6176', label:'Charges sociales diverses', type:'parent', classe:6 },
-    { code:'6177', label:'Rémunération de l\'exploitant', type:'parent', classe:6 },
-    { code:'6178', label:'Charges du personnel des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6181', label:'Jetons de présence', type:'parent', classe:6 },
-    { code:'6182', label:'Pertes sur créances irrécouvrables', type:'parent', classe:6 },
-    { code:'6185', label:'Pertes sur opérations faites en commun', type:'parent', classe:6 },
-    { code:'6186', label:'Transfert de pertes sur opérations faites en commun', type:'parent', classe:6 },
-    { code:'6188', label:'Autres charges d\'exploitation des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6191', label:'Dotations aux amortissements de l\'immobilisation en non-valeurs', type:'parent', classe:6 },
-    { code:'6192', label:'Dotations aux amortissements des immobilisations incorporelles', type:'parent', classe:6 },
-    { code:'6193', label:'Dotations aux amortissements des immobilisations corporelles', type:'parent', classe:6 },
-    { code:'6194', label:'Dotations aux provisions pour dépréciation des immobilisations', type:'parent', classe:6 },
-    { code:'6195', label:'Dotations aux provisions pour risques et charges', type:'parent', classe:6 },
-    { code:'6196', label:'Dotations aux provisions pour dépréciation de l\'actif circulant', type:'parent', classe:6 },
-    { code:'6198', label:'Dotations d\'exploitation des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6318', label:'Charges d\'intérêts des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6331', label:'Pertes de change propres à l\'exercice', type:'parent', classe:6 },
-    { code:'6338', label:'Pertes de change des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6382', label:'Pertes sur créances liées à des participations', type:'parent', classe:6 },
-    { code:'6385', label:'Charges nettes sur cession de titres et valeurs de placement', type:'parent', classe:6 },
-    { code:'6386', label:'Escomptes accordés', type:'parent', classe:6 },
-    { code:'6388', label:'Autres charges financières des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6392', label:'Dotations aux provisions pour dépréciation des immobilisations financières', type:'parent', classe:6 },
-    { code:'6393', label:'Dotations aux provisions pour risques et charges financières', type:'parent', classe:6 },
-    { code:'6394', label:'Dotations aux provisions pour dépréciation des titres et valeurs de placement', type:'parent', classe:6 },
-    { code:'6398', label:'Dotations financières des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6512', label:'VNA des immobilisations incorporelles cédées', type:'parent', classe:6 },
-    { code:'6513', label:'VNA des immobilisations corporelles cédées', type:'parent', classe:6 },
-    { code:'6514', label:'VNA des immobilisations financières cédées', type:'parent', classe:6 },
-    { code:'6518', label:'VNA des immobilisations cédées des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6561', label:'Subventions accordées de l\'exercice', type:'parent', classe:6 },
-    { code:'6568', label:'Subventions accordées des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6581', label:'Pénalités sur marchés et dédits', type:'parent', classe:6 },
-    { code:'6582', label:'Rappels d\'impôts (autres qu\'impôts sur les résultats)', type:'parent', classe:6 },
-    { code:'6583', label:'Pénalités et amendes fiscales ou pénales', type:'parent', classe:6 },
-    { code:'6585', label:'Créances devenues irrécouvrables', type:'parent', classe:6 },
-    { code:'6586', label:'Dons, libéralités et lots', type:'parent', classe:6 },
-    { code:'6588', label:'Autres charges non courantes des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6591', label:'Dotations aux amortissements exceptionnels des immobilisations', type:'parent', classe:6 },
-    { code:'6594', label:'Dotations non courantes aux provisions réglementées', type:'parent', classe:6 },
-    { code:'6595', label:'Dotations non courantes aux provisions pour risques et charges', type:'parent', classe:6 },
-    { code:'6596', label:'Dotations non courantes aux provisions pour dépréciation', type:'parent', classe:6 },
-    { code:'6598', label:'Dotations non courantes des exercices antérieurs', type:'parent', classe:6 },
-    { code:'6701', label:'Impôts sur les bénéfices', type:'parent', classe:6 },
-    { code:'6705', label:'Imposition minimale annuelle des sociétés (Cotisation minimale)', type:'parent', classe:6 },
-    { code:'6708', label:'Rappels et dégrèvements d\'impôts sur les résultats', type:'parent', classe:6 },
-
-    // --- Classe 7 — Produits ---
-    { code:'7113', label:'Ventes de marchandises à l\'étranger', type:'parent', classe:7 },
-    { code:'7118', label:'Ventes de marchandises des exercices antérieurs', type:'parent', classe:7 },
-    { code:'7119', label:'Rabais, remises et ristournes accordés par l\'entreprise', type:'parent', classe:7 },
-    { code:'7122', label:'Ventes de biens produits à l\'étranger', type:'parent', classe:7 },
-    { code:'7124', label:'Ventes de services produits au Maroc', type:'parent', classe:7 },
-    { code:'7125', label:'Ventes de services produits à l\'étranger', type:'parent', classe:7 },
-    { code:'7126', label:'Redevances pour brevets, marques, droits et valeurs similaires', type:'parent', classe:7 },
-    { code:'7128', label:'Ventes de biens et services produits des exercices antérieurs', type:'parent', classe:7 },
-    { code:'7129', label:'Rabais, remises et ristournes accordés (biens et services produits)', type:'parent', classe:7 },
-    { code:'7131', label:'Variation des stocks de produits en cours', type:'parent', classe:7 },
-    { code:'7132', label:'Variation des stocks de biens produits', type:'parent', classe:7 },
-    { code:'7134', label:'Variation des stocks de services en cours', type:'parent', classe:7 },
-    { code:'7141', label:'Immobilisation en non-valeurs produite', type:'parent', classe:7 },
-    { code:'7142', label:'Immobilisations incorporelles produites', type:'parent', classe:7 },
-    { code:'7143', label:'Immobilisations corporelles produites', type:'parent', classe:7 },
-    { code:'7148', label:'Immobilisations produites des exercices antérieurs', type:'parent', classe:7 },
-    { code:'7161', label:'Subventions d\'exploitation reçues de l\'exercice', type:'parent', classe:7 },
-    { code:'7168', label:'Subventions d\'exploitation reçues des exercices antérieurs', type:'parent', classe:7 },
-    { code:'7181', label:'Jetons de présence reçus', type:'parent', classe:7 },
-    { code:'7182', label:'Revenus des immeubles non affectés à l\'exploitation', type:'parent', classe:7 },
-    { code:'7185', label:'Profits sur opérations faites en commun', type:'parent', classe:7 },
-    { code:'7186', label:'Transfert de pertes sur opérations faites en commun', type:'parent', classe:7 },
-    { code:'7188', label:'Autres produits d\'exploitation des exercices antérieurs', type:'parent', classe:7 },
-    { code:'7191', label:'Reprises sur amortissements de l\'immobilisation en non-valeurs', type:'parent', classe:7 },
-    { code:'7192', label:'Reprises sur amortissements des immobilisations incorporelles', type:'parent', classe:7 },
-    { code:'7193', label:'Reprises sur amortissements des immobilisations corporelles', type:'parent', classe:7 },
-    { code:'7194', label:'Reprises sur provisions pour dépréciation des immobilisations', type:'parent', classe:7 },
-    { code:'7195', label:'Reprises sur provisions pour risques et charges', type:'parent', classe:7 },
-    { code:'7196', label:'Reprises sur provisions pour dépréciation de l\'actif circulant', type:'parent', classe:7 },
-    { code:'7197', label:'Transferts des charges d\'exploitation', type:'parent', classe:7 },
-    { code:'7198', label:'Reprises sur amortissements et provisions des exercices antérieurs', type:'parent', classe:7 },
-    { code:'7321', label:'Revenus des titres de participation', type:'parent', classe:7 },
-    { code:'7325', label:'Revenus des titres immobilisés', type:'parent', classe:7 },
-    { code:'7328', label:'Produits des titres de participation des exercices antérieurs', type:'parent', classe:7 },
-    { code:'7331', label:'Gains de change propres à l\'exercice', type:'parent', classe:7 },
-    { code:'7338', label:'Gains de change des exercices antérieurs', type:'parent', classe:7 },
-    { code:'7383', label:'Revenus des créances rattachées à des participations', type:'parent', classe:7 },
-    { code:'7384', label:'Revenus des titres et valeurs de placement', type:'parent', classe:7 },
-    { code:'7385', label:'Produits nets sur cessions de titres et valeurs de placement', type:'parent', classe:7 },
-    { code:'7386', label:'Escomptes obtenus', type:'parent', classe:7 },
-    { code:'7388', label:'Intérêts et autres produits financiers des exercices antérieurs', type:'parent', classe:7 },
-    { code:'7392', label:'Reprises sur provisions pour dépréciation des immobilisations financières', type:'parent', classe:7 },
-    { code:'7393', label:'Reprises sur provisions pour risques et charges financières', type:'parent', classe:7 },
-    { code:'7394', label:'Reprises sur provisions pour dépréciation des titres et valeurs de placement', type:'parent', classe:7 },
-    { code:'7396', label:'Reprises sur provisions pour dépréciation des comptes de trésorerie', type:'parent', classe:7 },
-    { code:'7397', label:'Transfert de charges financières', type:'parent', classe:7 },
-    { code:'7398', label:'Reprises sur dotations financières des exercices antérieurs', type:'parent', classe:7 },
-    { code:'7512', label:'Produits des cessions des immobilisations incorporelles', type:'parent', classe:7 },
-    { code:'7513', label:'Produits des cessions des immobilisations corporelles', type:'parent', classe:7 },
-    { code:'7514', label:'Produits des cessions des immobilisations financières', type:'parent', classe:7 },
-    { code:'7518', label:'Produits des cessions d\'immobilisations des exercices antérieurs', type:'parent', classe:7 },
-    { code:'7561', label:'Subventions d\'équilibre reçues de l\'exercice', type:'parent', classe:7 },
-    { code:'7568', label:'Subventions d\'équilibre reçues des exercices antérieurs', type:'parent', classe:7 },
-    { code:'7577', label:'Reprises sur subventions d\'investissement de l\'exercice', type:'parent', classe:7 },
-    { code:'7578', label:'Reprises sur subventions d\'investissement des exercices antérieurs', type:'parent', classe:7 },
-    { code:'7581', label:'Pénalités et dédits reçus', type:'parent', classe:7 },
-    { code:'7582', label:'Dégrèvement d\'impôts (autres qu\'impôts sur les résultats)', type:'parent', classe:7 },
-    { code:'7585', label:'Rentrées sur créances soldées', type:'parent', classe:7 },
-    { code:'7586', label:'Dons, libéralités et lots reçus', type:'parent', classe:7 },
-    { code:'7588', label:'Autres produits non courants des exercices antérieurs', type:'parent', classe:7 },
-    { code:'7591', label:'Reprises non courantes — amortissements exceptionnels des immobilisations', type:'parent', classe:7 },
-    { code:'7594', label:'Reprises non courantes sur provisions réglementées', type:'parent', classe:7 },
-    { code:'7595', label:'Reprises non courantes sur provisions pour risques et charges', type:'parent', classe:7 },
-    { code:'7596', label:'Reprises non courantes sur provisions pour dépréciation', type:'parent', classe:7 },
-    { code:'7597', label:'Transferts de charges non courantes', type:'parent', classe:7 },
-    { code:'7598', label:'Reprises non courantes des exercices antérieurs', type:'parent', classe:7 },
-
-    // --- Classe 8 — Comptes de résultats ---
-    { code:'8100', label:'Résultat d\'exploitation', type:'parent', classe:8 },
-    { code:'8110', label:'Marge brute', type:'parent', classe:8 },
-    { code:'8140', label:'Valeur ajoutée', type:'parent', classe:8 },
-    { code:'8171', label:'Excédent brut d\'exploitation (créditeur)', type:'parent', classe:8 },
-    { code:'8179', label:'Insuffisance brute d\'exploitation (débiteur)', type:'parent', classe:8 },
-    { code:'8300', label:'Résultat financier', type:'parent', classe:8 },
-    { code:'8400', label:'Résultat courant', type:'parent', classe:8 },
-    { code:'8500', label:'Résultat non courant', type:'parent', classe:8 },
-    { code:'8800', label:'Résultat après impôts', type:'parent', classe:8 }
+    { code:'445520', label:'État TVA facturée 20%', type:'divisionnaire', parent:'4455' }
   ],
   // Données comptables propres à chaque dossier (client) — clé = id du dossier
   clientData: {
@@ -770,13 +317,51 @@ DATA.dossiers.forEach(dossier => { dossier.isDemo = true; });
 
 // code → label map for quick resolution
 const ACCOUNTS = {};
-DATA.accounts.forEach(a => { ACCOUNTS[a.code] = a.label; });
-// window.PCM_MAROC backs the Plan Comptable table (pcmBaseAccounts/getAccountByCode/etc. all read it).
-// It was referenced throughout this file but never initialized, which made every account list empty.
-window.PCM_MAROC = DATA.accounts
-  .filter(a => a.type === 'parent')
-  .map(a => ({ code:a.code, libelle:a.label, classe:a.classe || Number(String(a.code).charAt(0)) }));
-function pcmBaseAccounts() { return (window.PCM_MAROC || []).map(p => DATA.accounts.find(a => a.code === p.code) || { code:p.code, label:p.libelle, type:'parent', classe:p.classe }); }
+// Comptes divisionnaires fournisseurs (parent 4411) used by the account popup
+const SUPPLIERS = [];
+// Official CGNC codes (cgnc_standard_accounts.json + supplement), filled by loadCgncChart().
+const CGNC_CODES = new Set();
+function cgncRoot(code) {
+  const value = String(code).trim();
+  if (!/^\d+$/.test(value)) return null;
+  for (let length = value.length; length > 0; length--) if (CGNC_CODES.has(value.slice(0, length))) return value.slice(0, length);
+  return null;
+}
+function rebuildAccountIndexes() {
+  Object.keys(ACCOUNTS).forEach(code => delete ACCOUNTS[code]);
+  DATA.accounts.forEach(a => { ACCOUNTS[a.code] = a.label; });
+  // window.PCM_MAROC backs the Plan Comptable table (pcmBaseAccounts/getAccountByCode/etc. all read it).
+  window.PCM_MAROC = DATA.accounts
+    .filter(a => a.type === 'parent')
+    .map(a => ({ code:a.code, libelle:a.label, classe:a.classe || Number(String(a.code).charAt(0)) }));
+  SUPPLIERS.splice(0, SUPPLIERS.length, ...DATA.accounts.filter(a => a.parent === CGNC.FOURNISSEURS));
+}
+rebuildAccountIndexes();
+function applyCgncChart(chart) {
+  CGNC_CODES.clear();
+  chart.forEach(account => CGNC_CODES.add(account.code));
+  const standard = chart.map(a => ({ code:a.code, label:a.label, type:'parent', classe:a.class, standard:true, cgncStatus:a.status }));
+  const local = DATA.accounts.filter(a => !a.standard && !CGNC_CODES.has(a.code) && cgncRoot(a.code));
+  DATA.accounts.splice(0, DATA.accounts.length, ...standard, ...local);
+  rebuildAccountIndexes();
+}
+async function loadCgncChart() {
+  try {
+    const response = await fetch(`${KOMPTA_API_BASE}/api/accounts/cgnc`);
+    if (!response.ok) throw new Error(`Plan comptable CGNC indisponible (HTTP ${response.status}).`);
+    applyCgncChart(await response.json());
+    renderPlanComptable();
+    renderAll();
+  } catch (error) {
+    showToast(apiConnectionErrorMessage(error, 'Chargement du plan comptable CGNC'), 'error');
+  }
+}
+function isStandardAccount(code) { return DATA.accounts.some(a => a.code === code && a.standard); }
+function pcmBaseAccounts() {
+  const byCode = new Map();
+  DATA.accounts.forEach(a => { if (!byCode.has(a.code)) byCode.set(a.code, a); });
+  return (window.PCM_MAROC || []).map(p => byCode.get(p.code) || { code:p.code, label:p.libelle, type:'parent', classe:p.classe });
+}
 function pcmAccountDetails(account) {
   const code = String(account.code);
   const classe = Number(code.charAt(0));
@@ -786,8 +371,6 @@ function getAccountByCode(code) { const account = pcmBaseAccounts().find(a => a.
 function getRootAccount(auxiliaryCode) { const root = String(auxiliaryCode).trim().slice(0, 4); return getAccountByCode(root); }
 function searchAccounts(searchTerm) { const term = String(searchTerm || '').trim().toLowerCase(); return pcmBaseAccounts().map(pcmAccountDetails).filter(a => !term || a.code.includes(term) || a.label.toLowerCase().includes(term)); }
 function getAccountsByClass(classNumber) { return pcmBaseAccounts().map(pcmAccountDetails).filter(a => a.classe === Number(classNumber)); }
-// Comptes divisionnaires fournisseurs (parent 4411) used by the account popup
-const SUPPLIERS = DATA.accounts.filter(a => a.parent === '4411');
 
 // Journal definitions: display name + pièce prefix used for auto-numbering
 const JOURNALS = [
@@ -864,6 +447,10 @@ function parseAmount(value) {
   const normalized = String(value ?? '').replace(/\s/g, '').replace(',', '.').replace(/[^\d.-]/g, '');
   return Number(normalized) || 0;
 }
+function dossierFileName(suffix) {
+  const name = DATA.dossiers.find(d => d.id === currentClientId)?.name || currentClientId || 'Dossier';
+  return `${String(name).replace(/[\\/:*?"<>|\u0000-\u001f]+/g, '_').trim()}_${suffix}`;
+}
 function formatAmountInput(input) {
   const amount = parseAmount(input.value);
   input.value = amount ? fmtFR(amount) : '';
@@ -871,8 +458,8 @@ function formatAmountInput(input) {
 }
 function updateGeneralAccountStyle(input) {
   const code = input.value.trim();
-  input.classList.toggle('account-class-6', code.startsWith('6'));
-  input.classList.toggle('account-class-7', code.startsWith('7'));
+  input.classList.toggle('account-class-6', isAccount(code, CGNC.CHARGES));
+  input.classList.toggle('account-class-7', isAccount(code, CGNC.PRODUITS));
 }
 
 // Currently active exercise year — drives which data is shown.
@@ -977,14 +564,14 @@ function renderHome() {
     const code = String(a.code);
     if (code.charAt(0) === '5') {
       const bal = (a.debit || 0) - (a.credit || 0);
-      if (code.startsWith('516')) caisse += bal; else banque += bal;
+      if (isAccount(code, CGNC.CAISSE)) caisse += bal; else banque += bal;
     }
   });
   entries.forEach(e => e.lines.forEach(l => {
     const code = String(l.compte);
     if (code.charAt(0) === '5') {
       const bal = lineDebit(l) - lineCredit(l);
-      if (code.startsWith('516')) caisse += bal; else banque += bal;
+      if (isAccount(code, CGNC.CAISSE)) caisse += bal; else banque += bal;
     }
   }));
   banque = round2(banque);
@@ -1001,8 +588,8 @@ function renderHome() {
   let tvaFact = 0, tvaRec = 0;
   entries.forEach(e => e.lines.forEach(l => {
     const code = String(l.compte);
-    if (code.startsWith('4455') || code.startsWith('44552')) tvaFact += lineCredit(l);
-    if (code.startsWith('3455')) tvaRec += lineDebit(l);
+    if (isAccount(code, CGNC.TVA_FACTUREE)) tvaFact += lineCredit(l);
+    if (isAccount(code, CGNC.TVA_RECUPERABLE)) tvaRec += lineDebit(l);
   }));
   tvaFact = round2(tvaFact);
   tvaRec = round2(tvaRec);
@@ -1217,14 +804,14 @@ function buildReleveDeductionsPayload(clientId = currentClientId, includeAllYear
   const dossier = DATA.dossiers.find(x => x.id === clientId);
   if (!dossier) return null;
   const data = DATA.clientData[clientId] || { journal_entries: [] };
-  const entries = (data.journal_entries || []).filter(e => !e.demoOnly && (includeAllYears || e.year === currentYear));
+  const entries = (data.journal_entries || []).filter(e => includeAllYears || e.year === currentYear);
   const lines = [];
   let ord = 1;
 
   entries.forEach(e => {
-    const tvaLine = e.lines.find(l => /^3455/.test(String(l.compte)));
+    const tvaLine = e.lines.find(l => isAccount(l.compte, CGNC.TVA_RECUPERABLE));
     if (!tvaLine) return;
-    const htLine = e.lines.find(l => /^6/.test(String(l.compte)));
+    const htLine = e.lines.find(l => isAccount(l.compte, CGNC.CHARGES));
     const ttcLine = e.lines.find(l => l !== tvaLine && /^(34|44)/.test(String(l.compte)));
     if (!htLine || !ttcLine) return;
 
@@ -1270,14 +857,14 @@ function buildReleveDeductionsPayload(clientId = currentClientId, includeAllYear
 
 function buildTvaCollecteePayload(clientId = currentClientId, includeAllYears = false) {
   const entries = (DATA.clientData[clientId]?.journal_entries || [])
-    .filter(e => !e.demoOnly && (includeAllYears || e.year === currentYear) && e.journal === 'VENTES');
+    .filter(e => (includeAllYears || e.year === currentYear) && e.journal === 'VENTES');
   const lines = [];
   let ord = 1;
 
   entries.forEach(e => {
-    const tvaLine = e.lines.find(l => /^4455/.test(String(l.compte)));
-    const htLine = e.lines.find(l => /^7/.test(String(l.compte)));
-    const clientLine = e.lines.find(l => /^3421/.test(String(l.compte)));
+    const tvaLine = e.lines.find(l => isAccount(l.compte, CGNC.TVA_FACTUREE));
+    const htLine = e.lines.find(l => isAccount(l.compte, CGNC.PRODUITS));
+    const clientLine = e.lines.find(l => isAccount(l.compte, CGNC.CLIENTS));
     if (!tvaLine || !htLine || !clientLine) return;
 
     const client = DATA.accounts.find(a => a.code === String(clientLine.compte).trim());
@@ -1339,11 +926,11 @@ async function exportSimplTva() {
       const filename = match ? match[1] : `SIMPL_TVA_${currentYear}.zip`;
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
-      a.href = url; a.download = `DEMO_${filename}`;
+      a.href = url; a.download = filename;
       document.body.appendChild(a); a.click(); a.remove();
       URL.revokeObjectURL(url);
       closeModal('modalTVA');
-      showToast('Archive SIMPL-TVA de démonstration exportée; ne pas déposer à la DGI.', 'success');
+      showToast('Archive SIMPL-TVA exportée.', 'success');
       return;
     }
 
@@ -1367,12 +954,11 @@ async function exportTvaExcel() {
   }
 
   const releve = buildReleveDeductionsPayload(currentClientId, false);
-  const parseMoney = value => Number(String(value || '0').replace(/\s/g, '').replace(',', '.').replace(/[^\d.-]/g, '')) || 0;
   const request = {
     dossierId: currentClientId,
     companyName: dossier?.name || 'Entreprise',
     regime: dossier?.tva_regime || 'Débit',
-    tvaCollectee: parseMoney(document.getElementById('tva-facturee')?.textContent),
+    tvaCollectee: parseAmount(document.getElementById('tva-facturee')?.textContent),
     ventes: buildTvaCollecteePayload(currentClientId, false),
     releve
   };
@@ -1388,16 +974,13 @@ async function exportTvaExcel() {
       return;
     }
     const blob = await res.blob();
-    const disposition = res.headers.get('Content-Disposition') || '';
-    const match = disposition.match(/filename="?([^";]+)"?/);
-    const filename = match ? match[1] : `TVA_${currentYear}.xlsx`;
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.href = url; link.download = `DEMO_${filename}`;
+    link.href = url; link.download = dossierFileName(`TVA_${currentYear}.xlsx`);
     document.body.appendChild(link); link.click(); link.remove();
     URL.revokeObjectURL(url);
     closeModal('modalTVA');
-    showToast('Synthèse TVA de démonstration exportée en Excel.', 'success');
+    showToast('Synthèse TVA exportée en Excel.', 'success');
   } catch (err) {
     showToast(apiConnectionErrorMessage(err, 'Export Excel TVA'), 'error');
   }
@@ -1405,7 +988,7 @@ async function exportTvaExcel() {
 
 function portfolioClientPayload(dossier) {
   const clientId = dossier.id;
-  const entries = (DATA.clientData[clientId]?.journal_entries || []).filter(entry => !entry.demoOnly);
+  const entries = DATA.clientData[clientId]?.journal_entries || [];
   const purchases = [];
   const ventes = [];
   let purchaseOrd = 1;
@@ -1414,9 +997,9 @@ function portfolioClientPayload(dossier) {
   entries.forEach(e => {
     const dateFacture = `${e.year}-${String(e.mois).padStart(2, '0')}-${String(e.jour).padStart(2, '0')}`;
     if (e.journal === 'ACHATS') {
-      const tvaLine = e.lines.find(l => /^3455/.test(String(l.compte)));
-      const htLine = e.lines.find(l => /^6/.test(String(l.compte)));
-      const supplierLine = e.lines.find(l => /^4411/.test(String(l.compte)));
+      const tvaLine = e.lines.find(l => isAccount(l.compte, CGNC.TVA_RECUPERABLE));
+      const htLine = e.lines.find(l => isAccount(l.compte, CGNC.CHARGES));
+      const supplierLine = e.lines.find(l => isAccount(l.compte, CGNC.FOURNISSEURS));
       if (tvaLine && htLine && supplierLine) {
         const supplier = DATA.accounts.find(a => a.code === String(supplierLine.compte).trim());
         purchases.push({
@@ -1439,9 +1022,9 @@ function portfolioClientPayload(dossier) {
       }
     }
     if (e.journal === 'VENTES') {
-      const tvaLine = e.lines.find(l => /^4455/.test(String(l.compte)));
-      const htLine = e.lines.find(l => /^7/.test(String(l.compte)));
-      const clientLine = e.lines.find(l => /^3421/.test(String(l.compte)));
+      const tvaLine = e.lines.find(l => isAccount(l.compte, CGNC.TVA_FACTUREE));
+      const htLine = e.lines.find(l => isAccount(l.compte, CGNC.PRODUITS));
+      const clientLine = e.lines.find(l => isAccount(l.compte, CGNC.CLIENTS));
       if (tvaLine && htLine && clientLine) {
         const client = DATA.accounts.find(a => a.code === String(clientLine.compte).trim());
         ventes.push({
@@ -1489,10 +1072,10 @@ async function exportPortfolioTvaExcel() {
     const filename = match ? match[1] : 'Recapitulatif_TVA_Portefeuille.xlsx';
     const url = URL.createObjectURL(blob);
     const link = document.createElement('a');
-    link.href = url; link.download = `DEMO_${filename}`;
+    link.href = url; link.download = filename;
     document.body.appendChild(link); link.click(); link.remove();
     URL.revokeObjectURL(url);
-    showToast('Récapitulatif TVA portefeuille de démonstration exporté en Excel.', 'success');
+    showToast('Récapitulatif TVA portefeuille exporté en Excel.', 'success');
   } catch (err) {
     showToast(apiConnectionErrorMessage(err, 'Export Excel portefeuille'), 'error');
   }
@@ -1629,7 +1212,7 @@ document.addEventListener('mousedown', e => {
 let focusedAccount = '';
 let activeEntryRow = null;
 function setFocusedAccount(tr, input) {
-  const acct = input || tr.querySelector('.acct-debit-cell');
+  const acct = input || tr.querySelector('.account-cell');
   focusedAccount = acct ? acct.value.trim() : '';
   activeEntryRow = tr;
   computeTotals();
@@ -1638,13 +1221,11 @@ function setFocusedAccount(tr, input) {
 function computeTotals() {
   let jd = 0, jc = 0, cd = 0, cc = 0;
   document.querySelectorAll('#lines-body tr').forEach(tr => {
-    const debitAccount = tr.querySelector('.acct-debit-cell')?.value.trim() || '';
-    const creditAccount = tr.querySelector('.acct-credit-cell')?.value.trim() || '';
+    const account = tr.querySelector('.account-cell')?.value.trim() || '';
     const debit = parseAmount(tr.querySelector('.debit-input')?.value);
     const credit = parseAmount(tr.querySelector('.credit-input')?.value);
     jd += debit; jc += credit;
-    if (debitAccount === focusedAccount) cd += debit;
-    if (creditAccount === focusedAccount) cc += credit;
+    if (account === focusedAccount) { cd += debit; cc += credit; }
   });
   document.getElementById('j-debit').textContent = fmtFR(jd);
   document.getElementById('j-credit').textContent = fmtFR(jc);
@@ -1736,29 +1317,23 @@ async function validerEcriture() {
   const lines = [];
   const errors = [];
   document.querySelectorAll('#lines-body tr').forEach((tr) => {
-    const generalAccount = tr.querySelector('.acct-debit-cell').value.trim();
-    const thirdPartyAccount = tr.querySelector('.acct-credit-cell').value.trim();
-    const debitAccount = generalAccount || thirdPartyAccount;
-    const creditAccount = thirdPartyAccount || generalAccount;
+    const account = tr.querySelector('.account-cell').value.trim();
     const lib = tr.querySelector('.lib-cell').value.trim();
     const debit = parseAmount(tr.querySelector('.debit-input').value);
     const credit = parseAmount(tr.querySelector('.credit-input').value);
     const facture = tr.querySelector('.facture-cell').value.trim();
     const lettre = tr.querySelector('.lettre-cell')?.value.trim().toUpperCase() || '';
     const tva = parseFloat(tr.querySelector('.tva-cell').value) || 0;
-    const debitAux = tr.querySelector('.aux-debit-cell')?.value.trim() || (debitAccount.startsWith('3421') || debitAccount.startsWith('4411') ? debitAccount : '');
-    const creditAux = tr.querySelector('.aux-credit-cell')?.value.trim() || (creditAccount.startsWith('3421') || creditAccount.startsWith('4411') ? creditAccount : '');
-    if (!debitAccount && !creditAccount && debit === 0 && credit === 0) return;
-    if (debitAccount && !ACCOUNTS[debitAccount]) errors.push(`Compte débit inexistant: ${debitAccount}`);
-    if (creditAccount && !ACCOUNTS[creditAccount]) errors.push(`Compte crédit inexistant: ${creditAccount}`);
-    [[debitAccount, debitAux], [creditAccount, creditAux]].forEach(([account, auxiliary]) => {
-      if (account?.startsWith('3421') || account?.startsWith('4411')) {
-        const known = ACCOUNTS[auxiliary] || activeAuxiliaryAccounts().some(a => a.compte_auxiliaire === auxiliary);
-        if (!auxiliary || !known) errors.push(`Auxiliaire obligatoire et connu pour ${account}`);
-      }
-    });
-    if (debitAccount && debit > 0) lines.push({ compte:debitAccount, auxiliaire:debitAux || null, libelle:lib, dbcr:'D', montant:debit, tva, facture, lettre });
-    if (creditAccount && credit > 0) lines.push({ compte:creditAccount, auxiliaire:creditAux || null, libelle:lib, dbcr:'C', montant:credit, tva, facture, lettre });
+    const isTiers = isAccount(account, CGNC.CLIENTS, CGNC.FOURNISSEURS);
+    const auxiliary = isTiers ? account : '';
+    if (!account && debit === 0 && credit === 0) return;
+    if (account && !ACCOUNTS[account]) errors.push(`Compte inexistant: ${account}`);
+    if (isTiers) {
+      const known = ACCOUNTS[auxiliary] || activeAuxiliaryAccounts().some(a => a.compte_auxiliaire === auxiliary);
+      if (!known) errors.push(`Auxiliaire obligatoire et connu pour ${account}`);
+    }
+    if (account && debit > 0) lines.push({ compte:account, auxiliaire:auxiliary || null, libelle:lib, dbcr:'D', montant:debit, tva, facture, lettre });
+    if (account && credit > 0) lines.push({ compte:account, auxiliaire:auxiliary || null, libelle:lib, dbcr:'C', montant:credit, tva, facture, lettre });
   });
   if (errors.length) { showToast(errors[0], 'error'); return; }
   let response;
@@ -1826,19 +1401,14 @@ function addLine() {
   const tvaOpts = TVA_OPTIONS.map(t => `<option value="${t}">${t === '0' ? '0%' : t + '%'}</option>`).join('');
   const tr = document.createElement('tr');
   tr.innerHTML =
-    `<td><input type="text" class="jour-cell" value="" style="text-align:center;" maxlength="2"></td>` +
-    `<td><input type="text" class="piece-cell" value=""></td>` +
     `<td><input type="text" class="facture-cell" value=""></td>` +
-    `<td><input type="text" class="reference-cell" value=""></td>` +
-    `<td><input type="text" class="acct-debit-cell account-general" value="" onblur="lookupAccount(this);updateGeneralAccountStyle(this)" onfocus="setFocusedAccount(this.closest('tr'), this)" oninput="updateGeneralAccountStyle(this)"></td>` +
-    `<td><input type="text" class="acct-credit-cell" value="" onblur="lookupAccount(this)" onfocus="setFocusedAccount(this, this)"></td>` +
-    `<td><input type="text" class="lib-cell" value=""></td>` +
+    `<td><input type="text" class="account-cell account-general" value="" onblur="lookupAccount(this);updateGeneralAccountStyle(this)" onfocus="setFocusedAccount(this.closest('tr'), this)" oninput="updateGeneralAccountStyle(this)"></td>` +
+    `<td><input type="text" class="lib-cell" value=""><select class="tva-cell" hidden>${tvaOpts}</select></td>` +
     `<td><input type="date" class="due-date-cell"></td>` +
-    `<td><input type="text" class="attachment-cell" value=""><select class="tva-cell" hidden>${tvaOpts}</select></td>` +
     `<td class="amount-cell"><input type="text" inputmode="decimal" class="debit-input" value="" oninput="computeTotals()" onblur="formatAmountInput(this)"></td>` +
     `<td class="amount-cell"><input type="text" inputmode="decimal" class="credit-input" value="" oninput="computeTotals()" onblur="formatAmountInput(this)"></td>`;
   tb.appendChild(tr);
-  tr.querySelector('.acct-debit-cell').focus();
+  tr.querySelector('.account-cell').focus();
   computeTotals();
 }
 
@@ -1870,14 +1440,14 @@ function calcHtTva() {
   addLine();
   const rows2 = document.querySelectorAll('#lines-body tr');
   const tvaRow = rows2[rows2.length - 1];
-  tvaRow.querySelector('.acct-debit-cell').value = tvaAcct.code;
+  tvaRow.querySelector('.account-cell').value = tvaAcct.code;
   tvaRow.querySelector('.lib-cell').value = tvaAcct.label;
   tvaRow.querySelector('.debit-input').value = tvaAmount;
   tvaRow.querySelector('.credit-input').value = '';
   // 3) Fournisseur credit line = TTC (update existing 44110* line or create one).
   let fourRow = null;
   document.querySelectorAll('#lines-body tr').forEach(tr => {
-    const code = (tr.querySelector('.acct-credit-cell').value || tr.querySelector('.acct-debit-cell').value).trim();
+    const code = tr.querySelector('.account-cell').value.trim();
     if (code.startsWith('44110')) fourRow = tr;
   });
   if (!fourRow) {
@@ -1943,8 +1513,8 @@ function computeQuickStatsFor(clientId, year) {
     const d = lineDebit(l), c = lineCredit(l);
     if (code.charAt(0) === '5') banque += d - c;
     if (code.charAt(0) === '7') ca += c;
-    if (code.startsWith('4455')) tvaFact += c;
-    if (code.startsWith('3455')) tvaRec += d;
+    if (isAccount(code, CGNC.TVA_FACTUREE)) tvaFact += c;
+    if (isAccount(code, CGNC.TVA_RECUPERABLE)) tvaRec += d;
   }));
   if (ca === 0) ca = dossier?.demoChiffreAffaires || 0;
   if (tvaFact === 0 && dossier?.demoChiffreAffaires) {
@@ -2202,8 +1772,8 @@ function renderBalance() {
     e.lines.forEach(l => { const t = touch(l.compte); t.mvD += lineDebit(l); t.mvC += lineCredit(l); });
   });
   let accounts = Object.keys(totals).sort();
-  if (balanceMode === 'clients') accounts = accounts.filter(a => a.startsWith('3421'));
-  else if (balanceMode === 'fournisseurs') accounts = accounts.filter(a => a.startsWith('4411'));
+  if (balanceMode === 'clients') accounts = accounts.filter(a => isAccount(a, CGNC.CLIENTS));
+  else if (balanceMode === 'fournisseurs') accounts = accounts.filter(a => isAccount(a, CGNC.FOURNISSEURS));
   if (!accounts.length) {
     const msg = balanceMode === 'clients' ? 'Aucun compte client (3421...) pour l\'exercice ' + currentYear
       : balanceMode === 'fournisseurs' ? 'Aucun compte fournisseur (4411...) pour l\'exercice ' + currentYear
@@ -2270,7 +1840,7 @@ function renderPlanComptable() {
   const searchEl = document.getElementById('pcm-search');
   const q = (searchEl ? searchEl.value : '').trim().toLowerCase();
   const classFilter = document.getElementById('pcm-class-filter')?.value || 'all';
-  const list = pcmBaseAccounts()
+  const list = [...pcmBaseAccounts(), ...DATA.accounts.filter(a => a.type === 'divisionnaire')]
     .filter(a => classFilter === 'all' || String(a.code).charAt(0) === classFilter)
     .filter(a => !q || a.code.toLowerCase().includes(q) || (a.label || '').toLowerCase().includes(q))
     .slice()
@@ -2321,7 +1891,7 @@ async function importPcgeGeneral() {
     if (!response.ok) throw new Error(report.detail?.message || 'Import PCGE impossible.');
     (report.imported || []).forEach(account => {
       if (DATA.accounts.some(existing => existing.code === account.code)) return;
-      const item = {code: account.code, label: account.label, type: 'parent', parent: account.parent || undefined, classe: account.class};
+      const item = {code: account.code, label: account.label, type: 'parent', parent: account.parent || undefined, classe: account.class, standard: true};
       DATA.accounts.push(item); ACCOUNTS[item.code] = item.label; window.PCM_MAROC.push({code: item.code, libelle: item.label, classe: item.classe});
     });
     persistCustomizationState(); renderPlanComptable(); closeModal('modalPcgeImport');
@@ -2396,7 +1966,7 @@ function importValidAuxAccounts() {
   persistCustomizationState(); renderPlanComptable(); closeModal('modalAuxImport'); showToast(`${valid.length} compte(s) complémentaire(s) importé(s) ✓`, 'success');
 }
 function downloadAuxTemplate() { exportAuxRows([{ compte_auxiliaire:'44110004', libelle:'Nouveau fournisseur SARL', compte_racine:'4411', ice:'001234567890004', identifiant_fiscal:'40123456', type_tiers:'Fournisseur' }, { compte_auxiliaire:'34210003', libelle:'Nouveau client', compte_racine:'3421', ice:'001234567890005', identifiant_fiscal:'40123457', type_tiers:'Client' }], 'modele_plan_complementaire.xlsx'); }
-function exportAuxAccounts(format) { exportAuxRows(activeAuxiliaryAccounts(), `plan_complementaire_${currentClientId}.${format}`); }
+function exportAuxAccounts(format) { exportAuxRows(activeAuxiliaryAccounts(), dossierFileName(`plan_complementaire.${format}`)); }
 function exportAuxRows(rows, filename) {
   const values = [AUX_FIELDS, ...rows.map(row => AUX_FIELDS.map(field => row[field] || ''))];
   if (filename.endsWith('.xlsx') && window.XLSX) { const book = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(book, XLSX.utils.aoa_to_sheet(values), 'Tiers'); XLSX.writeFile(book, filename); return; }
@@ -2407,7 +1977,7 @@ function exportAuxRows(rows, filename) {
 const CUSTOMIZATION_KEY = 'kompta_customization_v1';
 function persistCustomizationState() {
   try {
-    localStorage.setItem(CUSTOMIZATION_KEY, JSON.stringify({ accounts: DATA.accounts, auxiliary: AUXILIARY_ACCOUNTS }));
+    localStorage.setItem(CUSTOMIZATION_KEY, JSON.stringify({ accounts: DATA.accounts.filter(a => !a.standard), auxiliary: AUXILIARY_ACCOUNTS }));
     return true;
   } catch (error) {
     showToast('Enregistrement navigateur impossible. Les changements restent en mémoire pour cette session.', 'error');
@@ -2419,11 +1989,10 @@ function loadCustomizationState() {
     const saved = JSON.parse(localStorage.getItem(CUSTOMIZATION_KEY) || 'null');
     if (!saved) return;
     if (Array.isArray(saved.accounts)) {
-      DATA.accounts.splice(0, DATA.accounts.length, ...saved.accounts);
-      Object.keys(ACCOUNTS).forEach(code => delete ACCOUNTS[code]);
-      DATA.accounts.forEach(account => { ACCOUNTS[account.code] = account.label; });
-      window.PCM_MAROC = DATA.accounts.filter(a => a.type === 'parent').map(a => ({ code:a.code, libelle:a.label, classe:a.classe || Number(String(a.code).charAt(0)) }));
-      SUPPLIERS.splice(0, SUPPLIERS.length, ...DATA.accounts.filter(a => a.parent === '4411'));
+      // Only local sub-accounts are kept; official accounts always come from the CGNC chart.
+      const local = saved.accounts.filter(a => a && a.code && a.type !== 'parent' && !a.standard);
+      DATA.accounts.splice(0, DATA.accounts.length, ...DATA.accounts.filter(a => a.standard), ...local);
+      rebuildAccountIndexes();
     }
     if (saved.auxiliary && typeof saved.auxiliary === 'object') Object.assign(AUXILIARY_ACCOUNTS, saved.auxiliary);
   } catch (error) {
@@ -2432,7 +2001,7 @@ function loadCustomizationState() {
   }
 }
 
-const ENTRY_NAV_FIELDS = ['.acct-debit-cell', '.aux-debit-cell', '.acct-credit-cell', '.aux-credit-cell', '.lib-cell', '.debit-input', '.credit-input'];
+const ENTRY_NAV_FIELDS = ['.account-cell', '.lib-cell', '.debit-input', '.credit-input'];
 function moveEntryFocus(current, backwards = false) {
   const row = current.closest('tr');
   if (!backwards && current.matches('.debit-input') && row?.classList.contains('entry-debit-row') && parseAmount(current.value) > 0) {
@@ -2446,7 +2015,7 @@ function moveEntryFocus(current, backwards = false) {
   const index = fields.indexOf(current);
   const nextIndex = index + (backwards ? -1 : 1);
   if (nextIndex >= 0 && nextIndex < fields.length) { fields[nextIndex].focus(); fields[nextIndex].select?.(); return; }
-  if (!backwards) { addLine(); document.querySelector('#lines-body tr:last-child .acct-debit-cell')?.focus(); }
+  if (!backwards) { addLine(); document.querySelector('#lines-body tr:last-child .account-cell')?.focus(); }
 }
 function handleEntryGridKeydown(event) {
   if (event.altKey && event.key.toLowerCase() === 'n') { event.preventDefault(); addLine(); return; }
@@ -2498,7 +2067,7 @@ function renderMenuReportBody() {
 function reportEntryLines() { return menuRows().flatMap(e => e.lines.map(l => ({e, l, debit:lineDebit(l), credit:lineCredit(l)}))); }
 function showAgedBalanceReport() {
   const groups = {};
-  reportEntryLines().filter(x => /^(3421|4411)/.test(String(x.l.compte))).forEach(x => { const code = x.l.compte; const g = groups[code] || (groups[code] = {code, label:ACCOUNTS[code] || x.l.libelle || '', amount:0}); g.amount += x.debit - x.credit; });
+  reportEntryLines().filter(x => isAccount(x.l.compte, CGNC.CLIENTS, CGNC.FOURNISSEURS)).forEach(x => { const code = x.l.compte; const g = groups[code] || (groups[code] = {code, label:ACCOUNTS[code] || x.l.libelle || '', amount:0}); g.amount += x.debit - x.credit; });
   const rows = Object.values(groups).map(g => { const age = Math.max(0, Math.floor((Date.now() - new Date(currentYear, Number(menuRows()[0]?.mois || 1) - 1, Number(menuRows()[0]?.jour || 1))) / 86400000)); const bucket = age > 90 ? '+90 jours' : age > 60 ? '61–90 jours' : age > 30 ? '31–60 jours' : '0–30 jours'; return [g.code, g.label, bucket, round2(Math.abs(g.amount))]; });
   renderStructuredReport('Balance Âgée', ['Compte','Tiers','Ancienneté','Solde'], rows);
 }
@@ -2509,7 +2078,7 @@ function showCentralJournalReport() {
 }
 function showClientInvoicesReport() {
   const groups = {};
-  reportEntryLines().filter(x => /^3421/.test(String(x.l.compte)) || x.e.n_facture).forEach(x => { const ref = x.l.facture || x.e.n_facture || 'Sans référence'; const g = groups[ref] || (groups[ref] = {ref, date:entryDate(x.e), client:ACCOUNTS[x.l.compte] || x.l.libelle || 'Client', amount:0}); g.amount += x.credit || x.debit; });
+  reportEntryLines().filter(x => isAccount(x.l.compte, CGNC.CLIENTS) || x.e.n_facture).forEach(x => { const ref = x.l.facture || x.e.n_facture || 'Sans référence'; const g = groups[ref] || (groups[ref] = {ref, date:entryDate(x.e), client:ACCOUNTS[x.l.compte] || x.l.libelle || 'Client', amount:0}); g.amount += x.credit || x.debit; });
   renderStructuredReport('Factures Clients', ['Facture','Date','Client','Montant','Statut'], Object.values(groups).map(g => [g.ref, g.date, g.client, round2(g.amount), 'À suivre']));
 }
 function showBalanceSheetReport() {
@@ -2519,8 +2088,8 @@ function showBalanceSheetReport() {
   renderStructuredReport('Bilan Actif / Passif', ['Rubrique','Classe','Débit','Crédit','Solde'], rows);
 }
 function showTaxReport() {
-  const charges = reportEntryLines().filter(x => /^6/.test(String(x.l.compte))).reduce((s, x) => s + x.debit, 0);
-  const products = reportEntryLines().filter(x => /^7/.test(String(x.l.compte))).reduce((s, x) => s + x.credit, 0);
+  const charges = reportEntryLines().filter(x => isAccount(x.l.compte, CGNC.CHARGES)).reduce((s, x) => s + x.debit, 0);
+  const products = reportEntryLines().filter(x => isAccount(x.l.compte, CGNC.PRODUITS)).reduce((s, x) => s + x.credit, 0);
   const result = products - charges; const tax = Math.max(0, result * 0.20);
   renderStructuredReport("Détermination d'impôt", ['Indicateur','Montant'], [['Produits imposables', round2(products)], ['Charges déductibles', round2(charges)], ['Résultat fiscal estimé', round2(result)], ['IS estimé (20%)', round2(tax)]]);
 }
@@ -2529,7 +2098,7 @@ function showPaymentDelaysReport() {
   renderStructuredReport('Délais de Paiement', ['Facture','Date','Tiers','Jours écoulés','Statut'], rows);
 }
 function showProfessionalTaxReport() {
-  const turnover = reportEntryLines().filter(x => /^7/.test(String(x.l.compte))).reduce((s, x) => s + x.credit, 0);
+  const turnover = reportEntryLines().filter(x => isAccount(x.l.compte, CGNC.PRODUITS)).reduce((s, x) => s + x.credit, 0);
   renderStructuredReport('Taxe Professionnelle', ['Base taxable','Taux appliqué','Taxe estimée'], [[round2(turnover), '0,25 %', round2(turnover * 0.0025)]]);
 }
 function showFeesReport() {
@@ -2626,8 +2195,8 @@ function updateLiasseTable(code, key, value) {
 function renderLiasseAdjustments() {
   const body = document.getElementById('liasse-adjustments-tab');
   const balance = liasseBalanceRows();
-  const charges = balance.filter(row => String(row.accountCode).startsWith('6')).reduce((s, row) => s + Number(row.movementDebit || 0), 0);
-  const products = balance.filter(row => String(row.accountCode).startsWith('7')).reduce((s, row) => s + Number(row.movementCredit || 0), 0);
+  const charges = balance.filter(row => isAccount(row.accountCode, CGNC.CHARGES)).reduce((s, row) => s + Number(row.movementDebit || 0), 0);
+  const products = balance.filter(row => isAccount(row.accountCode, CGNC.PRODUITS)).reduce((s, row) => s + Number(row.movementCredit || 0), 0);
   const accounting = round2(products - charges);
   const rows = liasseState.adjustments.map((item, index) => `<tr><td>${item.direction === 'reintegrations' ? 'Réintégration' : 'Déduction'}</td><td>${item.label}</td><td><input type="number" step="0.01" value="${item.amount}" onchange="updateLiasseAdjustment(${index},this.value)" style="width:130px;text-align:right;"></td></tr>`).join('');
   body.innerHTML = `<div class="card"><div class="ch"><h3>Tableau 03 — Passage au résultat fiscal</h3><span class="badge">Année ${currentYear}</span></div><table><thead><tr><th>Type</th><th>Motif</th><th>Montant</th></tr></thead><tbody><tr><td colspan="2"><strong>Résultat comptable</strong></td><td style="text-align:right;"><strong>${fmtFR(accounting)} MAD</strong></td></tr>${rows}<tr class="total-row"><td colspan="2"><strong>Résultat fiscal</strong></td><td style="text-align:right;"><strong id="liasse-fiscal-result">${fmtFR(accounting)} MAD</strong></td></tr></tbody></table></div>`;
@@ -2655,7 +2224,7 @@ async function exportLiasseXml() {
   try {
     const response = await fetch(`${KOMPTA_API_BASE}/api/liasse/simpl-is.xml`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(request) });
     if (!response.ok) { showToast(await responseErrorMessage(response, 'Échec de l’export SIMPL-IS.'), 'error'); return; }
-    const blob = await response.blob(); const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = `DEMO_SIMPL_IS_${currentYear}.xml`; link.click(); URL.revokeObjectURL(url); saveLiasseState(); showToast('XML SIMPL-IS de démonstration exporté; ne pas déposer à la DGI.', 'success');
+    const blob = await response.blob(); const url = URL.createObjectURL(blob); const link = document.createElement('a'); link.href = url; link.download = `SIMPL_IS_${currentYear}.xml`; link.click(); URL.revokeObjectURL(url); saveLiasseState(); showToast('XML SIMPL-IS exporté.', 'success');
   } catch (error) { showToast(apiConnectionErrorMessage(error, 'Export SIMPL-IS'), 'error'); }
 }
 let cgncReportState = { type:'', headers:[], exportRows:[] };
@@ -2702,7 +2271,7 @@ function openAgedBalanceReport() {
 }
 function renderAgedBalanceReport() {
   const type = document.getElementById('cgnc-aging-type')?.value || 'all'; const asOf = new Date(document.getElementById('cgnc-aging-date')?.value || new Date()); const groups = {};
-  clientEntries().filter(e => e.year === currentYear).forEach(e => { const invoice = e.n_facture || e.lines.find(l => l.facture)?.facture; if (!invoice) return; e.lines.filter(l => /^(3421|4411)/.test(l.compte)).forEach(l => { const client = l.compte.startsWith('3421'); if ((type === 'client' && !client) || (type === 'supplier' && client)) return; const g=groups[l.compte] || (groups[l.compte]={code:l.compte,name:ACCOUNTS[l.compte] || l.libelle || '',amount:0,due:invoiceDate(e)}); g.amount += lineDebit(l)-lineCredit(l); }); });
+  clientEntries().filter(e => e.year === currentYear).forEach(e => { const invoice = e.n_facture || e.lines.find(l => l.facture)?.facture; if (!invoice) return; e.lines.filter(l => isAccount(l.compte, CGNC.CLIENTS, CGNC.FOURNISSEURS)).forEach(l => { const client = isAccount(l.compte, CGNC.CLIENTS); if ((type === 'client' && !client) || (type === 'supplier' && client)) return; const g=groups[l.compte] || (groups[l.compte]={code:l.compte,name:ACCOUNTS[l.compte] || l.libelle || '',amount:0,due:invoiceDate(e)}); g.amount += lineDebit(l)-lineCredit(l); }); });
   const rows=Object.values(groups).map(g => { const due=Math.floor((asOf-g.due)/86400000), amount=Math.abs(g.amount), bucket=due<0?[amount,0,0,0,0]:due<=30?[0,amount,0,0,0]:due<=60?[0,0,amount,0,0]:due<=90?[0,0,0,amount,0]:[0,0,0,0,amount]; return [g.code,g.name,...bucket,round2(amount)]; });
   document.getElementById('cgnc-report-body').innerHTML=cgncTable(['Code Tiers','Nom / Raison Sociale','Non Échu','0-30 Jours','31-60 Jours','61-90 Jours','+90 Jours','Total Dû'],rows); cgncReportState.exportRows=rows;
 }
@@ -2712,20 +2281,20 @@ function renderJournalCgncReport(central) { const code=document.getElementById('
 function openBilanCgncReport() { cgncReportState.type='bilan'; cgncFilterBar('<span class="badge">Calculé sur les soldes de l’exercice actif</span>'); cgncSet('Bilan CGNC Marocain','Actif / Passif',[],[],renderBilanCgncReport); }
 function renderBilanCgncReport() { const data=cgncAccounts(); const sum=(prefix,side)=>round2(data.filter(t=>t.code.startsWith(prefix)).reduce((s,t)=>s+Math.max(0,(t.anD+t.mvD)-(t.anC+t.mvC))*(side==='d'?1:0)+Math.max(0,(t.anC+t.mvC)-(t.anD+t.mvD))*(side==='c'?1:0),0)); const actif=[['Immobilisé — Classe 2',sum('2','d'),0],['Circulant — Classe 3',sum('3','d'),0],['Trésorerie-Actif — Classe 51',sum('51','d'),0]]; const passif=[['Financement Permanent — Classe 1',sum('1','c')],['Passif Circulant — Classe 4',sum('4','c')],['Trésorerie-Passif — Classe 55',sum('55','c')]]; document.getElementById('cgnc-report-body').innerHTML=`<div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;"><div class="card"><div class="ch"><h3>ACTIF</h3></div>${cgncTable(['Rubrique','Brut','Amort./Prov.','Net'],actif.map(r=>[r[0],r[1],r[2],round2(r[1]-r[2])]),`<tr class="total-row"><td>Total Actif</td><td colspan="2"></td><td style="text-align:right;">${cgncMoney(actif.reduce((s,r)=>s+r[1]-r[2],0))}</td></tr>`)}</div><div class="card"><div class="ch"><h3>PASSIF</h3></div>${cgncTable(['Rubrique','Net'],passif,`<tr class="total-row"><td>Total Passif</td><td style="text-align:right;">${cgncMoney(passif.reduce((s,r)=>s+r[1],0))}</td></tr>`)}</div></div>`; cgncReportState.exportRows=[...actif,...passif]; }
 function openPaymentDelayCgncReport() { cgncReportState.type='payment-delays'; cgncFilterBar('<span class="badge">Loi 69-21 — seuil de retard calculé sur la date d’échéance</span>'); cgncSet('Délais de Paiement — Loi 69-21','Factures échues non lettrées',[],[],renderPaymentDelayCgncReport); }
-function renderPaymentDelayCgncReport() { const today=new Date(); const rows=[]; clientEntries().filter(e=>e.year===currentYear && e.n_facture).forEach(e=>{const due=invoiceDate(e),days=Math.max(0,Math.floor((today-due)/86400000)); if(days<1)return; const client=e.lines.find(l=>/^(3421|4411)/.test(l.compte)); if(!client)return; const amount=Math.abs(e.lines.reduce((s,l)=>s+lineDebit(l)-lineCredit(l),0)); rows.push([e.n_facture,client.compte,entryDate(e),due.toLocaleDateString('fr-FR'),days,days>60?'1,5 %':'1 %',amount]);}); document.getElementById('cgnc-report-body').innerHTML=cgncTable(['Facture','Code Tiers','Date','Échéance','Jours retard','Pénalité Loi 69-21','Montant dû'],rows); cgncReportState.exportRows=rows; }
+function renderPaymentDelayCgncReport() { const today=new Date(); const rows=[]; clientEntries().filter(e=>e.year===currentYear && e.n_facture).forEach(e=>{const due=invoiceDate(e),days=Math.max(0,Math.floor((today-due)/86400000)); if(days<1)return; const client=e.lines.find(l=>isAccount(l.compte, CGNC.CLIENTS, CGNC.FOURNISSEURS)); if(!client)return; const amount=Math.abs(e.lines.reduce((s,l)=>s+lineDebit(l)-lineCredit(l),0)); rows.push([e.n_facture,client.compte,entryDate(e),due.toLocaleDateString('fr-FR'),days,days>60?'1,5 %':'1 %',amount]);}); document.getElementById('cgnc-report-body').innerHTML=cgncTable(['Facture','Code Tiers','Date','Échéance','Jours retard','Pénalité Loi 69-21','Montant dû'],rows); cgncReportState.exportRows=rows; }
 const cgncRentalValues = {};
 function openProfessionalTaxCgncReport() { cgncReportState.type='professional-tax'; cgncFilterBar('<span class="badge">Taux appliqué: 10 % de la valeur locative annuelle (simulation déclarative)</span>'); cgncSet('Taxe Professionnelle','Valeurs locatives et liquidation annuelle',[],[],renderProfessionalTaxCgncReport); }
 function renderProfessionalTaxCgncReport() { const key=currentClientId; if (cgncRentalValues[key] == null) cgncRentalValues[key]=100000; const value=cgncRentalValues[key]; document.getElementById('cgnc-report-body').innerHTML=`<table><thead><tr><th>Établissement</th><th>Valeur locative annuelle</th><th>Taux</th><th>Taxe professionnelle estimée</th></tr></thead><tbody><tr><td>${menuEscape(currentDossier?.name || key)}</td><td><input type="number" min="0" value="${value}" style="text-align:right;" oninput="cgncRentalValues['${key}']=Number(this.value)||0;renderProfessionalTaxCgncReport()"> MAD</td><td>10 %</td><td style="text-align:right;font-weight:700;">${cgncMoney(value*0.10)}</td></tr></tbody></table>`; cgncReportState.exportRows=[[currentDossier?.name||key,value,'10 %',round2(value*0.10)]]; }
 function openClientInvoicesCgncReport() { cgncReportState.type='client-invoices'; cgncFilterBar('<span class="badge">Ventes et comptes clients 3421 — statut calculé sur les règlements</span>'); cgncSet('Factures Clients','Suivi des ventes, règlements et remises',[],[],renderClientInvoicesCgncReport); }
-function renderClientInvoicesCgncReport() { const rows=[]; clientEntries().filter(e=>e.year===currentYear && e.n_facture && e.journal==='VENTES').forEach(e=>{const line=e.lines.find(l=>l.compte.startsWith('3421')); const gross=Math.abs(e.lines.reduce((s,l)=>s+lineDebit(l)-lineCredit(l),0)); const paid=clientEntries().filter(p=>p.year===currentYear && !p.n_facture && p.lines.some(l=>l.compte===line?.compte)).reduce((s,p)=>s+Math.abs(p.lines.reduce((a,l)=>a+lineCredit(l)-lineDebit(l),0)),0); const status=paid>=gross?'Payée':paid>0?'Partielle':'Non Payée'; rows.push([e.n_facture,entryDate(e),line?.compte||'',round2(gross),round2(Math.min(paid,gross)),status,`<button class="btn btn-xs btn-s" data-action="showToast('Remise préparée pour ${menuEscape(e.n_facture)}','success')">Remise</button>`]);}); document.getElementById('cgnc-report-body').innerHTML=cgncTable(['N° Facture','Date','Client','Montant TTC','Réglé','Statut','Action'],rows); cgncReportState.exportRows=rows.map(r=>r.slice(0,6)); }
+function renderClientInvoicesCgncReport() { const rows=[]; clientEntries().filter(e=>e.year===currentYear && e.n_facture && e.journal==='VENTES').forEach(e=>{const line=e.lines.find(l=>isAccount(l.compte, CGNC.CLIENTS)); const gross=Math.abs(e.lines.reduce((s,l)=>s+lineDebit(l)-lineCredit(l),0)); const paid=clientEntries().filter(p=>p.year===currentYear && !p.n_facture && p.lines.some(l=>l.compte===line?.compte)).reduce((s,p)=>s+Math.abs(p.lines.reduce((a,l)=>a+lineCredit(l)-lineDebit(l),0)),0); const status=paid>=gross?'Payée':paid>0?'Partielle':'Non Payée'; rows.push([e.n_facture,entryDate(e),line?.compte||'',round2(gross),round2(Math.min(paid,gross)),status,`<button class="btn btn-xs btn-s" data-action="showToast('Remise préparée pour ${menuEscape(e.n_facture)}','success')">Remise</button>`]);}); document.getElementById('cgnc-report-body').innerHTML=cgncTable(['N° Facture','Date','Client','Montant TTC','Réglé','Statut','Action'],rows); cgncReportState.exportRows=rows.map(r=>r.slice(0,6)); }
 function openHonorairesCgncReport() { cgncReportState.type='fees'; cgncFilterBar('<div class="fg"><label>Taux RAS</label><select id="cgnc-ras-rate" onchange="renderHonorairesCgncReport()"><option value="10">10 %</option><option value="15">15 %</option></select></div>'); cgncSet('Honoraires — Retenue à la Source','Avocats, experts-comptables et consultants',[],[],renderHonorairesCgncReport); }
 function renderHonorairesCgncReport() { const rate=Number(document.getElementById('cgnc-ras-rate')?.value||10)/100; const rows=reportEntryLines().filter(x=>/^6136/.test(x.l.compte)||/honoraire|avocat|expert|consultant/i.test(x.l.libelle||'')).map(x=>{const gross=round2(x.debit);return [entryDate(x.e),x.l.libelle||ACCOUNTS[x.l.compte]||'',gross,round2(gross*rate),round2(gross*(1-rate))];}); document.getElementById('cgnc-report-body').innerHTML=cgncTable(['Date','Bénéficiaire','Brut','RAS','Net payé'],rows); cgncReportState.exportRows=rows; }
 function openCgncReport(type) { if(type==='balance-generale')return openGeneralBalanceReport(); if(type==='aged-balance')return openAgedBalanceReport(); if(type==='journals')return openJournalCgncReport(false); if(type==='journal-central')return openJournalCgncReport(true); if(type==='bilan')return openBilanCgncReport(); if(type==='payment-delays')return openPaymentDelayCgncReport(); if(type==='professional-tax')return openProfessionalTaxCgncReport(); if(type==='client-invoices')return openClientInvoicesCgncReport(); if(type==='fees')return openHonorairesCgncReport(); }
-function exportCgncReport(format) { const values=[cgncReportState.headers,...(cgncReportState.exportRows||[])].map(row=>row.map(v=>String(v).replace(/<[^>]*>/g,''))); if(format==='xlsx'&&window.XLSX){const book=XLSX.utils.book_new();XLSX.utils.book_append_sheet(book,XLSX.utils.aoa_to_sheet(values),'Etat CGNC');XLSX.writeFile(book,'etat_cgnc_'+currentYear+'.xlsx');}else{const csv=values.map(row=>row.map(v=>`"${v.replace(/"/g,'""')}"`).join(';')).join('\r\n');const link=document.createElement('a');link.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));link.download='etat_cgnc_'+currentYear+'.csv';link.click();URL.revokeObjectURL(link.href);}showToast('Etat CGNC exporté ✓','success'); }
+function exportCgncReport(format) { const values=[cgncReportState.headers,...(cgncReportState.exportRows||[])].map(row=>row.map(v=>String(v).replace(/<[^>]*>/g,''))); if(format==='xlsx'&&window.XLSX){const book=XLSX.utils.book_new();XLSX.utils.book_append_sheet(book,XLSX.utils.aoa_to_sheet(values),'Etat CGNC');XLSX.writeFile(book,dossierFileName('etat_cgnc_'+currentYear+'.xlsx'));}else{const csv=values.map(row=>row.map(v=>`"${v.replace(/"/g,'""')}"`).join(';')).join('\r\n');const link=document.createElement('a');link.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));link.download=dossierFileName('etat_cgnc_'+currentYear+'.csv');link.click();URL.revokeObjectURL(link.href);}showToast('Etat CGNC exporté ✓','success'); }
 function exportMenuReport() {
   const values = Array.isArray(menuReportRows[0]) ? menuReportRows : [['Date','Journal','Piece','Libelle','Debit','Credit'], ...menuReportRows.map(r => [r.date,r.journal,r.piece,r.libelle,r.debit,r.credit])];
-  if (window.XLSX) { const book = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(book, XLSX.utils.aoa_to_sheet(values), 'Rapport'); XLSX.writeFile(book, 'rapport_' + currentYear + '.xlsx'); }
-  else { const csv = values.map(row => row.map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(';')).join('\r\n'); const link = document.createElement('a'); link.href = URL.createObjectURL(new Blob(['\uFEFF' + csv], {type:'text/csv;charset=utf-8'})); link.download = 'rapport_' + currentYear + '.csv'; link.click(); URL.revokeObjectURL(link.href); }
+  if (window.XLSX) { const book = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(book, XLSX.utils.aoa_to_sheet(values), 'Rapport'); XLSX.writeFile(book, dossierFileName('rapport_' + currentYear + '.xlsx')); }
+  else { const csv = values.map(row => row.map(v => `"${String(v ?? '').replace(/"/g, '""')}"`).join(';')).join('\r\n'); const link = document.createElement('a'); link.href = URL.createObjectURL(new Blob(['\uFEFF' + csv], {type:'text/csv;charset=utf-8'})); link.download = dossierFileName('rapport_' + currentYear + '.csv'); link.click(); URL.revokeObjectURL(link.href); }
   showToast('Rapport exporté ✓', 'success');
 }
 function showJournalReport() { renderMenuReport('Journal des écritures', reportRowsFromEntries().sort((a, b) => a.journal.localeCompare(b.journal) || a.date.localeCompare(b.date))); }
@@ -2741,7 +2310,7 @@ function renderThirdPartyLedger() {
   const accounts = DATA.accounts
     .filter(account => {
       const code = String(account.code || '');
-      return code.startsWith('3421') || code.startsWith('4411') || Boolean(account.ice);
+      return isAccount(code, CGNC.CLIENTS, CGNC.FOURNISSEURS) || Boolean(account.ice);
     })
     .sort((a, b) => String(a.code).localeCompare(String(b.code)));
   document.getElementById('gl-title').textContent = 'Comptes Tiers — Clients et Fournisseurs';
@@ -2750,14 +2319,11 @@ function renderThirdPartyLedger() {
     ? accounts.map(account => {
       const code = menuEscape(account.code);
       const label = menuEscape(account.label || account.libelle || '');
-      const type = account.parent === '3421' || String(account.code).startsWith('3421') ? 'Client' : 'Fournisseur';
+      const type = account.parent === CGNC.CLIENTS || isAccount(account.code, CGNC.CLIENTS) ? 'Client' : 'Fournisseur';
       return `<tr><td>${code}</td><td>${label}</td><td>${type}</td><td>${menuEscape(account.ice || '—')}</td><td>${menuEscape(account.identifiant_fiscal || '—')}</td><td></td><td></td><td></td><td></td></tr>`;
     }).join('')
     : '<tr><td colspan="9" style="text-align:center;color:var(--muted);padding:20px;">Aucun compte auxiliaire client ou fournisseur.</td></tr>';
   showToast('Comptes tiers chargés depuis le plan comptable ✓', 'info');
-}
-function showTiersLedger() {
-  renderThirdPartyLedger();
 }
 function menuSetting(label) { showPanel('parametrage'); showToast(label + ' : configuration disponible dans Paramètres', 'info'); }
 function handleMenuAction(action) {
@@ -2796,6 +2362,7 @@ document.addEventListener('keydown', event => {
   if (event.key.toLowerCase() === 'd') { event.preventDefault(); openLiasse(); showLiasseTab('adjustments', document.querySelectorAll('.liasse-tab')[1]); }
 });
 function editPcmLabel(code, newLabel) {
+  if (isStandardAccount(code)) { showToast('Compte ' + code + ' du référentiel CGNC : intitulé non modifiable', 'error'); renderPlanComptable(); return; }
   const acc = DATA.accounts.find(a => a.code === code);
   if (!acc) return;
   acc.label = newLabel;
@@ -2807,6 +2374,16 @@ function editPcmLabel(code, newLabel) {
 function editPcmCode(oldCode, newCode, inputEl) {
   newCode = (newCode || '').trim();
   if (!newCode || newCode === oldCode) { if (inputEl) inputEl.value = oldCode; return; }
+  if (isStandardAccount(oldCode)) {
+    showToast('Compte ' + oldCode + ' du référentiel CGNC : code non modifiable', 'error');
+    if (inputEl) inputEl.value = oldCode;
+    return;
+  }
+  if (!cgncRoot(newCode)) {
+    showToast('Le code ' + newCode + ' ne prolonge aucun compte du référentiel CGNC', 'error');
+    if (inputEl) inputEl.value = oldCode;
+    return;
+  }
   if (DATA.accounts.some(a => a.code === newCode)) {
     showToast('Ce code de compte existe déjà', 'error');
     if (inputEl) inputEl.value = oldCode;
@@ -2826,6 +2403,7 @@ function editPcmCode(oldCode, newCode, inputEl) {
   renderAll();
 }
 function deletePcmAccount(code) {
+  if (isStandardAccount(code)) { showToast('Compte ' + code + ' du référentiel CGNC : suppression impossible', 'error'); return; }
   if (!window.confirm('Supprimer le compte ' + code + ' du plan comptable ?')) return;
   const idx = DATA.accounts.findIndex(a => a.code === code);
   if (idx === -1) return;
@@ -2836,15 +2414,14 @@ function deletePcmAccount(code) {
   showToast('Compte ' + code + ' supprimé du plan comptable ✓', 'success');
 }
 function addPcmAccount() {
-  let code = window.prompt('Code du nouveau compte (ex: 61251) :');
-  if (!/^\d{4}$/.test(code)) { showToast('Un compte PCM doit contenir exactement 4 chiffres', 'error'); return; }
-  code = code.trim();
+  let code = window.prompt('Code du nouveau sous-compte CGNC (ex: 61251) :');
+  code = (code || '').trim();
   if (!code) return;
+  if (!/^\d{5,}$/.test(code) || !cgncRoot(code)) { showToast('Un nouveau compte doit prolonger un compte du référentiel CGNC (au moins 5 chiffres)', 'error'); return; }
   if (DATA.accounts.some(a => a.code === code)) { showToast('Ce code existe déjà', 'error'); return; }
   const label = window.prompt('Intitulé du compte :') || 'Nouveau compte';
-  const acc = { code, label, type: code.length > 4 ? 'divisionnaire' : 'parent', classe: Number(code.charAt(0)) };
+  const acc = { code, label, type: 'divisionnaire', parent: cgncRoot(code), classe: Number(code.charAt(0)) };
   DATA.accounts.push(acc);
-  if (code.length === 4 && window.PCM_MAROC) window.PCM_MAROC.push({ code, libelle:label, classe:Number(code.charAt(0)), rubrique:code.slice(0, 2), poste:code.slice(0, 3), type:Number(code.charAt(0)) <= 5 ? 'Passif' : Number(code.charAt(0)) === 6 ? 'Charges' : 'Produits', statement:Number(code.charAt(0)) <= 5 ? 'Bilan' : 'CPC' });
   ACCOUNTS[code] = label;
   persistCustomizationState();
   renderPlanComptable();
@@ -2899,8 +2476,8 @@ function renderTVA() {
   entries.forEach(e => {
     e.lines.forEach(l => {
       const code = String(l.compte);
-      const isFact = code.startsWith('4455');
-      const isRec = code.startsWith('3455');
+      const isFact = isAccount(code, CGNC.TVA_FACTUREE);
+      const isRec = isAccount(code, CGNC.TVA_RECUPERABLE);
       if (!isFact && !isRec) return;
       const montant = isFact ? lineCredit(l) : lineDebit(l);
       if (montant === 0) return;
@@ -2950,7 +2527,7 @@ function renderLettrage() {
   clientEntries().filter(e => e.year === currentYear).forEach(e => {
     e.lines.forEach((l, li) => {
       const code = String(l.compte);
-      const isTiers = code.startsWith('3421') || code.startsWith('4411');
+      const isTiers = isAccount(code, CGNC.CLIENTS, CGNC.FOURNISSEURS);
       if (isTiers && !l.lettre) items.push({ e, l, key: e.piece + '#' + li });
     });
   });
@@ -3033,7 +2610,7 @@ function clotureChecks() {
   let unlettered = 0;
   entries.forEach(e => e.lines.forEach(l => {
     const code = String(l.compte);
-    if ((code.startsWith('3421') || code.startsWith('4411')) && !l.lettre) unlettered++;
+    if (isAccount(code, CGNC.CLIENTS, CGNC.FOURNISSEURS) && !l.lettre) unlettered++;
   }));
   const list = [
     { label: 'Balance équilibrée (Débit = Crédit)', ok: balanced, warn: false },
@@ -3215,7 +2792,7 @@ function createOcrEntry() {
   entryLines.forEach(([account, amount, credit]) => {
     addLine();
     const tr = tb.rows[tb.rows.length - 1];
-    const accountInput = tr.querySelector(credit ? '.acct-credit-cell' : '.acct-debit-cell');
+    const accountInput = tr.querySelector('.account-cell');
     accountInput.value = account;
     lookupAccount(accountInput);
     tr.querySelector('.lib-cell').value = `Facture ${supplier}`;
@@ -3273,6 +2850,7 @@ function renderDossierScreen() {
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {
   loadCustomizationState();
+  loadCgncChart();
   addLine();
   addLine();
   suggestPiece();
@@ -3282,4 +2860,92 @@ document.addEventListener('DOMContentLoaded', () => {
   loadManagedClients();
   renderPlanComptable();
   loadPersistedJournalEntries(currentClientId, currentYear);
+});
+
+// ===== DATA-ACTION DISPATCH =====
+function printPage() { window.print(); }
+function scrollToOcrQueue() { document.getElementById('ocr-queue-card').scrollIntoView({ behavior:'smooth', block:'start' }); }
+function openBalanceConsultation() {
+  showPanel('consultation');
+  const view = document.getElementById('consult-view');
+  if (view) { view.value = 'balance'; renderConsultation(); }
+}
+function toggleSwitch(element) { element.classList.toggle('on'); }
+function openAuxFilePicker() { document.getElementById('aux-file').click(); }
+
+const ACTION_THIS = Symbol('this');
+const ACTION_EVENT = Symbol('event');
+const ACTION_KEYWORDS = { true: true, false: false, null: null, this: ACTION_THIS, event: ACTION_EVENT };
+// Accepts only `fn(literal, ...)` calls separated by `;`, so markup can never evaluate arbitrary code.
+function parseActionCalls(source) {
+  const token = /\s*(?:([A-Za-z_$][\w$]*)|'((?:[^'\\]|\\.)*)'|"((?:[^"\\]|\\.)*)"|(-?\d+(?:\.\d+)?)|([(),;]))\s*/y;
+  const unescape = text => text.replace(/\\(.)/g, (_, c) => ({ n:'\n', t:'\t' })[c] ?? c);
+  const tokens = [];
+  const text = source.trim();
+  while (token.lastIndex < text.length) {
+    const m = token.exec(text);
+    if (!m) return null;
+    if (m[1] !== undefined) tokens.push({ name: m[1] });
+    else if (m[5] !== undefined) tokens.push({ punct: m[5] });
+    else tokens.push({ value: m[2] !== undefined ? unescape(m[2]) : m[3] !== undefined ? unescape(m[3]) : Number(m[4]) });
+  }
+  const calls = [];
+  let i = 0;
+  while (i < tokens.length) {
+    const name = tokens[i++]?.name;
+    if (!name || tokens[i++]?.punct !== '(') return null;
+    const args = [];
+    while (tokens[i]?.punct !== ')') {
+      const arg = tokens[i++];
+      if (!arg) return null;
+      if ('value' in arg) args.push(arg.value);
+      else if (arg.name in ACTION_KEYWORDS) args.push(ACTION_KEYWORDS[arg.name]);
+      else return null;
+      if (tokens[i]?.punct === ',') i++;
+      else if (tokens[i]?.punct !== ')') return null;
+    }
+    i++;
+    calls.push({ name, args });
+    if (tokens[i]?.punct === ';') i++;
+    else if (i < tokens.length) return null;
+  }
+  return calls;
+}
+function runDataAction(target, event) {
+  const calls = parseActionCalls(target.dataset.action || '');
+  if (!calls) { console.error('data-action ignorée (syntaxe non prise en charge):', target.dataset.action); return; }
+  for (const { name, args } of calls) {
+    const fn = window[name];
+    if (typeof fn !== 'function' || /\[native code\]/.test(Function.prototype.toString.call(fn))) {
+      console.error('data-action ignorée (fonction inconnue):', name);
+      return;
+    }
+    fn(...args.map(arg => arg === ACTION_THIS ? target : arg === ACTION_EVENT ? event : arg));
+  }
+}
+
+// Centralized click handling keeps markup declarative and works on touch devices.
+document.addEventListener('click', event => {
+  const menuItem = event.target.closest('.mb-item');
+  const menuButton = event.target.closest('.mb-btn');
+  const actionTarget = event.target.closest('[data-action]');
+
+  if (menuButton && menuItem) {
+    event.preventDefault();
+    document.querySelectorAll('.mb-item.open').forEach(item => {
+      if (item !== menuItem) item.classList.remove('open');
+    });
+    menuItem.classList.toggle('open');
+  }
+
+  if (actionTarget && !actionTarget.disabled) {
+    runDataAction(actionTarget, event);
+    if (!actionTarget.classList.contains('mb-btn')) {
+      actionTarget.closest('.mb-item')?.classList.remove('open');
+    }
+  }
+
+  if (!menuItem && !event.target.closest('.dropdown')) {
+    document.querySelectorAll('.mb-item.open').forEach(item => item.classList.remove('open'));
+  }
 });

@@ -22,8 +22,7 @@ def require_demo_export(demo_only: bool) -> None:
 
 
 def safety_download_headers(filename: str) -> dict[str, str]:
-    """Mark every generated SIMPL download as non-submittable test output."""
     return {
-        "Content-Disposition": f'attachment; filename="TEST_ONLY_{filename}"',
+        "Content-Disposition": f'attachment; filename="{filename}"',
         "X-Kompta-Export-Status": EXPORT_SAFETY_HEADER,
     }

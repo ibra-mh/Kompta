@@ -24,7 +24,7 @@ and output formats have not been verified against official DGI materials.
 5. **Open `index.html`** (double-click it, or drag it into your browser).
    Go to **Traitements → Déclaration TVA + RAS**, then click
    **"Exporter déclaration"**. The page calls the local Python engine.
-   Generated demo XML files are labelled `DEMO_`; they are not DGI-ready.
+   Generated XML files are not DGI-ready.
 
 ### VS Code Live Server
 
@@ -59,9 +59,9 @@ button again.
 ### Heads up about the demo data
 
 The built-in clients and journal entries are fictitious examples. They are
-marked as demonstration data in the French interface and excluded from the
-SIMPL-TVA and SIMPL-IS XML payload calculations. XML files produced through
-the demo UI are prefixed `DEMO_` and must not be submitted to the DGI.
+marked as demonstration data in the French interface and are included in
+the TVA exports so the demo dossiers produce populated files. Generated XML
+files must not be submitted to the DGI.
 Some sample identifiers resemble real identifiers; that does not make them
 valid taxpayer data. The app does not yet provide a complete production
 client/exercise onboarding workflow.
@@ -129,7 +129,8 @@ kompta_tax_export/
 │   ├── journal_service.py        # Atomic append-only journal persistence
 │   ├── invoice_extractor.py      # PDF/image invoice extraction and parsing
 │   ├── ocr_service.py            # OCR document intake and persistence
-│   ├── pcge_import.py            # Source-backed PCGE catalog import
+│   ├── pcge_import.py            # Chart import/preview sourced from the CGNC dataset
+│   ├── cgnc.py                   # CGNC chart loader, account validation, shared account roots
 │   ├── liasse_models.py          # SIMPL-IS request and mapping models
 │   ├── liasse_service.py         # SIMPL-IS calculation and XML validation
 │   └── storage.py                # Shared SQLite location/connection policy
@@ -142,21 +143,43 @@ kompta_tax_export/
 │       ├── scripts/              # PCGE account extraction and comparison tools
 │       └── data/                 # Source snapshots and generated audit reports
 ├── archive/
-│   └── legacy-snapshots/         # Preserved ZIPs and original audit scripts
+│   └── legacy-snapshots/         # Preserved ZIPs and the 3 audit scripts that diverged from tools/
 ├── api.py                        # FastAPI routes
 ├── main.py                       # FastAPI app entrypoint
 ├── index.html                    # French interface structure
 ├── styles.css                    # Extracted interface styles
 ├── app.js                        # Extracted interface behavior
+├── cgnc_standard_accounts.json   # Official CGNC chart — single source of truth
+├── cgnc_supplement_accounts.json # Documented additions missing from the dataset (3455, 4455)
 ├── kompta.sqlite3                # Local accounting database; keep private
-└── requirements.txt
+├── requirements.txt              # Runtime dependencies
+└── requirements-dev.txt          # Runtime + pytest/pyflakes
 ```
+
+### Chart of accounts (CGNC)
+
+`cgnc_standard_accounts.json` is the single source of truth for the chart of
+accounts. `cgnc_supplement_accounts.json` adds only the roots the app posts to
+that are missing from that dataset (3455 TVA récupérable, 4455 TVA facturée),
+each with the reason it is needed.
+
+- An account code is valid when it is listed, or extends a listed code
+  (e.g. `44110002` under `4411`, `3455220` under `34552`). Journal posting
+  rejects any other code.
+- The interface loads the chart from `GET /api/accounts/cgnc`; official
+  accounts cannot be relabeled, renumbered or deleted in the UI. Local
+  sub-accounts (clients, suppliers, TVA rates) remain editable and are saved
+  in the browser.
+- The PCGE import/preview reads the same dataset; entries whose `status` is
+  `needs_review` are listed for review instead of being imported.
 
 ### PCGE account audit tools
 
 The standalone account-catalog analysis scripts are grouped under
 `tools/pcge_audit/scripts/`; their JSON inputs and reports are in
 `tools/pcge_audit/data/`. They are not imported by the running application.
+`extract_existing.py` and `parse_app_js.py` audited the chart formerly
+hard-coded in `app.js`, which now comes from the CGNC dataset.
 Run them from any working directory with paths relative to each script:
 
 ```powershell
@@ -187,7 +210,7 @@ project rules, not an official DGI validation service.
 ## Running
 
 ```bash
-pip install -r requirements.txt
+pip install -r requirements-dev.txt   # runtime + test/lint tools
 python -m pytest tests/ -v
 python run.py             # binds to 127.0.0.1:8000
 ```
@@ -217,12 +240,12 @@ Persistence boundaries:
 - Posted journal entries and retained OCR source files are stored in SQLite.
    The selected client/exercise's posted entries are reloaded from SQLite when
    the interface starts or opens that dossier.
-- Liasse state and chart/auxiliary-account customizations use this browser's
+- Liasse state and local sub-account/auxiliary-account customizations use this browser's
    `localStorage`; they are not included in the SQLite database or its backup.
 - Built-in demo clients, demo journal rows, opening balances, and most other
    interface state are JavaScript fixtures/in-memory state. They are not
-   durable production records. Demo rows are excluded from SIMPL-TVA/SIMPL-IS
-   XML calculations; demo XML filenames carry the `DEMO_` prefix.
+   durable production records. Demo rows are included in TVA exports and
+   excluded from SIMPL-IS liasse calculations.
 
 Back up the SQLite database while the app is stopped. Use a new destination
 filename for each backup so an earlier backup is not overwritten. For the
