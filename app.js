@@ -13,9 +13,10 @@ function apiConnectionErrorMessage(error, action) {
   return error?.message || `${action} impossible.`;
 }
 
-// ===== REAL CLIENT / FISCAL-YEAR SETUP =====
+// ===== CLIENT / FISCAL-YEAR SETUP =====
 let managedClients = [];
 let selectedManagedClientId = '';
+let syncedClientIds = new Set();
 
 function managedClientToDossier(client) {
   const openYear = (client.years || []).find(item => item.status === 'open') || (client.years || [])[0];
@@ -23,18 +24,19 @@ function managedClientToDossier(client) {
     id: client.id,
     name: client.name,
     ice: client.ice || '—',
+    identifiant_fiscal: client.identifiantFiscal || '',
     forme: client.legalForm || '—',
     exercice: openYear?.year || null,
     tva_regime: client.tvaRegime,
     tva_periodicite: client.tvaPeriodicite,
     status: openYear?.status === 'closed' ? 'clôturé' : 'actif',
-    balanceStatus: 'ok',
-    isDemo: false
+    balanceStatus: 'ok'
   };
 }
 
 function syncManagedClientsIntoData() {
-  DATA.dossiers = DATA.dossiers.filter(d => d.isDemo !== false);
+  DATA.dossiers = DATA.dossiers.filter(d => !syncedClientIds.has(d.id));
+  syncedClientIds = new Set(managedClients.map(client => client.id));
   managedClients.forEach(client => {
     const dossier = managedClientToDossier(client);
     DATA.dossiers.push(dossier);
@@ -52,13 +54,15 @@ function setClientManagerStatus(message, type = 'gray') {
 
 async function loadManagedClients() {
   try {
-    const response = await fetch(`${KOMPTA_API_BASE}/api/clients?include_demo=false`);
-    if (!response.ok) throw new Error('Impossible de charger les clients réels.');
+    const response = await fetch(`${KOMPTA_API_BASE}/api/clients`);
+    if (!response.ok) throw new Error('Impossible de charger les clients.');
     managedClients = await response.json();
     syncManagedClientsIntoData();
     renderManagedClients();
     renderDossierScreen();
-    setClientManagerStatus(`${managedClients.length} client(s) réel(s) enregistré(s).`, 'green');
+    renderHomeClientsTable();
+    if (document.getElementById('modalAllClients')?.classList.contains('open')) renderAllClientsTable();
+    setClientManagerStatus(`${managedClients.length} client(s) enregistré(s).`, 'green');
   } catch (error) {
     setClientManagerStatus(apiConnectionErrorMessage(error, 'Chargement des clients'), 'red');
   }
@@ -66,12 +70,12 @@ async function loadManagedClients() {
 
 function resetManagedClientForm() {
   selectedManagedClientId = '';
-  ['managed-client-id', 'managed-client-name', 'managed-client-ice', 'managed-client-form'].forEach(id => {
+  ['managed-client-id', 'managed-client-name', 'managed-client-ice', 'managed-client-if', 'managed-client-form', 'managed-client-year'].forEach(id => {
     const el = document.getElementById(id); if (el) el.value = '';
   });
   document.getElementById('managed-client-regime').value = 'Débit';
   document.getElementById('managed-client-period').value = 'Mensuelle';
-  document.getElementById('managed-years-list').textContent = 'Sélectionnez un client réel pour gérer ses exercices.';
+  document.getElementById('managed-years-list').textContent = 'Sélectionnez un client pour gérer ses exercices.';
 }
 
 function editManagedClient(clientId) {
@@ -81,6 +85,8 @@ function editManagedClient(clientId) {
   document.getElementById('managed-client-id').value = client.id;
   document.getElementById('managed-client-name').value = client.name;
   document.getElementById('managed-client-ice').value = client.ice || '';
+  document.getElementById('managed-client-if').value = client.identifiantFiscal || '';
+  document.getElementById('managed-client-year').value = '';
   document.getElementById('managed-client-form').value = client.legalForm || '';
   document.getElementById('managed-client-regime').value = client.tvaRegime;
   document.getElementById('managed-client-period').value = client.tvaPeriodicite;
@@ -105,10 +111,10 @@ function renderManagedClients() {
   const list = document.getElementById('managed-clients-list');
   if (!list) return;
   if (!managedClients.length) {
-    list.innerHTML = '<div style="padding:14px;color:var(--muted);font-size:11px;">Aucun client réel. Créez le premier client à gauche.</div>';
+    list.innerHTML = '<div style="padding:14px;color:var(--muted);font-size:11px;">Aucun client enregistré. Créez le premier client à gauche.</div>';
     return;
   }
-  list.innerHTML = managedClients.map(client => `<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border-bottom:1px solid var(--border);"><div><strong>${menuEscape(client.name)}</strong><div style="font-size:10px;color:var(--muted);">${menuEscape(client.legalForm || '—')} · ICE ${menuEscape(client.ice || '—')} · Réel</div></div><button class="btn btn-s btn-xs" data-action="editManagedClient('${client.id}')">Modifier</button></div>`).join('');
+  list.innerHTML = managedClients.map(client => `<div style="display:flex;align-items:center;justify-content:space-between;gap:8px;padding:9px 10px;border-bottom:1px solid var(--border);"><div><strong>${menuEscape(client.name)}</strong><div style="font-size:10px;color:var(--muted);">${menuEscape(client.legalForm || '—')} · ICE ${menuEscape(client.ice || '—')}</div></div><button class="btn btn-s btn-xs" data-action="editManagedClient('${client.id}')">Modifier</button></div>`).join('');
   if (selectedManagedClientId) {
     const selected = managedClients.find(client => client.id === selectedManagedClientId);
     if (selected) renderManagedYears(selected);
@@ -116,27 +122,34 @@ function renderManagedClients() {
 }
 
 async function saveManagedClient() {
+  const yearValue = document.getElementById('managed-client-year').value.trim();
   const payload = {
     name: document.getElementById('managed-client-name').value,
     ice: document.getElementById('managed-client-ice').value,
+    identifiantFiscal: document.getElementById('managed-client-if').value,
     legalForm: document.getElementById('managed-client-form').value,
     tvaRegime: document.getElementById('managed-client-regime').value,
-    tvaPeriodicite: document.getElementById('managed-client-period').value
+    tvaPeriodicite: document.getElementById('managed-client-period').value,
+    fiscalYear: yearValue ? Number(yearValue) : null
   };
   if (!payload.name.trim() || !payload.legalForm.trim()) {
     setClientManagerStatus('La raison sociale et la forme juridique sont obligatoires.', 'red');
     return;
   }
+  if (payload.ice.trim() && !/^\d{15}$/.test(payload.ice.trim())) { setClientManagerStatus('L’ICE doit contenir exactement 15 chiffres.', 'red'); return; }
+  if (payload.identifiantFiscal.trim() && !/^\d{8}$/.test(payload.identifiantFiscal.trim())) { setClientManagerStatus('L’identifiant fiscal (IF) doit contenir exactement 8 chiffres.', 'red'); return; }
+  if (yearValue && !(Number.isInteger(payload.fiscalYear) && payload.fiscalYear >= 2000 && payload.fiscalYear <= 2100)) { setClientManagerStatus('Saisissez une année d’exercice entre 2000 et 2100.', 'red'); return; }
   const id = document.getElementById('managed-client-id').value;
   try {
     const response = await fetch(`${KOMPTA_API_BASE}/api/clients${id ? `/${encodeURIComponent(id)}` : ''}`, {
       method: id ? 'PUT' : 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(payload)
     });
+    if (!response.ok) throw new Error(await responseErrorMessage(response, 'Enregistrement impossible.'));
     const data = await response.json();
-    if (!response.ok) throw new Error(data.detail?.message || 'Enregistrement impossible.');
     await loadManagedClients();
     editManagedClient(data.id);
-    showToast(id ? 'Client réel mis à jour ✓' : 'Client réel créé ✓', 'success');
+    setClientManagerStatus(`${data.name} enregistré${payload.fiscalYear ? ` — exercice ${payload.fiscalYear} ouvert` : ''}.`, 'green');
+    showToast(id ? 'Client mis à jour ✓' : `Dossier ${data.name} créé ✓`, 'success');
   } catch (error) {
     setClientManagerStatus(apiConnectionErrorMessage(error, 'Enregistrement du client'), 'red');
   }
@@ -146,7 +159,7 @@ async function saveManagedFiscalYear() {
   const clientId = document.getElementById('managed-client-id').value || selectedManagedClientId;
   const year = Number(document.getElementById('managed-year').value);
   const status = document.getElementById('managed-year-status').value;
-  if (!clientId) { setClientManagerStatus('Sélectionnez d’abord un client réel.', 'red'); return; }
+  if (!clientId) { setClientManagerStatus('Sélectionnez d’abord un client.', 'red'); return; }
   if (!Number.isInteger(year) || year < 2000 || year > 2100) { setClientManagerStatus('Saisissez une année entre 2000 et 2100.', 'red'); return; }
   try {
     const response = await fetch(`${KOMPTA_API_BASE}/api/clients/${encodeURIComponent(clientId)}/fiscal-years`, {
@@ -166,6 +179,11 @@ function openClientManager() {
   resetManagedClientForm();
   openModal('modalClientManager');
   loadManagedClients();
+}
+function openNewClientForm() {
+  openClientManager();
+  document.getElementById('managed-client-year').value = String(currentYear);
+  document.getElementById('managed-client-name').focus();
 }
 
 // ===== DATA =====
@@ -310,21 +328,23 @@ const DATA = {
 };
 
 // ===== DERIVED LOOKUPS =====
-Object.values(DATA.clientData).forEach(client => {
-  (client.journal_entries || []).forEach(entry => { entry.demoOnly = true; });
-});
-DATA.dossiers.forEach(dossier => { dossier.isDemo = true; });
-
 // code → label map for quick resolution
 const ACCOUNTS = {};
 // Comptes divisionnaires fournisseurs (parent 4411) used by the account popup
 const SUPPLIERS = [];
-// Official CGNC codes (cgnc_standard_accounts.json + supplement), filled by loadCgncChart().
+// Official CGNC codes (cgnc_standard_accounts.json), filled by loadCgncChart().
 const CGNC_CODES = new Set();
-function cgncRoot(code) {
+let cgncChartError = '';
+const ACCOUNT_CODE_PATTERN = /^\d{4,8}$/;
+// A 4–8 digit code belongs to the chart when its first 4 digits are a listed CGNC account.
+function cgncParent(code) {
   const value = String(code).trim();
-  if (!/^\d+$/.test(value)) return null;
-  for (let length = value.length; length > 0; length--) if (CGNC_CODES.has(value.slice(0, length))) return value.slice(0, length);
+  return ACCOUNT_CODE_PATTERN.test(value) && CGNC_CODES.has(value.slice(0, 4)) ? value.slice(0, 4) : null;
+}
+function cgncRoot(code) {
+  if (!cgncParent(code)) return null;
+  const value = String(code).trim();
+  for (let length = value.length; length >= 4; length--) if (CGNC_CODES.has(value.slice(0, length))) return value.slice(0, length);
   return null;
 }
 function rebuildAccountIndexes() {
@@ -340,7 +360,7 @@ rebuildAccountIndexes();
 function applyCgncChart(chart) {
   CGNC_CODES.clear();
   chart.forEach(account => CGNC_CODES.add(account.code));
-  const standard = chart.map(a => ({ code:a.code, label:a.label, type:'parent', classe:a.class, standard:true, cgncStatus:a.status }));
+  const standard = chart.map(a => ({ code:a.code, label:a.label, type:'parent', classe:a.class, standard:true }));
   const local = DATA.accounts.filter(a => !a.standard && !CGNC_CODES.has(a.code) && cgncRoot(a.code));
   DATA.accounts.splice(0, DATA.accounts.length, ...standard, ...local);
   rebuildAccountIndexes();
@@ -350,10 +370,13 @@ async function loadCgncChart() {
     const response = await fetch(`${KOMPTA_API_BASE}/api/accounts/cgnc`);
     if (!response.ok) throw new Error(`Plan comptable CGNC indisponible (HTTP ${response.status}).`);
     applyCgncChart(await response.json());
+    cgncChartError = '';
     renderPlanComptable();
     renderAll();
   } catch (error) {
-    showToast(apiConnectionErrorMessage(error, 'Chargement du plan comptable CGNC'), 'error');
+    cgncChartError = apiConnectionErrorMessage(error, 'Chargement du plan comptable CGNC');
+    renderPlanComptable();
+    showToast(cgncChartError, 'error');
   }
 }
 function isStandardAccount(code) { return DATA.accounts.some(a => a.code === code && a.standard); }
@@ -696,7 +719,8 @@ function filterHomeClients(val) {
 function renderHomeClientsTable() {
   const q = (document.getElementById('home-clients-search')?.value || '').trim().toLowerCase();
   const filter = document.getElementById('home-clients-filter')?.value || '';
-  let list = DATA.dossiers.filter(d => !q || d.name.toLowerCase().includes(q) || d.ice.includes(q));
+  let list = DATA.dossiers.filter(d => !q || d.name.toLowerCase().includes(q) || d.ice.includes(q))
+    .sort((a, b) => a.name.localeCompare(b.name));
   if (filter === 'erreur') list = list.filter(d => d.balanceStatus === 'erreur');
   else if (filter === 'a-declarer') list = list.filter(d => tvaStatusFor(d) === 'a-declarer');
   else if (filter === 'docs') list = list.filter(d => docsPendingFor(d.id) > 0);
@@ -718,7 +742,7 @@ function renderHomeClientsTable() {
       const regime = `${d.tva_periodicite === 'Mensuelle' ? 'Mensuel' : d.tva_periodicite === 'Trimestrielle' ? 'Trim.' : d.tva_periodicite} / ${d.tva_regime === 'Encaissement' ? 'Enc.' : d.tva_regime === 'Débit' ? 'Débit' : d.tva_regime}`;
       return `<tr style="${rowBg}">
         <td><strong>${d.name}</strong>${isCurrent ? ' <span class="badge" style="font-size:9px;">Dossier ouvert</span>' : ''}</td>
-        <td>${d.exercice}</td>
+        <td>${d.exercice ?? '—'}</td>
         <td>${regime}</td>
         <td style="text-align:center;"><span class="status ${docsBadge.cls}">${docsBadge.label}</span></td>
         <td style="text-align:center;"><span class="status ${tva.cls}">${tva.label}</span></td>
@@ -850,8 +874,7 @@ function buildReleveDeductionsPayload(clientId = currentClientId, includeAllYear
     ice_declarant: dossier.ice,
     if_declarant: dossier.identifiant_fiscal || '00000000',
     periode: String(currentYear),
-    lines,
-    demoOnly: true
+    lines
   };
 }
 
@@ -1160,9 +1183,10 @@ function lookupAccount(input) {
     return;
   }
   hideAcctPopup();
-  if (ACCOUNTS[code]) {
+  const root = cgncRoot(code);
+  if (ACCOUNTS[code] || root) {
     input.classList.remove('acct-error');
-    if (libCell && (libCell.value === '' )) libCell.value = ACCOUNTS[code];
+    if (libCell && (libCell.value === '' )) libCell.value = ACCOUNTS[code] || ACCOUNTS[root];
   } else {
     input.classList.add('acct-error');
   }
@@ -1327,7 +1351,8 @@ async function validerEcriture() {
     const isTiers = isAccount(account, CGNC.CLIENTS, CGNC.FOURNISSEURS);
     const auxiliary = isTiers ? account : '';
     if (!account && debit === 0 && credit === 0) return;
-    if (account && !ACCOUNTS[account]) errors.push(`Compte inexistant: ${account}`);
+    if (account && !ACCOUNT_CODE_PATTERN.test(account)) errors.push(`Compte invalide (4 à 8 chiffres) : ${account}`);
+    else if (account && !ACCOUNTS[account] && !cgncParent(account)) errors.push(`Compte inexistant: ${account}`);
     if (isTiers) {
       const known = ACCOUNTS[auxiliary] || activeAuxiliaryAccounts().some(a => a.compte_auxiliaire === auxiliary);
       if (!known) errors.push(`Auxiliaire obligatoire et connu pour ${account}`);
@@ -1479,19 +1504,19 @@ function renderDossierScreen() {
   // Liste complète par défaut, triée par ordre alphabétique — l'accountant peut
   // simplement faire défiler pour trouver un client, ou taper pour filtrer.
   const matches = DATA.dossiers
-    .filter(d => !q || d.name.toLowerCase().includes(q) || d.ice.includes(q))
+    .filter(d => !q || d.name.toLowerCase().includes(q) || String(d.ice).toLowerCase().includes(q))
     .slice()
     .sort((a, b) => a.name.localeCompare(b.name));
   if (!matches.length) {
-    grid.innerHTML = `<div class="ds-empty">Aucun client ou société ne correspond à « ${q} »</div>`;
+    grid.innerHTML = `<div class="ds-empty">Aucun client ou société ne correspond à « ${menuEscape(q)} »</div>`;
     return;
   }
   matches.forEach(d => {
     const card = document.createElement('div');
     card.className = 'ds-card';
     card.innerHTML = `<div class="ds-avatar" style="background:${avatarColor(d.id)};">${initials(d.name)}</div>`
-      + `<div class="ds-card-body"><div class="ds-name">${d.name}</div><div class="ds-meta">${d.forme} · ICE ${d.ice} · TVA ${d.tva_regime} · ${d.tva_periodicite}</div></div>`
-      + `<span class="ds-ex">Exercice ${d.exercice}</span>`;
+      + `<div class="ds-card-body"><div class="ds-name">${menuEscape(d.name)}</div><div class="ds-meta">${menuEscape(d.forme)} · ICE ${menuEscape(d.ice)} · TVA ${menuEscape(d.tva_regime)} · ${menuEscape(d.tva_periodicite)}</div></div>`
+      + `<span class="ds-ex">${d.exercice ? `Exercice ${d.exercice}` : 'Exercice à configurer'}</span>`;
     // Un clic ouvre d'abord un aperçu (données clés + dernières écritures),
     // jamais directement le dossier complet — Req : ne pas "tout balancer" à l'accountant.
     card.onclick = () => previewClient(d);
@@ -1846,8 +1871,11 @@ function renderPlanComptable() {
     .slice()
     .sort((a, b) => a.code.localeCompare(b.code));
   tb.innerHTML = '';
+  if (!CGNC_CODES.size) {
+    tb.innerHTML = `<tr><td colspan="6" style="padding:14px;color:var(--danger);font-weight:600;">Plan comptable CGNC non chargé — ${menuEscape(cgncChartError || 'chargement en cours…')} Redémarrez le serveur (python run.py) puis rechargez la page. Seuls les sous-comptes locaux sont affichés.</td></tr>`;
+  }
   if (!list.length) {
-    tb.innerHTML = `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:18px;">Aucun compte ne correspond à la recherche.</td></tr>`;
+    tb.innerHTML += `<tr><td colspan="6" style="text-align:center;color:var(--muted);padding:18px;">Aucun compte ne correspond à la recherche.</td></tr>`;
     return;
   }
   list.forEach(a => {
@@ -1876,7 +1904,7 @@ async function previewPcgeGeneral() {
     const body = await response.json();
     if (!response.ok) throw new Error(body.detail?.message || 'Source PCGE indisponible.');
     const rows = body.added || [];
-    document.getElementById('pcge-preview-summary').textContent = `${rows.length} à ajouter · ${(body.alreadyPresent || []).length} déjà présents · ${(body.needsReview || []).length} à vérifier · classes 0 et 9 séparées`;
+    document.getElementById('pcge-preview-summary').textContent = `${rows.length} à ajouter · ${(body.alreadyPresent || []).length} déjà présents · classes 0 et 9 séparées`;
     document.getElementById('pcge-preview-body').innerHTML = rows.slice(0, 150).map(a => `<tr><td>${escapeAux(a.code)}</td><td>${escapeAux(a.label)}</td><td>${escapeAux(a.parent || '—')}</td></tr>`).join('') || '<tr><td colspan="3">Aucun compte nouveau.</td></tr>';
     document.getElementById('pcge-preview-more').textContent = rows.length > 150 ? `... ${rows.length - 150} ligne(s) supplémentaire(s)` : '';
     document.getElementById('pcge-import-confirm').disabled = !rows.length;
@@ -1895,7 +1923,7 @@ async function importPcgeGeneral() {
       DATA.accounts.push(item); ACCOUNTS[item.code] = item.label; window.PCM_MAROC.push({code: item.code, libelle: item.label, classe: item.classe});
     });
     persistCustomizationState(); renderPlanComptable(); closeModal('modalPcgeImport');
-    showToast(`${report.importedCount || 0} compte(s) PCGE ajouté(s); ${(report.alreadyPresent || []).length} déjà présents; ${(report.needsReview || []).length} à vérifier.`, 'success');
+    showToast(`${report.importedCount || 0} compte(s) PCGE ajouté(s); ${(report.alreadyPresent || []).length} déjà présents.`, 'success');
   } catch (error) { button.disabled = false; showToast(error.message, 'error'); }
 }
 function openAuxImport() {
@@ -1940,8 +1968,9 @@ function validateAuxRows(rows) {
     const data = Object.fromEntries(AUX_FIELDS.map(field => [field, String(raw[field] ?? '').trim()]));
     const errors = [];
     if (!AUX_FIELDS.every(field => Object.prototype.hasOwnProperty.call(raw, field))) errors.push('En-têtes requis manquants');
-    if (!/^\d{5,}$/.test(data.compte_auxiliaire)) errors.push('Compte auxiliaire : au moins 5 chiffres requis');
-    if (!roots.has(data.compte_racine)) errors.push(`Compte racine ${data.compte_racine || 'vide'} inexistant dans le PCM`);
+    if (!/^\d{5,8}$/.test(data.compte_auxiliaire)) errors.push('Compte auxiliaire : 5 à 8 chiffres requis');
+    if (!(data.compte_racine.length === 4 && roots.has(data.compte_racine))) errors.push(`Compte racine ${data.compte_racine || 'vide'} : compte CGNC à 4 chiffres requis`);
+    else if (!data.compte_auxiliaire.startsWith(data.compte_racine)) errors.push(`Le compte auxiliaire doit commencer par son compte racine ${data.compte_racine}`);
     if (!data.libelle) errors.push('Libellé obligatoire');
     if (data.ice && !/^\d{15}$/.test(data.ice)) errors.push('ICE invalide : 15 chiffres exactement');
     if (!AUX_TYPES.includes(data.type_tiers)) errors.push('Type tiers invalide');
@@ -2118,7 +2147,7 @@ const LIASSE_TABLES = [
 const LIASSE_STATE_KEY = 'kompta_liasse_state_v1';
 let liasseState = null;
 function liasseBalanceRows() {
-  return cgncAccounts(false).map(account => ({
+  return cgncAccounts().map(account => ({
     accountCode: account.code, label: ACCOUNTS[account.code] || '',
     openingDebit: account.anD, openingCredit: account.anC,
     movementDebit: account.mvD, movementCredit: account.mvC
@@ -2220,7 +2249,7 @@ function openLiasse() {
 }
 async function exportLiasseXml() {
   const balance = liasseBalanceRows();
-  const request = { fiscalYear: currentYear, identifiantFiscal: liasseState.identifiantFiscal, balance, adjustments: liasseState.adjustments, creditAnterieur: liasseState.creditAnterieur || 0, acomptesIS: liasseState.acomptesIS || 0, creditsFiscaux: liasseState.creditsFiscaux || 0, cmRate: liasseState.cmRate, mappingRules: liasseMappingRules(), demoOnly: true };
+  const request = { fiscalYear: currentYear, identifiantFiscal: liasseState.identifiantFiscal, balance, adjustments: liasseState.adjustments, creditAnterieur: liasseState.creditAnterieur || 0, acomptesIS: liasseState.acomptesIS || 0, creditsFiscaux: liasseState.creditsFiscaux || 0, cmRate: liasseState.cmRate, mappingRules: liasseMappingRules() };
   try {
     const response = await fetch(`${KOMPTA_API_BASE}/api/liasse/simpl-is.xml`, { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(request) });
     if (!response.ok) { showToast(await responseErrorMessage(response, 'Échec de l’export SIMPL-IS.'), 'error'); return; }
@@ -2229,16 +2258,16 @@ async function exportLiasseXml() {
 }
 let cgncReportState = { type:'', headers:[], exportRows:[] };
 const cgncMoney = value => `${fmtFR(value)} MAD`;
-function cgncAccounts(includeDemo = true) {
+function cgncAccounts() {
   const totals = {};
-  const add = (code, key, value) => { const t = totals[code] || (totals[code] = { code, anD:0, anC:0, mvD:0, mvC:0 }); t[key] += Number(value) || 0; };
-  if (includeDemo) aNouveauxFor(currentYear).forEach(a => { add(a.code, 'anD', a.debit); add(a.code, 'anC', a.credit); });
-  clientEntries().filter(e => e.year === currentYear && (includeDemo || !e.demoOnly)).forEach(e => e.lines.forEach(l => { add(l.compte, 'mvD', lineDebit(l)); add(l.compte, 'mvC', lineCredit(l)); }));
+  const add = (code, key, value) => { code = String(code).trim(); const t = totals[code] || (totals[code] = { code, anD:0, anC:0, mvD:0, mvC:0 }); t[key] += Number(value) || 0; };
+  aNouveauxFor(currentYear).forEach(a => { add(a.code, 'anD', a.debit); add(a.code, 'anC', a.credit); });
+  clientEntries().filter(e => e.year === currentYear).forEach(e => e.lines.forEach(l => { add(l.compte, 'mvD', lineDebit(l)); add(l.compte, 'mvC', lineCredit(l)); }));
   return Object.values(totals).sort((a, b) => a.code.localeCompare(b.code));
 }
 function cgncFilterBar(html) { document.getElementById('cgnc-report-filters').innerHTML = `<div style="display:flex;gap:8px;align-items:end;flex-wrap:wrap;">${html}</div>`; }
 function cgncSet(title, subtitle, headers, exportRows, body) {
-  cgncReportState = { type:cgncReportState.type, headers, exportRows };
+  cgncReportState = { type:cgncReportState.type, headers, exportRows, exportFooter:[] };
   document.getElementById('cgnc-report-title').textContent = title;
   document.getElementById('cgnc-report-subtitle').textContent = subtitle + ' — ' + (currentDossier?.name || currentClientId);
   body(); openModal('modalCgncReport');
@@ -2257,11 +2286,18 @@ function renderGeneralBalanceReport() {
   const period = document.getElementById('cgnc-period')?.value || 'all';
   const cls = document.getElementById('cgnc-class')?.value || 'all';
   const accounts = cgncAccounts().map(t => ({...t, label:ACCOUNTS[t.code] || ''})).filter(t => (!from || t.code >= from) && (!to || t.code <= to) && (cls === 'all' || t.code.startsWith(cls)));
-  let totals = [0,0,0,0,0,0,0,0];
-  const rows = accounts.map(t => { let mvD=t.mvD, mvC=t.mvC; if (period !== 'all') { mvD=mvC=0; clientEntries().filter(e => e.year === currentYear && Number(e.mois) === Number(period)).forEach(e => e.lines.filter(l => l.compte === t.code).forEach(l => { mvD += lineDebit(l); mvC += lineCredit(l); })); } const sfD=Math.max(0,t.anD+mvD-t.anC-mvC), sfC=Math.max(0,t.anC+mvC-t.anD-mvD); const vals=[t.code,t.label,t.anD,t.anC,mvD,mvC,sfD,sfC]; vals.slice(2).forEach((v,i) => totals[i] += v); return vals; });
-  const footer = `<tr class="total-row"><td colspan="2"><strong>TOTAUX</strong></td>${totals.map(v => `<td style="text-align:right;"><strong>${cgncMoney(round2(v))}</strong></td>`).join('')}</tr><tr><td colspan="2"><strong>Contrôle équilibre</strong></td><td colspan="3" style="text-align:right;">SI: ${cgncMoney(round2(totals[0]-totals[1]))}</td><td colspan="3" style="text-align:right;">SF: ${cgncMoney(round2(totals[6]-totals[7]))}</td></tr>`;
+  let totals = [0,0,0,0,0,0];
+  const rows = accounts.map(t => { let mvD=t.mvD, mvC=t.mvC; if (period !== 'all') { mvD=mvC=0; clientEntries().filter(e => e.year === currentYear && Number(e.mois) === Number(period)).forEach(e => e.lines.filter(l => String(l.compte).trim() === t.code).forEach(l => { mvD += lineDebit(l); mvC += lineCredit(l); })); } const sfD=Math.max(0,t.anD+mvD-t.anC-mvC), sfC=Math.max(0,t.anC+mvC-t.anD-mvD); return [t.code,t.label,...[t.anD,t.anC,mvD,mvC,sfD,sfC].map(round2)]; })
+    .filter(vals => vals.slice(2).some(v => v !== 0));
+  rows.forEach(vals => vals.slice(2).forEach((v,i) => totals[i] += v));
+  totals = totals.map(round2);
+  const footer = `<tr class="total-row"><td colspan="2"><strong>TOTAUX</strong></td>${totals.map(v => `<td style="text-align:right;"><strong>${cgncMoney(v)}</strong></td>`).join('')}</tr><tr><td colspan="2"><strong>Contrôle équilibre</strong></td><td colspan="3" style="text-align:right;">SI: ${cgncMoney(round2(totals[0]-totals[1]))}</td><td colspan="3" style="text-align:right;">SF: ${cgncMoney(round2(totals[4]-totals[5]))}</td></tr>`;
   document.getElementById('cgnc-report-body').innerHTML = cgncTable(['N° Compte','Intitulé','SI Débit','SI Crédit','Mvt Débit','Mvt Crédit','SF Débit','SF Crédit'], rows, footer);
   cgncReportState.exportRows = rows;
+  cgncReportState.exportFooter = [
+    ['TOTAUX', '', ...totals],
+    ['Contrôle équilibre', '', 'SI', round2(totals[0]-totals[1]), '', 'SF', round2(totals[4]-totals[5]), ''],
+  ];
 }
 function invoiceDate(e) { const raw = e.dueDate || e.echeance || e.date; if (raw) return new Date(raw); return new Date(currentYear, Number(e.mois || 1) - 1, Number(e.jour || 1) + 30); }
 function openAgedBalanceReport() {
@@ -2290,7 +2326,7 @@ function renderClientInvoicesCgncReport() { const rows=[]; clientEntries().filte
 function openHonorairesCgncReport() { cgncReportState.type='fees'; cgncFilterBar('<div class="fg"><label>Taux RAS</label><select id="cgnc-ras-rate" onchange="renderHonorairesCgncReport()"><option value="10">10 %</option><option value="15">15 %</option></select></div>'); cgncSet('Honoraires — Retenue à la Source','Avocats, experts-comptables et consultants',[],[],renderHonorairesCgncReport); }
 function renderHonorairesCgncReport() { const rate=Number(document.getElementById('cgnc-ras-rate')?.value||10)/100; const rows=reportEntryLines().filter(x=>/^6136/.test(x.l.compte)||/honoraire|avocat|expert|consultant/i.test(x.l.libelle||'')).map(x=>{const gross=round2(x.debit);return [entryDate(x.e),x.l.libelle||ACCOUNTS[x.l.compte]||'',gross,round2(gross*rate),round2(gross*(1-rate))];}); document.getElementById('cgnc-report-body').innerHTML=cgncTable(['Date','Bénéficiaire','Brut','RAS','Net payé'],rows); cgncReportState.exportRows=rows; }
 function openCgncReport(type) { if(type==='balance-generale')return openGeneralBalanceReport(); if(type==='aged-balance')return openAgedBalanceReport(); if(type==='journals')return openJournalCgncReport(false); if(type==='journal-central')return openJournalCgncReport(true); if(type==='bilan')return openBilanCgncReport(); if(type==='payment-delays')return openPaymentDelayCgncReport(); if(type==='professional-tax')return openProfessionalTaxCgncReport(); if(type==='client-invoices')return openClientInvoicesCgncReport(); if(type==='fees')return openHonorairesCgncReport(); }
-function exportCgncReport(format) { const values=[cgncReportState.headers,...(cgncReportState.exportRows||[])].map(row=>row.map(v=>String(v).replace(/<[^>]*>/g,''))); if(format==='xlsx'&&window.XLSX){const book=XLSX.utils.book_new();XLSX.utils.book_append_sheet(book,XLSX.utils.aoa_to_sheet(values),'Etat CGNC');XLSX.writeFile(book,dossierFileName('etat_cgnc_'+currentYear+'.xlsx'));}else{const csv=values.map(row=>row.map(v=>`"${v.replace(/"/g,'""')}"`).join(';')).join('\r\n');const link=document.createElement('a');link.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));link.download=dossierFileName('etat_cgnc_'+currentYear+'.csv');link.click();URL.revokeObjectURL(link.href);}showToast('Etat CGNC exporté ✓','success'); }
+function exportCgncReport(format) { const values=[cgncReportState.headers,...(cgncReportState.exportRows||[]),...(cgncReportState.exportFooter||[])].map(row=>row.map(v=>typeof v==='number'?v:String(v).replace(/<[^>]*>/g,''))); if(format==='xlsx'&&window.XLSX){const book=XLSX.utils.book_new();XLSX.utils.book_append_sheet(book,XLSX.utils.aoa_to_sheet(values),'Etat CGNC');XLSX.writeFile(book,dossierFileName('etat_cgnc_'+currentYear+'.xlsx'));}else{const csv=values.map(row=>row.map(v=>`"${String(v).replace(/"/g,'""')}"`).join(';')).join('\r\n');const link=document.createElement('a');link.href=URL.createObjectURL(new Blob(['\uFEFF'+csv],{type:'text/csv;charset=utf-8'}));link.download=dossierFileName('etat_cgnc_'+currentYear+'.csv');link.click();URL.revokeObjectURL(link.href);}showToast('Etat CGNC exporté ✓','success'); }
 function exportMenuReport() {
   const values = Array.isArray(menuReportRows[0]) ? menuReportRows : [['Date','Journal','Piece','Libelle','Debit','Credit'], ...menuReportRows.map(r => [r.date,r.journal,r.piece,r.libelle,r.debit,r.credit])];
   if (window.XLSX) { const book = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(book, XLSX.utils.aoa_to_sheet(values), 'Rapport'); XLSX.writeFile(book, dossierFileName('rapport_' + currentYear + '.xlsx')); }
@@ -2328,7 +2364,8 @@ function renderThirdPartyLedger() {
 function menuSetting(label) { showPanel('parametrage'); showToast(label + ' : configuration disponible dans Paramètres', 'info'); }
 function handleMenuAction(action) {
   const reports = {'aged-balance':'Balance Âgée','report-ledger':'Grand Livre','report-journals':'Journaux','central-journal':'Journal Centralisateur','balance-sheet':'Bilan','client-invoices':'Factures Clients','tax-determination':"Détermination d'impôt",'payment-delays':'Délais de Paiement','professional-tax':'Taxes Professionnel',fees:'Honoraires','lawyer-edi':'EDI des avocats'};
-  if (action === 'new-dossier' || action === 'open-dossier') { showDossierScreen(); return; }
+  if (action === 'new-dossier') { openNewClientForm(); return; }
+  if (action === 'open-dossier') { showDossierScreen(); return; }
   if (action === 'quit') { if (window.confirm('Enregistrer l’état du dossier avant de quitter ?')) showToast('État du dossier conservé ✓', 'success'); showDossierScreen(); return; }
   if (action === 'guided-entry' || action === 'entry-template') { showPanel('saisie'); showToast(action === 'guided-entry' ? 'Saisie guidée activée' : 'Modèles de saisie prêts à utiliser', 'info'); return; }
   if (action === 'third-party-ledger') { renderThirdPartyLedger(); return; }
@@ -2417,7 +2454,7 @@ function addPcmAccount() {
   let code = window.prompt('Code du nouveau sous-compte CGNC (ex: 61251) :');
   code = (code || '').trim();
   if (!code) return;
-  if (!/^\d{5,}$/.test(code) || !cgncRoot(code)) { showToast('Un nouveau compte doit prolonger un compte du référentiel CGNC (au moins 5 chiffres)', 'error'); return; }
+  if (!/^\d{5,8}$/.test(code) || !cgncRoot(code)) { showToast('Un nouveau compte doit prolonger un compte à 4 chiffres du référentiel CGNC (5 à 8 chiffres)', 'error'); return; }
   if (DATA.accounts.some(a => a.code === code)) { showToast('Ce code existe déjà', 'error'); return; }
   const label = window.prompt('Intitulé du compte :') || 'Nouveau compte';
   const acc = { code, label, type: 'divisionnaire', parent: cgncRoot(code), classe: Number(code.charAt(0)) };
@@ -2684,7 +2721,7 @@ function resetOcrReview() {
   if (button) button.disabled = true;
   const state = document.getElementById('ocr-state');
   if (state) state.style.display = 'none';
-  ['ocr-supplier', 'ocr-ice', 'ocr-invoice', 'ocr-date', 'ocr-ht', 'ocr-vat', 'ocr-vat-rate', 'ocr-ttc', 'ocr-expense-account', 'ocr-supplier-account'].forEach(id => {
+  ['ocr-supplier', 'ocr-ice', 'ocr-invoice', 'ocr-date', 'ocr-due-date', 'ocr-ht', 'ocr-vat', 'ocr-vat-rate', 'ocr-ttc', 'ocr-expense-account', 'ocr-supplier-account'].forEach(id => {
     const el = document.getElementById(id);
     if (el) el.value = '';
   });
@@ -2692,6 +2729,14 @@ function resetOcrReview() {
 function formatReviewDate(isoDate) {
   const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(isoDate || '');
   return match ? `${match[3]}/${match[2]}/${match[1]}` : (isoDate || '');
+}
+function reviewDateToIso(text) {
+  const value = String(text || '').trim();
+  const fr = /^(\d{1,2})[\/.\-](\d{1,2})[\/.\-](\d{4})$/.exec(value);
+  const iso = fr ? `${fr[3]}-${fr[2].padStart(2, '0')}-${fr[1].padStart(2, '0')}` : value;
+  if (!/^\d{4}-\d{2}-\d{2}$/.test(iso)) return '';
+  const date = new Date(`${iso}T00:00:00Z`);
+  return !Number.isNaN(date.getTime()) && date.toISOString().slice(0, 10) === iso ? iso : '';
 }
 async function uploadOcrFile(file) {
   if (!file) return;
@@ -2722,6 +2767,9 @@ async function uploadOcrFile(file) {
       if (ext.ice) document.getElementById('ocr-ice').value = ext.ice;
       if (ext.invoiceNumber) document.getElementById('ocr-invoice').value = ext.invoiceNumber;
       if (ext.date) document.getElementById('ocr-date').value = formatReviewDate(ext.date);
+      // No explicit due date on the document: default to the invoice date.
+      const dueDate = ext.dueDate || ext.date;
+      if (dueDate) document.getElementById('ocr-due-date').value = formatReviewDate(dueDate);
       if (ext.ht != null) document.getElementById('ocr-ht').value = ext.ht.toFixed(2);
       if (ext.vat != null) document.getElementById('ocr-vat').value = ext.vat.toFixed(2);
       if (ext.vatRate != null) document.getElementById('ocr-vat-rate').value = ext.vatRate;
@@ -2770,9 +2818,17 @@ function createOcrEntry() {
     setOcrState('Montants incohérents : HT + TVA doit être égal au TTC.', 'error');
     return;
   }
+  const invoiceDateIso = reviewDateToIso(document.getElementById('ocr-date').value);
+  const dueDateText = document.getElementById('ocr-due-date').value.trim();
+  const dueDateIso = dueDateText ? reviewDateToIso(dueDateText) : invoiceDateIso;
+  if (!invoiceDateIso || !dueDateIso) {
+    setOcrState('Dates invalides : saisissez la date facture (et l’échéance) au format JJ/MM/AAAA.', 'error');
+    return;
+  }
   closeModal('modalOCR');
   showPanel('saisie');
   document.getElementById('saisie-journal').value = 'ACHATS';
+  document.getElementById('saisie-date').value = invoiceDateIso;
   suggestPiece();
   document.getElementById('saisie-ref').value = invoice;
   document.getElementById('saisie-libelle').value = `Facture ${supplier}`;
@@ -2798,6 +2854,7 @@ function createOcrEntry() {
     tr.querySelector('.lib-cell').value = `Facture ${supplier}`;
     tr.querySelector(credit ? '.credit-input' : '.debit-input').value = amount.toFixed(2);
     tr.querySelector('.facture-cell').value = invoice;
+    tr.querySelector('.due-date-cell').value = dueDateIso;
   });
   computeTotals();
   setOcrState('Brouillon préparé dans la saisie. Validez-le via le workflow comptable existant.');
@@ -2812,40 +2869,6 @@ document.getElementById('ocr-file-input')?.addEventListener('change', event => {
 document.getElementById('ocr-drop-zone')?.addEventListener('dragover', event => { event.preventDefault(); event.stopPropagation(); event.currentTarget.classList.add('dragover'); });
 document.getElementById('ocr-drop-zone')?.addEventListener('dragleave', event => { event.stopPropagation(); event.currentTarget.classList.remove('dragover'); });
 document.getElementById('ocr-drop-zone')?.addEventListener('drop', event => { event.preventDefault(); event.stopPropagation(); event.currentTarget.classList.remove('dragover'); uploadOcrFile(event.dataTransfer.files[0]); });
-
-// Replace the demo-only dossier list with clearly separated real and demo sections.
-function renderDossierScreen() {
-  const grid = document.getElementById('dossier-grid');
-  const searchEl = document.getElementById('dossier-search');
-  const q = (searchEl ? searchEl.value : '').trim().toLowerCase();
-  grid.innerHTML = '';
-  const matches = DATA.dossiers
-    .filter(d => !q || d.name.toLowerCase().includes(q) || String(d.ice).toLowerCase().includes(q))
-    .slice()
-    .sort((a, b) => a.name.localeCompare(b.name));
-  if (!matches.length) {
-    grid.innerHTML = `<div class="ds-empty">Aucun client ou société ne correspond à « ${menuEscape(q)} »</div>`;
-    return;
-  }
-  const addSection = (title, records, demo) => {
-    if (!records.length) return;
-    const heading = document.createElement('div');
-    heading.style.cssText = 'font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.5px;margin:10px 2px 2px;';
-    heading.textContent = title;
-    grid.appendChild(heading);
-    records.forEach(d => {
-      const card = document.createElement('div');
-      card.className = 'ds-card';
-      card.innerHTML = `<div class="ds-avatar" style="background:${avatarColor(d.id)};">${initials(d.name)}</div>`
-        + `<div class="ds-card-body"><div class="ds-name">${menuEscape(d.name)} ${demo ? '<span class="status s-gray">Démo</span>' : '<span class="status s-green">Réel</span>'}</div><div class="ds-meta">${menuEscape(d.forme)} · ICE ${menuEscape(d.ice)} · TVA ${menuEscape(d.tva_regime)} · ${menuEscape(d.tva_periodicite)}</div></div>`
-        + `<span class="ds-ex">${d.exercice ? `Exercice ${d.exercice}` : 'Exercice à configurer'}</span>`;
-      card.onclick = () => previewClient(d);
-      grid.appendChild(card);
-    });
-  };
-  addSection('Clients réels', matches.filter(d => d.isDemo === false), false);
-  addSection('Données de démonstration', matches.filter(d => d.isDemo !== false), true);
-}
 
 // ===== INIT =====
 document.addEventListener('DOMContentLoaded', () => {

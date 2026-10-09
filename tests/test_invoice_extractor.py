@@ -106,6 +106,19 @@ class TestArithmeticAndEdgeCases:
         assert len(extracted.warnings) > 0
         assert "Incohérence arithmétique" in extracted.warnings[0]
 
+    @pytest.mark.parametrize("label", ["Date d'échéance", "Échéance", "Date limite de paiement", "À payer avant le"])
+    def test_explicit_due_date_is_extracted_separately_from_invoice_date(self, label):
+        text = f"Facture N° FAC-2026-010\nDate facture : 05/03/2026\n{label} : 04/04/2026\nTotal TTC : 1200,00"
+        extracted = parse_invoice_text(text)
+        assert extracted.date == "2026-03-05"
+        assert extracted.due_date == "2026-04-04"
+        assert extracted.model_dump(by_alias=True)["dueDate"] == "2026-04-04"
+
+    def test_due_date_stays_empty_when_document_has_none(self):
+        extracted = parse_invoice_text("Facture N° FAC-2026-011\nDate facture : 05/03/2026\nTotal TTC : 1200,00")
+        assert extracted.date == "2026-03-05"
+        assert extracted.due_date is None
+
 
 class TestMoroccanInvoiceAmountParsing:
     def test_actual_moroccan_invoice_pdf_extracts_and_persists_iso_date(self, tmp_path):

@@ -94,7 +94,7 @@ def _extract_text_from_pdf_images(content: bytes) -> str:
 
 def _merge_missing_fields(primary: ExtractedInvoiceData, fallback: ExtractedInvoiceData) -> ExtractedInvoiceData:
     fields = (
-        "supplier", "ice", "invoice_number", "date", "ht", "vat",
+        "supplier", "ice", "invoice_number", "date", "due_date", "ht", "vat",
         "vat_rate", "ttc", "raw_text_snippet",
     )
     updates = {
@@ -255,7 +255,7 @@ class OcrDocumentStore:
                     confidence = dict(existing_extracted.confidence)
                     field_confidence = (
                         ("supplier", "supplier"), ("ice", "ice"),
-                        ("invoice_number", "invoiceNumber"), ("date", "date"),
+                        ("invoice_number", "invoiceNumber"), ("date", "date"), ("due_date", "dueDate"),
                         ("ht", "ht"), ("vat", "vat"),
                         ("vat_rate", "vatRate"), ("ttc", "ttc"),
                         ("raw_text_snippet", "rawTextSnippet"),

@@ -14,7 +14,6 @@ import pytest
 import sqlite3
 from openpyxl import load_workbook
 from pydantic import ValidationError
-from fastapi import HTTPException
 
 from core.export_service import export_etat_9421, export_releve_deductions
 from core.excel_export import build_portfolio_tva_excel, build_tva_excel
@@ -43,7 +42,6 @@ from core.xml_builders import build_etat_9421_xml, build_releve_deductions_xml
 from core.xsd_validator import validate_against_schema
 from core.journal_service import JournalEntryPost, JournalRepository, JournalLine
 from core.ocr_service import OcrDocumentStore
-from core.export_safety import EXPORT_SAFETY_HEADER, EXPORT_SAFETY_LABEL
 from core.storage import PROJECT_ROOT, resolve_database_path
 
 SCHEMA_TVA = "schemas/releve_deductions.xsd"
@@ -95,7 +93,7 @@ class TestLocalSecurity:
         cors = next(item for item in app.user_middleware if item.cls is CORSMiddleware)
         assert cors.kwargs["allow_origins"] == ["null", "http://127.0.0.1:5500"]
         assert cors.kwargs["allow_methods"] == ["GET", "POST", "PUT"]
-        assert cors.kwargs["expose_headers"] == ["Content-Disposition", "X-Kompta-Export-Status"]
+        assert cors.kwargs["expose_headers"] == ["Content-Disposition"]
         assert "*" not in cors.kwargs["allow_origins"]
 
         async def send_request(method, path, origin, preflight_method=None, request_headers=None):
@@ -867,8 +865,8 @@ class TestExportService:
         assert outcome.business_report.blocking_issues[0].code == "EMPTY_ETAT"
 
 
-class TestSimplExportSafetyGate:
-    def test_unmarked_simpl_exports_are_rejected_before_generation(self):
+class TestSimplExportRoutes:
+    def test_simpl_exports_are_plain_attachments_for_every_client(self):
         import api
 
         tva = ReleveDeductions(
@@ -885,47 +883,16 @@ class TestSimplExportSafetyGate:
         )
         is_request = LiasseComputeRequest(fiscalYear=2026, identifiantFiscal="12345678")
 
-        for export, payload in (
-            (api.export_simpl_tva, tva),
-            (api.export_simpl_ir, ir),
-            (api.export_simpl_is, is_request),
-        ):
-            with pytest.raises(HTTPException) as error:
-                export(payload)
-            assert error.value.status_code == 403
-            assert error.value.detail["code"] == "SIMPL_EXPORT_TEST_ONLY"
-            assert error.value.detail["message"] == EXPORT_SAFETY_LABEL
-
-    def test_demo_simpl_exports_are_marked_as_test_only(self):
-        import api
-
-        tva = ReleveDeductions(
-            ice_declarant="000111222333444", if_declarant="12345678",
-            periode="2026-08", demoOnly=True, lines=[make_valid_line()],
-        )
-        ir = Etat9421(
-            ice_employeur="000111222333444", if_employeur="12345678", exercice=2026,
-            demoOnly=True,
-            lines=[SalarieLine(
-                ord=1, nom="BENNANI", prenom="Sara", cin="CD654321",
-                categorie=CategorieSalarie.PERMANENT, brut_imposable=Decimal("150000"),
-                ir_retenu=Decimal("25000"), net_paye=Decimal("110000"),
-            )],
-        )
-        is_request = LiasseComputeRequest(
-            fiscalYear=2026, identifiantFiscal="12345678", demoOnly=True,
-        )
-
         for export, payload, expected in (
             (api.export_simpl_tva, tva, "SIMPL_TVA_2026-08.zip"),
             (api.export_simpl_ir, ir, "ETAT_9421_2026.zip"),
             (api.export_simpl_is, is_request, "SIMPL_IS_2026.xml"),
         ):
             response = export(payload)
-            assert response.headers["x-kompta-export-status"] == EXPORT_SAFETY_HEADER
-            assert f'filename="{expected}"' in response.headers["content-disposition"]
+            assert response.headers["content-disposition"] == f'attachment; filename="{expected}"'
+            assert "x-kompta-export-status" not in response.headers
 
-    def test_excel_route_remains_available_without_simpl_demo_marker(self):
+    def test_excel_route_is_available(self):
         import api
 
         response = api.export_tva_excel(ExcelExportRequest(

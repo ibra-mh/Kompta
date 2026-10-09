@@ -77,7 +77,7 @@
     "class": 1,
     "page_pdf": 10,
     "page_printed": 32,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1140",
@@ -85,7 +85,7 @@
     "class": 1,
     "page_pdf": 10,
     "page_printed": 32,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1151",
@@ -93,7 +93,7 @@
     "class": 1,
     "page_pdf": 10,
     "page_printed": 32,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1152",
@@ -101,7 +101,7 @@
     "class": 1,
     "page_pdf": 10,
     "page_printed": 32,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1155",
@@ -109,7 +109,7 @@
     "class": 1,
     "page_pdf": 10,
     "page_printed": 32,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1161",
@@ -117,7 +117,7 @@
     "class": 1,
     "page_pdf": 10,
     "page_printed": 32,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1169",
@@ -125,7 +125,7 @@
     "class": 1,
     "page_pdf": 10,
     "page_printed": 32,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1181",
@@ -133,7 +133,7 @@
     "class": 1,
     "page_pdf": 10,
     "page_printed": 32,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1189",
@@ -141,7 +141,7 @@
     "class": 1,
     "page_pdf": 10,
     "page_printed": 32,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1191",
@@ -149,7 +149,7 @@
     "class": 1,
     "page_pdf": 10,
     "page_printed": 32,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1199",
@@ -157,7 +157,7 @@
     "class": 1,
     "page_pdf": 10,
     "page_printed": 32,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1311",
@@ -165,31 +165,39 @@
     "class": 1,
     "page_pdf": 11,
     "page_printed": 33,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1319",
-    "label_fr": "Subventions d'investissement inscrites au : compte de produits et charges",
+    "label_fr": "Subventions d'investissement inscrites au compte de produits et charges",
     "class": 1,
     "page_pdf": 11,
     "page_printed": 33,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "1351",
+    "label_fr": "Provisions pour amortissements dérogatoires",
+    "class": 1,
+    "page_pdf": 11,
+    "page_printed": 33,
+    "status": "standard"
   },
   {
     "account_code": "1352",
-    "label_fr": "Provisions pour plus-values en | instance d'imposition",
+    "label_fr": "Provisions pour plus-values en instance d'imposition",
     "class": 1,
     "page_pdf": 11,
     "page_printed": 33,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1354",
-    "label_fr": "Provisions Pour investissements",
+    "label_fr": "Provisions pour investissements",
     "class": 1,
     "page_pdf": 11,
     "page_printed": 33,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1355",
@@ -197,15 +205,15 @@
     "class": 1,
     "page_pdf": 11,
     "page_printed": 33,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1356",
-    "label_fr": "Provisions Pour acquisition et construc- tion de logements",
+    "label_fr": "Provisions pour acquisition et construction de logements",
     "class": 1,
     "page_pdf": 11,
     "page_printed": 33,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1358",
@@ -213,7 +221,7 @@
     "class": 1,
     "page_pdf": 11,
     "page_printed": 33,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1410",
@@ -221,7 +229,7 @@
     "class": 1,
     "page_pdf": 12,
     "page_printed": 34,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1481",
@@ -229,7 +237,7 @@
     "class": 1,
     "page_pdf": 12,
     "page_printed": 34,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1482",
@@ -237,7 +245,7 @@
     "class": 1,
     "page_pdf": 12,
     "page_printed": 34,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1483",
@@ -245,7 +253,7 @@
     "class": 1,
     "page_pdf": 12,
     "page_printed": 34,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1484",
@@ -253,7 +261,7 @@
     "class": 1,
     "page_pdf": 12,
     "page_printed": 34,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1485",
@@ -261,7 +269,7 @@
     "class": 1,
     "page_pdf": 12,
     "page_printed": 34,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1486",
@@ -269,7 +277,7 @@
     "class": 1,
     "page_pdf": 12,
     "page_printed": 34,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1487",
@@ -277,7 +285,7 @@
     "class": 1,
     "page_pdf": 12,
     "page_printed": 34,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1488",
@@ -285,7 +293,7 @@
     "class": 1,
     "page_pdf": 12,
     "page_printed": 34,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1511",
@@ -293,71 +301,103 @@
     "class": 1,
     "page_pdf": 13,
     "page_printed": 35,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1512",
-    "label_fr": "Provisions POur garanties données aux clients",
+    "label_fr": "Provisions pour garanties données aux clients",
     "class": 1,
     "page_pdf": 13,
     "page_printed": 35,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1513",
-    "label_fr": "Provisions POuT propre assureur",
+    "label_fr": "Provisions pour propre assureur",
     "class": 1,
     "page_pdf": 13,
     "page_printed": 35,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "1514",
+    "label_fr": "Provisions pour pertes sur marchés à terme",
+    "class": 1,
+    "page_pdf": 13,
+    "page_printed": 35,
+    "status": "standard"
+  },
+  {
+    "account_code": "1515",
+    "label_fr": "Provisions pour amendes, doubles droits, pénalités",
+    "class": 1,
+    "page_pdf": 13,
+    "page_printed": 35,
+    "status": "standard"
+  },
+  {
+    "account_code": "1516",
+    "label_fr": "Provisions pour pertes de change",
+    "class": 1,
+    "page_pdf": 13,
+    "page_printed": 35,
+    "status": "standard"
   },
   {
     "account_code": "1518",
-    "label_fr": "Autres Provisions pour risques",
+    "label_fr": "Autres provisions pour risques",
     "class": 1,
     "page_pdf": 13,
     "page_printed": 35,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1551",
-    "label_fr": "Provisions Pour impôts",
+    "label_fr": "Provisions pour impôts",
     "class": 1,
     "page_pdf": 13,
     "page_printed": 35,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1552",
-    "label_fr": "Provisions POuT pensions de retraite et obligations Similaires",
+    "label_fr": "Provisions pour pensions de retraite et obligations similaires",
     "class": 1,
     "page_pdf": 13,
     "page_printed": 35,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1555",
-    "label_fr": "Provisions POurT charges à répartir sur plusieurs exercices",
+    "label_fr": "Provisions pour charges à répartir sur plusieurs exercices",
     "class": 1,
     "page_pdf": 13,
     "page_printed": 35,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1558",
-    "label_fr": "Autres provisions pour charges + COMPTES DE LIAISON DES ETABLISSEMENTS ET SUCCURSALES",
+    "label_fr": "Autres provisions pour charges",
     "class": 1,
     "page_pdf": 13,
     "page_printed": 35,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1601",
-    "label_fr": "Comptes de liaison du Siège",
+    "label_fr": "Comptes de liaison du siège",
     "class": 1,
     "page_pdf": 13,
     "page_printed": 35,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "1605",
+    "label_fr": "Comptes de liaison des établissements",
+    "class": 1,
+    "page_pdf": 13,
+    "page_printed": 35,
+    "status": "standard"
   },
   {
     "account_code": "1710",
@@ -365,7 +405,7 @@
     "class": 1,
     "page_pdf": 14,
     "page_printed": 36,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "1720",
@@ -373,7 +413,7 @@
     "class": 1,
     "page_pdf": 14,
     "page_printed": 36,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2111",
@@ -381,7 +421,7 @@
     "class": 2,
     "page_pdf": 15,
     "page_printed": 37,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2112",
@@ -389,7 +429,7 @@
     "class": 2,
     "page_pdf": 15,
     "page_printed": 37,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2113",
@@ -397,7 +437,7 @@
     "class": 2,
     "page_pdf": 15,
     "page_printed": 37,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2114",
@@ -405,7 +445,7 @@
     "class": 2,
     "page_pdf": 15,
     "page_printed": 37,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2116",
@@ -413,7 +453,7 @@
     "class": 2,
     "page_pdf": 15,
     "page_printed": 37,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2117",
@@ -421,7 +461,7 @@
     "class": 2,
     "page_pdf": 15,
     "page_printed": 37,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2118",
@@ -429,7 +469,7 @@
     "class": 2,
     "page_pdf": 15,
     "page_printed": 37,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2121",
@@ -437,7 +477,7 @@
     "class": 2,
     "page_pdf": 15,
     "page_printed": 37,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2125",
@@ -445,7 +485,7 @@
     "class": 2,
     "page_pdf": 15,
     "page_printed": 37,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2128",
@@ -453,7 +493,7 @@
     "class": 2,
     "page_pdf": 15,
     "page_printed": 37,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2130",
@@ -461,15 +501,15 @@
     "class": 2,
     "page_pdf": 15,
     "page_printed": 37,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2210",
-    "label_fr": "Immobilisation en recherche et dévelop- pement",
+    "label_fr": "Immobilisation en recherche et développement",
     "class": 2,
     "page_pdf": 16,
     "page_printed": 38,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2220",
@@ -477,7 +517,7 @@
     "class": 2,
     "page_pdf": 16,
     "page_printed": 38,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2230",
@@ -485,7 +525,7 @@
     "class": 2,
     "page_pdf": 16,
     "page_printed": 38,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2285",
@@ -493,7 +533,15 @@
     "class": 2,
     "page_pdf": 16,
     "page_printed": 38,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "2311",
+    "label_fr": "Terrains nus",
+    "class": 2,
+    "page_pdf": 17,
+    "page_printed": 39,
+    "status": "standard"
   },
   {
     "account_code": "2312",
@@ -501,15 +549,31 @@
     "class": 2,
     "page_pdf": 17,
     "page_printed": 39,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2313",
-    "label_fr": "Terrains bâtis ] 2314. Terrains de gisement",
+    "label_fr": "Terrains bâtis",
     "class": 2,
     "page_pdf": 17,
     "page_printed": 39,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "2314",
+    "label_fr": "Terrains de gisement",
+    "class": 2,
+    "page_pdf": 17,
+    "page_printed": 39,
+    "status": "standard"
+  },
+  {
+    "account_code": "2316",
+    "label_fr": "Agencements et aménagements de terrains",
+    "class": 2,
+    "page_pdf": 17,
+    "page_printed": 39,
+    "status": "standard"
   },
   {
     "account_code": "2318",
@@ -517,7 +581,7 @@
     "class": 2,
     "page_pdf": 17,
     "page_printed": 39,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2321",
@@ -525,23 +589,23 @@
     "class": 2,
     "page_pdf": 17,
     "page_printed": 39,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "23211",
-    "label_fr": "Bâtiments industriels (A,B...)",
+    "label_fr": "Bâtiments industriels (A, B...)",
     "class": 2,
     "page_pdf": 17,
     "page_printed": 39,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "23214",
-    "label_fr": "Bâtiments administratifs et commerciaux (A,B...)",
+    "label_fr": "Bâtiments administratifs et commerciaux (A, B...)",
     "class": 2,
     "page_pdf": 17,
     "page_printed": 39,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "23218",
@@ -549,7 +613,7 @@
     "class": 2,
     "page_pdf": 17,
     "page_printed": 39,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2323",
@@ -557,7 +621,7 @@
     "class": 2,
     "page_pdf": 17,
     "page_printed": 39,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2325",
@@ -565,7 +629,7 @@
     "class": 2,
     "page_pdf": 17,
     "page_printed": 39,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2327",
@@ -573,7 +637,7 @@
     "class": 2,
     "page_pdf": 17,
     "page_printed": 39,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2328",
@@ -581,7 +645,7 @@
     "class": 2,
     "page_pdf": 17,
     "page_printed": 39,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2331",
@@ -589,7 +653,7 @@
     "class": 2,
     "page_pdf": 18,
     "page_printed": 40,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2332",
@@ -597,7 +661,7 @@
     "class": 2,
     "page_pdf": 18,
     "page_printed": 40,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "23321",
@@ -605,7 +669,7 @@
     "class": 2,
     "page_pdf": 18,
     "page_printed": 40,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "23324",
@@ -613,7 +677,7 @@
     "class": 2,
     "page_pdf": 18,
     "page_printed": 40,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2333",
@@ -621,7 +685,7 @@
     "class": 2,
     "page_pdf": 18,
     "page_printed": 40,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2338",
@@ -629,7 +693,7 @@
     "class": 2,
     "page_pdf": 18,
     "page_printed": 40,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2340",
@@ -637,7 +701,7 @@
     "class": 2,
     "page_pdf": 18,
     "page_printed": 40,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2351",
@@ -645,7 +709,7 @@
     "class": 2,
     "page_pdf": 18,
     "page_printed": 40,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2352",
@@ -653,7 +717,7 @@
     "class": 2,
     "page_pdf": 18,
     "page_printed": 40,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2355",
@@ -661,7 +725,7 @@
     "class": 2,
     "page_pdf": 18,
     "page_printed": 40,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2356",
@@ -669,7 +733,7 @@
     "class": 2,
     "page_pdf": 18,
     "page_printed": 40,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2358",
@@ -677,7 +741,7 @@
     "class": 2,
     "page_pdf": 18,
     "page_printed": 40,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2380",
@@ -685,23 +749,39 @@
     "class": 2,
     "page_pdf": 18,
     "page_printed": 40,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2392",
-    "label_fr": "Immobilisations corporelles en cours de terrains et Constructions",
+    "label_fr": "Immobilisations corporelles en cours de terrains et constructions",
     "class": 2,
     "page_pdf": 19,
     "page_printed": 41,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "2393",
+    "label_fr": "Immobilisations corporelles en cours des installations techniques, matériel et outillage",
+    "class": 2,
+    "page_pdf": 19,
+    "page_printed": 41,
+    "status": "standard"
+  },
+  {
+    "account_code": "2394",
+    "label_fr": "Immobilisations corporelles en cours de matériel de transport",
+    "class": 2,
+    "page_pdf": 19,
+    "page_printed": 41,
+    "status": "standard"
   },
   {
     "account_code": "2395",
-    "label_fr": "Immobilisations corporelles en cours de mobilier, matériel de bureau et | aménagements divers",
+    "label_fr": "Immobilisations corporelles en cours de mobilier, matériel de bureau et aménagements divers",
     "class": 2,
     "page_pdf": 19,
     "page_printed": 41,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2397",
@@ -709,7 +789,7 @@
     "class": 2,
     "page_pdf": 19,
     "page_printed": 41,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2398",
@@ -717,7 +797,7 @@
     "class": 2,
     "page_pdf": 19,
     "page_printed": 41,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2411",
@@ -725,7 +805,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2415",
@@ -733,7 +813,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2416",
@@ -741,7 +821,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2418",
@@ -749,7 +829,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2481",
@@ -757,7 +837,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "24811",
@@ -765,7 +845,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "24813",
@@ -773,7 +853,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "24818",
@@ -781,7 +861,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2483",
@@ -789,7 +869,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2486",
@@ -797,7 +877,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "24861",
@@ -805,7 +885,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "24864",
@@ -813,7 +893,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2487",
@@ -821,7 +901,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2488",
@@ -829,7 +909,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2510",
@@ -837,7 +917,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2581",
@@ -845,7 +925,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2588",
@@ -853,7 +933,7 @@
     "class": 2,
     "page_pdf": 20,
     "page_printed": 42,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2710",
@@ -861,7 +941,7 @@
     "class": 2,
     "page_pdf": 21,
     "page_printed": 43,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2720",
@@ -869,7 +949,7 @@
     "class": 2,
     "page_pdf": 21,
     "page_printed": 43,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2811",
@@ -877,7 +957,7 @@
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28111",
@@ -885,23 +965,23 @@
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28112",
-    "label_fr": "Amortissements des Frais prélimi- naires au démarrage",
+    "label_fr": "Amortissements des Frais préliminaires au démarrage",
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28113",
-    "label_fr": "Amortissements des Frais d'augmen- tation du capital",
+    "label_fr": "Amortissements des Frais d'augmentation du capital",
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28114",
@@ -909,7 +989,7 @@
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28116",
@@ -917,7 +997,7 @@
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28117",
@@ -925,7 +1005,7 @@
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28118",
@@ -933,7 +1013,7 @@
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2812",
@@ -941,7 +1021,7 @@
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28121",
@@ -949,7 +1029,7 @@
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28125",
@@ -957,7 +1037,7 @@
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28128",
@@ -965,7 +1045,7 @@
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2813",
@@ -973,7 +1053,7 @@
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2821",
@@ -981,7 +1061,7 @@
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2822",
@@ -989,7 +1069,7 @@
     "class": 2,
     "page_pdf": 22,
     "page_printed": 44,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2823",
@@ -997,7 +1077,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2828",
@@ -1005,7 +1085,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2831",
@@ -1013,7 +1093,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28311",
@@ -1021,7 +1101,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28312",
@@ -1029,7 +1109,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28313",
@@ -1037,7 +1117,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28314",
@@ -1045,7 +1125,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28316",
@@ -1053,7 +1133,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28318",
@@ -1061,7 +1141,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2832",
@@ -1069,15 +1149,15 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28321",
-    "label_fr": "Amortissements des batiments",
+    "label_fr": "Amortissements des bâtiments",
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28323",
@@ -1085,7 +1165,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28325",
@@ -1093,7 +1173,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28327",
@@ -1101,7 +1181,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28328",
@@ -1109,7 +1189,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2833",
@@ -1117,7 +1197,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28331",
@@ -1125,7 +1205,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28332",
@@ -1133,7 +1213,7 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28333",
@@ -1141,15 +1221,15 @@
     "class": 2,
     "page_pdf": 23,
     "page_printed": 45,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28338",
-    "label_fr": "Amortissements des autres instal- lations techniques, matériel et outillage",
+    "label_fr": "Amortissements des autres installations techniques, matériel et outillage",
     "class": 2,
     "page_pdf": 24,
     "page_printed": 46,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2834",
@@ -1157,7 +1237,7 @@
     "class": 2,
     "page_pdf": 24,
     "page_printed": 46,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2835",
@@ -1165,7 +1245,7 @@
     "class": 2,
     "page_pdf": 24,
     "page_printed": 46,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28351",
@@ -1173,7 +1253,7 @@
     "class": 2,
     "page_pdf": 24,
     "page_printed": 46,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28352",
@@ -1181,7 +1261,7 @@
     "class": 2,
     "page_pdf": 24,
     "page_printed": 46,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28355",
@@ -1189,7 +1269,7 @@
     "class": 2,
     "page_pdf": 24,
     "page_printed": 46,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28356",
@@ -1197,15 +1277,15 @@
     "class": 2,
     "page_pdf": 24,
     "page_printed": 46,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "28358",
-    "label_fr": "Amortissements des autres mobilier, ‘ matériel de bureau et aménagements divers",
+    "label_fr": "Amortissements des autres mobilier, matériel de bureau et aménagements divers",
     "class": 2,
     "page_pdf": 24,
     "page_printed": 46,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2838",
@@ -1213,15 +1293,23 @@
     "class": 2,
     "page_pdf": 24,
     "page_printed": 46,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2920",
-    "label_fr": "Provisions pour dépréciation des immobili- sations incorporelles",
+    "label_fr": "Provisions pour dépréciation des immobilisations incorporelles",
     "class": 2,
     "page_pdf": 25,
     "page_printed": 47,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "2930",
+    "label_fr": "Provisions pour dépréciation des immobilisations corporelles",
+    "class": 2,
+    "page_pdf": 25,
+    "page_printed": 47,
+    "status": "standard"
   },
   {
     "account_code": "2941",
@@ -1229,7 +1317,7 @@
     "class": 2,
     "page_pdf": 25,
     "page_printed": 47,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2948",
@@ -1237,7 +1325,7 @@
     "class": 2,
     "page_pdf": 25,
     "page_printed": 47,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2951",
@@ -1245,7 +1333,7 @@
     "class": 2,
     "page_pdf": 25,
     "page_printed": 47,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "2958",
@@ -1253,23 +1341,23 @@
     "class": 2,
     "page_pdf": 25,
     "page_printed": 47,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3111",
-    "label_fr": "Marchandises ( groupe A)",
+    "label_fr": "Marchandises (groupe A)",
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3112",
-    "label_fr": "Marchandises ({ groupe B)",
+    "label_fr": "Marchandises (groupe B)",
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3116",
@@ -1277,7 +1365,7 @@
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3118",
@@ -1285,7 +1373,7 @@
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3121",
@@ -1293,23 +1381,23 @@
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31211",
-    "label_fr": "Matières premières ( groupe A)",
+    "label_fr": "Matières premières (groupe A)",
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31212",
-    "label_fr": "Matières premières ( groupe B)",
+    "label_fr": "Matières premières (groupe B)",
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3122",
@@ -1317,23 +1405,23 @@
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31221",
-    "label_fr": "Matières consommables ( groupe A)",
+    "label_fr": "Matières consommables (groupe A)",
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31222",
-    "label_fr": "Matières consommables ( groupe B)",
+    "label_fr": "Matières consommables (groupe B)",
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31223",
@@ -1341,7 +1429,7 @@
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31224",
@@ -1349,7 +1437,7 @@
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31225",
@@ -1357,7 +1445,7 @@
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31226",
@@ -1365,7 +1453,7 @@
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31227",
@@ -1373,7 +1461,7 @@
     "class": 3,
     "page_pdf": 27,
     "page_printed": 49,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3123",
@@ -1381,7 +1469,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31231",
@@ -1389,15 +1477,15 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31232",
-    "label_fr": "Emballages récupérables non identi- fiables",
+    "label_fr": "Emballages récupérables non identifiables",
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31233",
@@ -1405,7 +1493,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3126",
@@ -1413,7 +1501,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3128",
@@ -1421,7 +1509,15 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "3131",
+    "label_fr": "Biens en cours",
+    "class": 3,
+    "page_pdf": 28,
+    "page_printed": 50,
+    "status": "standard"
   },
   {
     "account_code": "31311",
@@ -1429,7 +1525,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31312",
@@ -1437,7 +1533,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31317",
@@ -1445,7 +1541,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3134",
@@ -1453,7 +1549,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31341",
@@ -1461,7 +1557,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31342",
@@ -1469,7 +1565,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31343",
@@ -1477,7 +1573,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3138",
@@ -1485,7 +1581,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3141",
@@ -1493,7 +1589,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31411",
@@ -1501,7 +1597,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31412",
@@ -1509,7 +1605,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3145",
@@ -1517,7 +1613,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31451",
@@ -1525,7 +1621,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31452",
@@ -1533,7 +1629,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "31453",
@@ -1541,7 +1637,7 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3148",
@@ -1549,23 +1645,39 @@
     "class": 3,
     "page_pdf": 28,
     "page_printed": 50,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "3151",
+    "label_fr": "Produits finis (groupe A)",
+    "class": 3,
+    "page_pdf": 29,
+    "page_printed": 51,
+    "status": "standard"
   },
   {
     "account_code": "3152",
-    "label_fr": "Produits finis (groupe B) j 3156. Produits finis en cours de route",
+    "label_fr": "Produits finis (groupe B)",
     "class": 3,
     "page_pdf": 29,
     "page_printed": 51,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "3156",
+    "label_fr": "Produits finis en cours de route",
+    "class": 3,
+    "page_pdf": 29,
+    "page_printed": 51,
+    "status": "standard"
   },
   {
     "account_code": "3158",
-    "label_fr": "Autres produits finis É",
+    "label_fr": "Autres produits finis",
     "class": 3,
     "page_pdf": 29,
     "page_printed": 51,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3411",
@@ -1573,7 +1685,7 @@
     "class": 3,
     "page_pdf": 30,
     "page_printed": 52,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3413",
@@ -1581,15 +1693,15 @@
     "class": 3,
     "page_pdf": 30,
     "page_printed": 52,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3417",
-    "label_fr": "Rabais, remises et ristournes à obtenir- avoirs non encore reçus",
+    "label_fr": "Rabais, remises et ristournes à obtenir-avoirs non encore reçus",
     "class": 3,
     "page_pdf": 30,
     "page_printed": 52,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3418",
@@ -1597,7 +1709,7 @@
     "class": 3,
     "page_pdf": 30,
     "page_printed": 52,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3421",
@@ -1605,7 +1717,7 @@
     "class": 3,
     "page_pdf": 30,
     "page_printed": 52,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "34211",
@@ -1613,7 +1725,7 @@
     "class": 3,
     "page_pdf": 30,
     "page_printed": 52,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "34212",
@@ -1621,15 +1733,23 @@
     "class": 3,
     "page_pdf": 30,
     "page_printed": 52,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
-    "account_code": "3424",
-    "label_fr": "Clients douteux ou litigieux |",
+    "account_code": "3423",
+    "label_fr": "Clients - retenues de garantie",
     "class": 3,
     "page_pdf": 30,
     "page_printed": 52,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "3424",
+    "label_fr": "Clients douteux ou litigieux",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "standard"
   },
   {
     "account_code": "3425",
@@ -1637,7 +1757,7 @@
     "class": 3,
     "page_pdf": 30,
     "page_printed": 52,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3427",
@@ -1645,7 +1765,7 @@
     "class": 3,
     "page_pdf": 30,
     "page_printed": 52,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "34271",
@@ -1653,7 +1773,7 @@
     "class": 3,
     "page_pdf": 30,
     "page_printed": 52,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "34272",
@@ -1661,7 +1781,15 @@
     "class": 3,
     "page_pdf": 30,
     "page_printed": 52,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "3428",
+    "label_fr": "Autres clients et comptes rattachés",
+    "class": 3,
+    "page_pdf": 30,
+    "page_printed": 52,
+    "status": "standard"
   },
   {
     "account_code": "3431",
@@ -1669,15 +1797,23 @@
     "class": 3,
     "page_pdf": 30,
     "page_printed": 52,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3438",
-    "label_fr": "Personnel - autres débiteurs L",
+    "label_fr": "Personnel - autres débiteurs",
     "class": 3,
     "page_pdf": 30,
     "page_printed": 52,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "3451",
+    "label_fr": "Subventions à recevoir",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "standard"
   },
   {
     "account_code": "34511",
@@ -1685,71 +1821,103 @@
     "class": 3,
     "page_pdf": 31,
     "page_printed": 53,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "34512",
-    "label_fr": "subventions d'exploitation à recevoir à 34513. Subventions d'équilibre à recevoir",
+    "label_fr": "Subventions d'exploitation à recevoir",
     "class": 3,
     "page_pdf": 31,
     "page_printed": 53,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "34513",
+    "label_fr": "Subventions d'équilibre à recevoir",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "standard"
+  },
+  {
+    "account_code": "3453",
+    "label_fr": "Acomptes sur impôts sur les résultats",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "standard"
+  },
+  {
+    "account_code": "3455",
+    "label_fr": "État – TVA récupérable",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "standard"
+  },
+  {
+    "account_code": "34551",
+    "label_fr": "Etat - T.V.A. récupérable sur immobilisations",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "standard"
   },
   {
     "account_code": "34552",
-    "label_fr": "ETAT - T.V.A. récupérable sur les charges",
+    "label_fr": "Etat - T.V.A. récupérable sur les charges",
     "class": 3,
     "page_pdf": 31,
     "page_printed": 53,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3456",
-    "label_fr": "ETAT - Crédit de T.V.A. (suivant déclara- tions)",
+    "label_fr": "Etat - Crédit de T.V.A. (suivant déclarations)",
     "class": 3,
     "page_pdf": 31,
     "page_printed": 53,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3458",
-    "label_fr": "Etat - Autres Comptes débiteurs k 346. COMPTES D'ASSOCIES 2 DEBITEURS",
+    "label_fr": "Etat - Autres comptes débiteurs",
     "class": 3,
     "page_pdf": 31,
     "page_printed": 53,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3461",
-    "label_fr": "Associés - Comptes d'apport en société",
+    "label_fr": "Associés - comptes d'apport en société",
     "class": 3,
     "page_pdf": 31,
     "page_printed": 53,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3462",
-    "label_fr": "Actionnaires — Capital souscrit et appelé non versé",
+    "label_fr": "Actionnaires - capital souscrit et appelé non versé",
     "class": 3,
     "page_pdf": 31,
     "page_printed": 53,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3463",
-    "label_fr": "Comptes Courants des associés - débiteurs",
+    "label_fr": "Comptes courants des associés débiteurs",
     "class": 3,
     "page_pdf": 31,
     "page_printed": 53,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3464",
-    "label_fr": "Associés - Opérations faites en commun",
+    "label_fr": "Associés - opérations faites en commun",
     "class": 3,
     "page_pdf": 31,
     "page_printed": 53,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3467",
@@ -1757,7 +1925,15 @@
     "class": 3,
     "page_pdf": 31,
     "page_printed": 53,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "3468",
+    "label_fr": "Autres comptes d'associés débiteurs",
+    "class": 3,
+    "page_pdf": 31,
+    "page_printed": 53,
+    "status": "standard"
   },
   {
     "account_code": "3481",
@@ -1765,7 +1941,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3482",
@@ -1773,7 +1949,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3487",
@@ -1781,7 +1957,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3488",
@@ -1789,7 +1965,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3491",
@@ -1797,7 +1973,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3493",
@@ -1805,7 +1981,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3495",
@@ -1813,7 +1989,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3497",
@@ -1821,7 +1997,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3501",
@@ -1829,7 +2005,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3502",
@@ -1837,7 +2013,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3504",
@@ -1845,7 +2021,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3506",
@@ -1853,7 +2029,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "35061",
@@ -1861,7 +2037,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "35062",
@@ -1869,7 +2045,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3508",
@@ -1877,7 +2053,7 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "3701",
@@ -1885,7 +2061,15 @@
     "class": 3,
     "page_pdf": 32,
     "page_printed": 54,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "3702",
+    "label_fr": "Augmentation des dettes circulantes",
+    "class": 3,
+    "page_pdf": 32,
+    "page_printed": 54,
+    "status": "standard"
   },
   {
     "account_code": "3911",
@@ -2032,20 +2216,20 @@
     "status": "standard"
   },
   {
-    "account_code": "14525",
-    "label_fr": "Etat, PTS et PSN",
-    "class": 1,
-    "page_pdf": 35,
-    "page_printed": 58,
-    "status": "needs_review"
-  },
-  {
     "account_code": "4421",
     "label_fr": "Clients - avances et acomptes reçus sur commandes en cours",
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "4425",
+    "label_fr": "Clients - Dettes pour emballages et matériel consignés",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "standard"
   },
   {
     "account_code": "4427",
@@ -2053,7 +2237,7 @@
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4428",
@@ -2061,15 +2245,15 @@
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4432",
-    "label_fr": "Rémunérations dûes au personnel",
+    "label_fr": "Rémunérations dues au personnel",
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4433",
@@ -2077,7 +2261,7 @@
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4434",
@@ -2085,7 +2269,7 @@
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4437",
@@ -2093,7 +2277,7 @@
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4438",
@@ -2101,7 +2285,7 @@
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4441",
@@ -2109,7 +2293,7 @@
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4443",
@@ -2117,7 +2301,15 @@
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "4445",
+    "label_fr": "Mutuelles",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "standard"
   },
   {
     "account_code": "4447",
@@ -2125,7 +2317,15 @@
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "4448",
+    "label_fr": "Autres organismes sociaux",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "standard"
   },
   {
     "account_code": "4452",
@@ -2133,31 +2333,55 @@
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "44521",
-    "label_fr": "Etat,taxe urbaine et taxe d'édilité",
+    "label_fr": "Etat, taxe urbaine et taxe d'édilité",
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "44522",
-    "label_fr": "Etar, patente",
+    "label_fr": "Etat, patente",
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "44525",
+    "label_fr": "Etat, PTS et PSN",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "standard"
+  },
+  {
+    "account_code": "4453",
+    "label_fr": "État – impôts sur les résultats",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "standard"
+  },
+  {
+    "account_code": "4455",
+    "label_fr": "État – TVA facturée",
+    "class": 4,
+    "page_pdf": 35,
+    "page_printed": 58,
+    "status": "standard"
   },
   {
     "account_code": "4456",
-    "label_fr": "Etat, T V À aue (suivant déclarations)",
+    "label_fr": "État, TVA due",
     "class": 4,
     "page_pdf": 35,
     "page_printed": 58,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4457",
@@ -2165,7 +2389,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4458",
@@ -2173,7 +2397,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4461",
@@ -2181,15 +2405,15 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4462",
-    "label_fr": "Associés - versements reçus sur augmen- tation de capital",
+    "label_fr": "Associés - versements reçus sur augmentation de capital",
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4463",
@@ -2197,7 +2421,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4464",
@@ -2205,7 +2429,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4465",
@@ -2213,7 +2437,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4468",
@@ -2221,7 +2445,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4481",
@@ -2229,7 +2453,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4483",
@@ -2237,7 +2461,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4484",
@@ -2245,7 +2469,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4485",
@@ -2253,7 +2477,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4487",
@@ -2261,7 +2485,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4488",
@@ -2269,7 +2493,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4491",
@@ -2277,7 +2501,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4493",
@@ -2285,7 +2509,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4495",
@@ -2293,7 +2517,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4497",
@@ -2301,7 +2525,7 @@
     "class": 4,
     "page_pdf": 36,
     "page_printed": 59,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4501",
@@ -2309,7 +2533,7 @@
     "class": 4,
     "page_pdf": 37,
     "page_printed": 60,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4502",
@@ -2317,7 +2541,7 @@
     "class": 4,
     "page_pdf": 37,
     "page_printed": 60,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4505",
@@ -2325,7 +2549,7 @@
     "class": 4,
     "page_pdf": 37,
     "page_printed": 60,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4506",
@@ -2333,7 +2557,7 @@
     "class": 4,
     "page_pdf": 37,
     "page_printed": 60,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4507",
@@ -2341,15 +2565,15 @@
     "class": 4,
     "page_pdf": 37,
     "page_printed": 60,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4508",
-    "label_fr": "Autres provisions pour risques et charges :",
+    "label_fr": "Autres provisions pour risques et charges",
     "class": 4,
     "page_pdf": 37,
     "page_printed": 60,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4701",
@@ -2357,7 +2581,7 @@
     "class": 4,
     "page_pdf": 37,
     "page_printed": 60,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "4702",
@@ -2365,7 +2589,7 @@
     "class": 4,
     "page_pdf": 37,
     "page_printed": 60,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5111",
@@ -2373,15 +2597,15 @@
     "class": 5,
     "page_pdf": 38,
     "page_printed": 61,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "51111",
-    "label_fr": "Chèques en Portefeuille",
+    "label_fr": "Chèques en portefeuille",
     "class": 5,
     "page_pdf": 38,
     "page_printed": 61,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "51112",
@@ -2389,7 +2613,7 @@
     "class": 5,
     "page_pdf": 38,
     "page_printed": 61,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5113",
@@ -2397,7 +2621,7 @@
     "class": 5,
     "page_pdf": 38,
     "page_printed": 61,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "51131",
@@ -2405,7 +2629,7 @@
     "class": 5,
     "page_pdf": 38,
     "page_printed": 61,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "51132",
@@ -2413,7 +2637,7 @@
     "class": 5,
     "page_pdf": 38,
     "page_printed": 61,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5115",
@@ -2421,15 +2645,15 @@
     "class": 5,
     "page_pdf": 38,
     "page_printed": 61,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5118",
-    "label_fr": "Autres Valeurs à encaisser",
+    "label_fr": "Autres valeurs à encaisser",
     "class": 5,
     "page_pdf": 38,
     "page_printed": 61,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5141",
@@ -2437,7 +2661,7 @@
     "class": 5,
     "page_pdf": 38,
     "page_printed": 61,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5143",
@@ -2445,7 +2669,7 @@
     "class": 5,
     "page_pdf": 38,
     "page_printed": 61,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5146",
@@ -2453,7 +2677,7 @@
     "class": 5,
     "page_pdf": 38,
     "page_printed": 61,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5148",
@@ -2461,7 +2685,7 @@
     "class": 5,
     "page_pdf": 38,
     "page_printed": 61,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5161",
@@ -2469,7 +2693,7 @@
     "class": 5,
     "page_pdf": 39,
     "page_printed": 62,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "51611",
@@ -2477,7 +2701,7 @@
     "class": 5,
     "page_pdf": 39,
     "page_printed": 62,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "51613",
@@ -2485,7 +2709,7 @@
     "class": 5,
     "page_pdf": 39,
     "page_printed": 62,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "51614",
@@ -2493,7 +2717,7 @@
     "class": 5,
     "page_pdf": 39,
     "page_printed": 62,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5165",
@@ -2501,7 +2725,7 @@
     "class": 5,
     "page_pdf": 39,
     "page_printed": 62,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5520",
@@ -2509,7 +2733,7 @@
     "class": 5,
     "page_pdf": 39,
     "page_printed": 62,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5530",
@@ -2517,15 +2741,15 @@
     "class": 5,
     "page_pdf": 39,
     "page_printed": 62,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5541",
-    "label_fr": "Banques (soldes créditeurs) :",
+    "label_fr": "Banques (soldes créditeurs)",
     "class": 5,
     "page_pdf": 39,
     "page_printed": 62,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5548",
@@ -2533,31 +2757,31 @@
     "class": 5,
     "page_pdf": 39,
     "page_printed": 62,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "5900",
-    "label_fr": "Provisions pour dépréciation des comntes de trésorerie",
+    "label_fr": "Provisions pour dépréciation des comptes de trésorerie",
     "class": 5,
     "page_pdf": 39,
     "page_printed": 62,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6111",
-    "label_fr": "Achats de marchandises “groupe A\"",
+    "label_fr": "Achats de marchandises \"groupe A\"",
     "class": 6,
     "page_pdf": 40,
     "page_printed": 63,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6112",
-    "label_fr": "Achats de marchandises “groupe B*",
+    "label_fr": "Achats de marchandises \"groupe B\"",
     "class": 6,
     "page_pdf": 40,
     "page_printed": 63,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6114",
@@ -2565,7 +2789,7 @@
     "class": 6,
     "page_pdf": 40,
     "page_printed": 63,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6118",
@@ -2573,7 +2797,7 @@
     "class": 6,
     "page_pdf": 40,
     "page_printed": 63,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6119",
@@ -2581,7 +2805,7 @@
     "class": 6,
     "page_pdf": 40,
     "page_printed": 63,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6121",
@@ -2589,7 +2813,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61211",
@@ -2597,7 +2821,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61212",
@@ -2605,7 +2829,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6122",
@@ -2613,15 +2837,15 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61221",
-    "label_fr": "Achats de matières et fournitures À",
+    "label_fr": "Achats de matières et fournitures A",
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61222",
@@ -2629,7 +2853,15 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "61223",
+    "label_fr": "Achats de combustibles",
+    "class": 6,
+    "page_pdf": 41,
+    "page_printed": 64,
+    "status": "standard"
   },
   {
     "account_code": "61224",
@@ -2637,7 +2869,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61225",
@@ -2645,7 +2877,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61226",
@@ -2653,7 +2885,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61227",
@@ -2661,7 +2893,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6123",
@@ -2669,7 +2901,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61231",
@@ -2677,7 +2909,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61232",
@@ -2685,7 +2917,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61233",
@@ -2693,7 +2925,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6124",
@@ -2701,7 +2933,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61241",
@@ -2709,7 +2941,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61242",
@@ -2717,7 +2949,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61243",
@@ -2725,23 +2957,23 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6125",
-    "label_fr": "Achats non stockés de matières et de fourni- tures",
+    "label_fr": "Achats non stockés de matières et de fournitures",
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61251",
-    "label_fr": "Achats de fournitures non stockables (eau, électricité .....) |",
+    "label_fr": "Achats de fournitures non stockables (eau, électricité .....)",
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61252",
@@ -2749,7 +2981,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61253",
@@ -2757,7 +2989,7 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61254",
@@ -2765,15 +2997,15 @@
     "class": 6,
     "page_pdf": 41,
     "page_printed": 64,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6126",
-    "label_fr": "Achats de travaux , études et Prestations de service",
+    "label_fr": "Achats de travaux , études et prestations de service",
     "class": 6,
     "page_pdf": 42,
     "page_printed": 65,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61261",
@@ -2781,7 +3013,7 @@
     "class": 6,
     "page_pdf": 42,
     "page_printed": 65,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61262",
@@ -2789,15 +3021,15 @@
     "class": 6,
     "page_pdf": 42,
     "page_printed": 65,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61263",
-    "label_fr": "Achats des Prestations de service",
+    "label_fr": "Achats des prestations de service",
     "class": 6,
     "page_pdf": 42,
     "page_printed": 65,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6128",
@@ -2805,7 +3037,7 @@
     "class": 6,
     "page_pdf": 42,
     "page_printed": 65,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6129",
@@ -2813,7 +3045,7 @@
     "class": 6,
     "page_pdf": 42,
     "page_printed": 65,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61291",
@@ -2821,7 +3053,7 @@
     "class": 6,
     "page_pdf": 42,
     "page_printed": 65,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61292",
@@ -2829,15 +3061,15 @@
     "class": 6,
     "page_pdf": 42,
     "page_printed": 65,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61293",
-    "label_fr": "R.R.R. obtenus sur achat's des embal- lages",
+    "label_fr": "R.R.R. obtenus sur achats des emballages",
     "class": 6,
     "page_pdf": 42,
     "page_printed": 65,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61295",
@@ -2845,7 +3077,7 @@
     "class": 6,
     "page_pdf": 42,
     "page_printed": 65,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61296",
@@ -2853,7 +3085,7 @@
     "class": 6,
     "page_pdf": 42,
     "page_printed": 65,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61298",
@@ -2861,7 +3093,7 @@
     "class": 6,
     "page_pdf": 42,
     "page_printed": 65,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6131",
@@ -2869,7 +3101,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61311",
@@ -2877,7 +3109,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61312",
@@ -2885,7 +3117,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61313",
@@ -2893,7 +3125,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61314",
@@ -2901,7 +3133,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61315",
@@ -2909,7 +3141,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61316",
@@ -2917,7 +3149,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61317",
@@ -2925,7 +3157,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61318",
@@ -2933,7 +3165,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6132",
@@ -2941,7 +3173,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61321",
@@ -2949,7 +3181,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6133",
@@ -2957,7 +3189,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61331",
@@ -2965,7 +3197,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61332",
@@ -2973,7 +3205,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61335",
@@ -2981,7 +3213,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6134",
@@ -2989,15 +3221,15 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61341",
-    "label_fr": "Assurances multirisques (voi. incendie, responsabilité civile....)",
+    "label_fr": "Assurances multirisques (vol, incendie, responsabilité civile....)",
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61343",
@@ -3005,7 +3237,7 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61345",
@@ -3013,15 +3245,15 @@
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61348",
-    "label_fr": "Autres assurances | |",
+    "label_fr": "Autres assurances",
     "class": 6,
     "page_pdf": 43,
     "page_printed": 66,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6135",
@@ -3029,15 +3261,23 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
-    "account_code": "61352",
-    "label_fr": "Rémunérations du Personnel intérimaire",
+    "account_code": "61351",
+    "label_fr": "Rémunérations du personnel occasionnel",
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "61352",
+    "label_fr": "Rémunérations du personnel intérimaire",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "standard"
   },
   {
     "account_code": "61353",
@@ -3045,7 +3285,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6136",
@@ -3053,7 +3293,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61361",
@@ -3061,7 +3301,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61365",
@@ -3069,7 +3309,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61367",
@@ -3077,7 +3317,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6137",
@@ -3085,15 +3325,15 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61371",
-    "label_fr": "Redevances Pour brevets",
+    "label_fr": "Redevances pour brevets",
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61378",
@@ -3101,7 +3341,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6141",
@@ -3109,7 +3349,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61411",
@@ -3117,7 +3357,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61413",
@@ -3125,7 +3365,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61415",
@@ -3133,7 +3373,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61416",
@@ -3141,7 +3381,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6142",
@@ -3149,7 +3389,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61421",
@@ -3157,7 +3397,15 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "61425",
+    "label_fr": "Transports sur achats",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "standard"
   },
   {
     "account_code": "61426",
@@ -3165,7 +3413,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61428",
@@ -3173,15 +3421,23 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6143",
-    "label_fr": "Déplacements, missions et réceptions ° 61431. Voyages et déplacements",
+    "label_fr": "Déplacements, missions et réceptions",
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "61431",
+    "label_fr": "Voyages et déplacements",
+    "class": 6,
+    "page_pdf": 44,
+    "page_printed": 67,
+    "status": "standard"
   },
   {
     "account_code": "61433",
@@ -3189,7 +3445,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61435",
@@ -3197,7 +3453,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61436",
@@ -3205,7 +3461,7 @@
     "class": 6,
     "page_pdf": 44,
     "page_printed": 67,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6144",
@@ -3213,7 +3469,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61441",
@@ -3221,7 +3477,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61442",
@@ -3229,7 +3485,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61443",
@@ -3237,7 +3493,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61444",
@@ -3245,7 +3501,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61446",
@@ -3253,7 +3509,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61447",
@@ -3261,7 +3517,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61448",
@@ -3269,7 +3525,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6145",
@@ -3277,7 +3533,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61451",
@@ -3285,7 +3541,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61455",
@@ -3293,7 +3549,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61456",
@@ -3301,7 +3557,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6146",
@@ -3309,7 +3565,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61461",
@@ -3317,7 +3573,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61462",
@@ -3325,7 +3581,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6147",
@@ -3333,7 +3589,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61471",
@@ -3341,7 +3597,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61472",
@@ -3349,7 +3605,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61473",
@@ -3357,7 +3613,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6148",
@@ -3365,7 +3621,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6149",
@@ -3373,7 +3629,7 @@
     "class": 6,
     "page_pdf": 45,
     "page_printed": 68,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6161",
@@ -3381,7 +3637,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61611",
@@ -3389,7 +3645,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61612",
@@ -3397,7 +3653,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61615",
@@ -3405,7 +3661,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6165",
@@ -3413,7 +3669,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6167",
@@ -3421,7 +3677,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61671",
@@ -3429,7 +3685,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61673",
@@ -3437,7 +3693,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61678",
@@ -3445,7 +3701,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6168",
@@ -3453,7 +3709,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6171",
@@ -3461,7 +3717,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61711",
@@ -3469,7 +3725,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61712",
@@ -3477,7 +3733,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61713",
@@ -3485,7 +3741,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61714",
@@ -3493,7 +3749,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61715",
@@ -3501,7 +3757,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6174",
@@ -3509,23 +3765,23 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61741",
-    "label_fr": "Cotisations de Sécurité sociale",
+    "label_fr": "Cotisations de sécurité sociale",
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61742",
-    "label_fr": "Cotisations aux Caisses de retraite",
+    "label_fr": "Cotisations aux caisses de retraite",
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61743",
@@ -3533,7 +3789,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61744",
@@ -3541,7 +3797,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61745",
@@ -3549,7 +3805,7 @@
     "class": 6,
     "page_pdf": 46,
     "page_printed": 69,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6176",
@@ -3557,7 +3813,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61761",
@@ -3565,7 +3821,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61762",
@@ -3573,7 +3829,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61763",
@@ -3581,7 +3837,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61764",
@@ -3589,7 +3845,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61765",
@@ -3597,7 +3853,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61766",
@@ -3605,7 +3861,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61768",
@@ -3613,7 +3869,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6177",
@@ -3621,7 +3877,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61771",
@@ -3629,7 +3885,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61774",
@@ -3637,7 +3893,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6178",
@@ -3645,7 +3901,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6181",
@@ -3653,7 +3909,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6182",
@@ -3661,7 +3917,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6185",
@@ -3669,7 +3925,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6186",
@@ -3677,7 +3933,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6188",
@@ -3685,7 +3941,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6191",
@@ -3693,7 +3949,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61911",
@@ -3701,7 +3957,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61912",
@@ -3709,7 +3965,7 @@
     "class": 6,
     "page_pdf": 47,
     "page_printed": 70,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6192",
@@ -3717,15 +3973,15 @@
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61921",
-    "label_fr": "D.E.A, de l'immobilisations en recherche et développement",
+    "label_fr": "D.E.A. de l'immobilisations en recherche et développement",
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61922",
@@ -3733,7 +3989,7 @@
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61923",
@@ -3741,15 +3997,15 @@
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61928",
-    "label_fr": "D.E.A. des autres immobilisations incor- porelles",
+    "label_fr": "D.E.A. des autres immobilisations incorporelles",
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6193",
@@ -3757,7 +4013,7 @@
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61931",
@@ -3765,15 +4021,15 @@
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61932",
-    "label_fr": "D.E.A, des constructions",
+    "label_fr": "D.E.A. des constructions",
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61933",
@@ -3781,7 +4037,15 @@
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "61934",
+    "label_fr": "D.E.A. du matériel de transport",
+    "class": 6,
+    "page_pdf": 48,
+    "page_printed": 71,
+    "status": "standard"
   },
   {
     "account_code": "61935",
@@ -3789,7 +4053,7 @@
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61938",
@@ -3797,31 +4061,31 @@
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6194",
-    "label_fr": "Dotations d'exploitation aux provisions pour dépréciation des liamobilisations",
+    "label_fr": "Dotations d'exploitation aux provisions pour dépréciation des immobilisations",
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61942",
-    "label_fr": "D.E.P, pour dépréciation des immobilisa- tions incorporelles",
+    "label_fr": "D.E.P. pour dépréciation des immobilisations incorporelles",
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61943",
-    "label_fr": "D.E.P pour dépréciation des immobilisa- tions corporelles",
+    "label_fr": "D.E.P pour dépréciation des immobilisations corporelles",
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6195",
@@ -3829,15 +4093,15 @@
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61955",
-    "label_fr": "D.E.P, pour risques et charges durables",
+    "label_fr": "D.E.P. pour risques et charges durables",
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61957",
@@ -3845,7 +4109,7 @@
     "class": 6,
     "page_pdf": 48,
     "page_printed": 71,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6196",
@@ -3853,7 +4117,7 @@
     "class": 6,
     "page_pdf": 49,
     "page_printed": 72,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61961",
@@ -3861,7 +4125,7 @@
     "class": 6,
     "page_pdf": 49,
     "page_printed": 72,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61964",
@@ -3869,7 +4133,7 @@
     "class": 6,
     "page_pdf": 49,
     "page_printed": 72,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6198",
@@ -3877,7 +4141,7 @@
     "class": 6,
     "page_pdf": 49,
     "page_printed": 72,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61981",
@@ -3885,7 +4149,7 @@
     "class": 6,
     "page_pdf": 49,
     "page_printed": 72,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "61984",
@@ -3893,7 +4157,15 @@
     "class": 6,
     "page_pdf": 49,
     "page_printed": 72,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "6311",
+    "label_fr": "Intérêts des emprunts et dettes",
+    "class": 6,
+    "page_pdf": 50,
+    "page_printed": 73,
+    "status": "standard"
   },
   {
     "account_code": "63111",
@@ -3901,7 +4173,7 @@
     "class": 6,
     "page_pdf": 50,
     "page_printed": 73,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "63113",
@@ -3909,7 +4181,7 @@
     "class": 6,
     "page_pdf": 50,
     "page_printed": 73,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "63114",
@@ -3917,15 +4189,15 @@
     "class": 6,
     "page_pdf": 50,
     "page_printed": 73,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "63115",
-    "label_fr": "Intérêts bancaires et sur opéra- tions de financement",
+    "label_fr": "Intérêts bancaires et sur opérations de financement",
     "class": 6,
     "page_pdf": 50,
     "page_printed": 73,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "63118",
@@ -3933,15 +4205,23 @@
     "class": 6,
     "page_pdf": 50,
     "page_printed": 73,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6318",
-    "label_fr": "Charges d'intérêts des exercices anté- rieurs",
+    "label_fr": "Charges d'intérêts des exercices antérieurs",
     "class": 6,
     "page_pdf": 50,
     "page_printed": 73,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "6331",
+    "label_fr": "Pertes de change propres à l'exercice",
+    "class": 6,
+    "page_pdf": 50,
+    "page_printed": 73,
+    "status": "standard"
   },
   {
     "account_code": "6338",
@@ -3949,15 +4229,15 @@
     "class": 6,
     "page_pdf": 50,
     "page_printed": 73,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6382",
-    "label_fr": "pertes sur créances liées à des participations",
+    "label_fr": "Pertes sur créances liées à des participations",
     "class": 6,
     "page_pdf": 50,
     "page_printed": 73,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6385",
@@ -3965,7 +4245,7 @@
     "class": 6,
     "page_pdf": 50,
     "page_printed": 73,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6386",
@@ -3973,7 +4253,7 @@
     "class": 6,
     "page_pdf": 50,
     "page_printed": 73,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6388",
@@ -3981,7 +4261,7 @@
     "class": 6,
     "page_pdf": 51,
     "page_printed": 74,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6391",
@@ -3989,7 +4269,7 @@
     "class": 6,
     "page_pdf": 51,
     "page_printed": 74,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6392",
@@ -3997,7 +4277,7 @@
     "class": 6,
     "page_pdf": 51,
     "page_printed": 74,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6393",
@@ -4005,15 +4285,15 @@
     "class": 6,
     "page_pdf": 51,
     "page_printed": 74,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6394",
-    "label_fr": "Dotations aux provisions pour déprécia- tion des titres et valeurs de placement",
+    "label_fr": "Dotations aux provisions pour dépréciation des titres et valeurs de placement",
     "class": 6,
     "page_pdf": 51,
     "page_printed": 74,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6396",
@@ -4021,7 +4301,7 @@
     "class": 6,
     "page_pdf": 51,
     "page_printed": 74,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6398",
@@ -4029,7 +4309,7 @@
     "class": 6,
     "page_pdf": 51,
     "page_printed": 74,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6512",
@@ -4037,7 +4317,7 @@
     "class": 6,
     "page_pdf": 52,
     "page_printed": 75,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6513",
@@ -4045,7 +4325,7 @@
     "class": 6,
     "page_pdf": 52,
     "page_printed": 75,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6514",
@@ -4053,7 +4333,7 @@
     "class": 6,
     "page_pdf": 52,
     "page_printed": 75,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6518",
@@ -4061,7 +4341,7 @@
     "class": 6,
     "page_pdf": 52,
     "page_printed": 75,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6561",
@@ -4069,7 +4349,7 @@
     "class": 6,
     "page_pdf": 52,
     "page_printed": 75,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6568",
@@ -4077,7 +4357,7 @@
     "class": 6,
     "page_pdf": 52,
     "page_printed": 75,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6581",
@@ -4085,7 +4365,7 @@
     "class": 6,
     "page_pdf": 52,
     "page_printed": 75,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "65811",
@@ -4093,7 +4373,7 @@
     "class": 6,
     "page_pdf": 52,
     "page_printed": 75,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "65812",
@@ -4101,7 +4381,7 @@
     "class": 6,
     "page_pdf": 52,
     "page_printed": 75,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6582",
@@ -4109,7 +4389,7 @@
     "class": 6,
     "page_pdf": 52,
     "page_printed": 75,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6583",
@@ -4117,7 +4397,7 @@
     "class": 6,
     "page_pdf": 52,
     "page_printed": 75,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "65831",
@@ -4125,7 +4405,7 @@
     "class": 6,
     "page_pdf": 52,
     "page_printed": 75,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "65833",
@@ -4133,7 +4413,7 @@
     "class": 6,
     "page_pdf": 52,
     "page_printed": 75,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6585",
@@ -4141,7 +4421,7 @@
     "class": 6,
     "page_pdf": 52,
     "page_printed": 75,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6586",
@@ -4149,7 +4429,7 @@
     "class": 6,
     "page_pdf": 53,
     "page_printed": 76,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "65861",
@@ -4157,7 +4437,7 @@
     "class": 6,
     "page_pdf": 53,
     "page_printed": 76,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "65862",
@@ -4165,7 +4445,7 @@
     "class": 6,
     "page_pdf": 53,
     "page_printed": 76,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "65863",
@@ -4173,7 +4453,7 @@
     "class": 6,
     "page_pdf": 53,
     "page_printed": 76,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6588",
@@ -4181,39 +4461,39 @@
     "class": 6,
     "page_pdf": 53,
     "page_printed": 76,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6591",
-    "label_fr": "Dotations aux amortissements exception- nels des immobilisations",
+    "label_fr": "Dotations aux amortissements exceptionnels des immobilisations",
     "class": 6,
     "page_pdf": 53,
     "page_printed": 76,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "65911",
-    "label_fr": "D.A.E. de l'immobilisation en non- valeurs",
+    "label_fr": "D.A.E. de l'immobilisation en non-valeurs",
     "class": 6,
     "page_pdf": 53,
     "page_printed": 76,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "65912",
-    "label_fr": "D.A.E. des immobilisations incor- porelles",
+    "label_fr": "D.A.E. des immobilisations incorporelles",
     "class": 6,
     "page_pdf": 53,
     "page_printed": 76,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "65913",
-    "label_fr": "D.A.E. des immobilisations corpo- relles",
+    "label_fr": "D.A.E. des immobilisations corporelles",
     "class": 6,
     "page_pdf": 53,
     "page_printed": 76,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6594",
@@ -4221,7 +4501,7 @@
     "class": 6,
     "page_pdf": 53,
     "page_printed": 76,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "65941",
@@ -4229,7 +4509,15 @@
     "class": 6,
     "page_pdf": 53,
     "page_printed": 76,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "65942",
+    "label_fr": "DNC pour plus-values en instance d'imposition",
+    "class": 6,
+    "page_pdf": 53,
+    "page_printed": 76,
+    "status": "standard"
   },
   {
     "account_code": "65944",
@@ -4237,7 +4525,7 @@
     "class": 6,
     "page_pdf": 53,
     "page_printed": 76,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "65945",
@@ -4245,7 +4533,7 @@
     "class": 6,
     "page_pdf": 53,
     "page_printed": 76,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "65946",
@@ -4253,7 +4541,7 @@
     "class": 6,
     "page_pdf": 53,
     "page_printed": 76,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "6595",
@@ -4405,7 +4693,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71221",
@@ -4413,7 +4701,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71222",
@@ -4421,7 +4709,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7124",
@@ -4429,7 +4717,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71241",
@@ -4437,7 +4725,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71242",
@@ -4445,7 +4733,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71243",
@@ -4453,7 +4741,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7125",
@@ -4461,7 +4749,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71251",
@@ -4469,7 +4757,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71252",
@@ -4477,7 +4765,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71253",
@@ -4485,7 +4773,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7126",
@@ -4493,7 +4781,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7127",
@@ -4501,7 +4789,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71271",
@@ -4509,7 +4797,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71272",
@@ -4517,7 +4805,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71273",
@@ -4525,7 +4813,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71275",
@@ -4533,7 +4821,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71276",
@@ -4541,7 +4829,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71278",
@@ -4549,7 +4837,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7128",
@@ -4557,7 +4845,7 @@
     "class": 7,
     "page_pdf": 56,
     "page_printed": 80,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7129",
@@ -4565,7 +4853,7 @@
     "class": 7,
     "page_pdf": 57,
     "page_printed": 81,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71291",
@@ -4573,7 +4861,7 @@
     "class": 7,
     "page_pdf": 57,
     "page_printed": 81,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71292",
@@ -4581,7 +4869,7 @@
     "class": 7,
     "page_pdf": 57,
     "page_printed": 81,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71294",
@@ -4589,7 +4877,7 @@
     "class": 7,
     "page_pdf": 57,
     "page_printed": 81,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71295",
@@ -4597,7 +4885,7 @@
     "class": 7,
     "page_pdf": 57,
     "page_printed": 81,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71298",
@@ -4605,7 +4893,7 @@
     "class": 7,
     "page_pdf": 57,
     "page_printed": 81,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7131",
@@ -4613,7 +4901,7 @@
     "class": 7,
     "page_pdf": 57,
     "page_printed": 81,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71311",
@@ -4621,7 +4909,7 @@
     "class": 7,
     "page_pdf": 57,
     "page_printed": 81,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71312",
@@ -4629,7 +4917,7 @@
     "class": 7,
     "page_pdf": 57,
     "page_printed": 81,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71317",
@@ -4637,7 +4925,7 @@
     "class": 7,
     "page_pdf": 57,
     "page_printed": 81,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7132",
@@ -4645,7 +4933,7 @@
     "class": 7,
     "page_pdf": 57,
     "page_printed": 81,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71321",
@@ -4653,7 +4941,7 @@
     "class": 7,
     "page_pdf": 57,
     "page_printed": 81,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71322",
@@ -4661,7 +4949,7 @@
     "class": 7,
     "page_pdf": 57,
     "page_printed": 81,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71327",
@@ -4669,7 +4957,7 @@
     "class": 7,
     "page_pdf": 57,
     "page_printed": 81,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7134",
@@ -4677,15 +4965,15 @@
     "class": 7,
     "page_pdf": 58,
     "page_printed": 82,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71341",
-    "label_fr": "Variation des stocks de travaux",
+    "label_fr": "Variation des stocks de travaux en cours",
     "class": 7,
     "page_pdf": 58,
     "page_printed": 82,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71342",
@@ -4693,7 +4981,7 @@
     "class": 7,
     "page_pdf": 58,
     "page_printed": 82,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71343",
@@ -4701,7 +4989,7 @@
     "class": 7,
     "page_pdf": 58,
     "page_printed": 82,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7141",
@@ -4709,7 +4997,7 @@
     "class": 7,
     "page_pdf": 58,
     "page_printed": 82,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7142",
@@ -4717,15 +5005,15 @@
     "class": 7,
     "page_pdf": 58,
     "page_printed": 82,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7143",
-    "label_fr": "Immobilisations coporelles produites",
+    "label_fr": "Immobilisations corporelles produites",
     "class": 7,
     "page_pdf": 58,
     "page_printed": 82,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7148",
@@ -4733,7 +5021,7 @@
     "class": 7,
     "page_pdf": 58,
     "page_printed": 82,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7161",
@@ -4741,7 +5029,7 @@
     "class": 7,
     "page_pdf": 58,
     "page_printed": 82,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7168",
@@ -4749,7 +5037,7 @@
     "class": 7,
     "page_pdf": 58,
     "page_printed": 82,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7181",
@@ -4757,7 +5045,7 @@
     "class": 7,
     "page_pdf": 58,
     "page_printed": 82,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7182",
@@ -4765,7 +5053,7 @@
     "class": 7,
     "page_pdf": 58,
     "page_printed": 82,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7185",
@@ -4773,7 +5061,15 @@
     "class": 7,
     "page_pdf": 58,
     "page_printed": 82,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "7186",
+    "label_fr": "Transfert de pertes sur opérations faites en commun",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "standard"
   },
   {
     "account_code": "7188",
@@ -4781,39 +5077,47 @@
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7191",
-    "label_fr": "Reprises sur amortissements de l'immobi-",
+    "label_fr": "Reprises sur amortissements de l'immobilisation en non-valeurs",
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7192",
-    "label_fr": "Reprises sur amortissements des",
+    "label_fr": "Reprises sur amortissements des immobilisations incorporelles",
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "7193",
+    "label_fr": "Reprises sur amortissements des immobilisations corporelles",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "standard"
   },
   {
     "account_code": "7194",
-    "label_fr": "Reprises sur provisions pour F dépréciation des immobilisations",
+    "label_fr": "Reprises sur provisions pour dépréciation des immobilisations",
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7195",
-    "label_fr": "Reprises sur provisions pour jisques et charges",
+    "label_fr": "Reprises sur provisions pour risques et charges",
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7196",
@@ -4821,7 +5125,7 @@
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7197",
@@ -4829,7 +5133,7 @@
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71971",
@@ -4837,7 +5141,7 @@
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71972",
@@ -4845,7 +5149,7 @@
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71973",
@@ -4853,7 +5157,7 @@
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71975",
@@ -4861,15 +5165,15 @@
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71976",
-    "label_fr": "T.C.E - Charges du personne!",
+    "label_fr": "T.C.E - Charges du personnel",
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "71978",
@@ -4877,23 +5181,31 @@
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7198",
-    "label_fr": "Reprises sur amortissements et provisions des exercices antérieurs L 71981. Reprises sur amortissements des exercices antérieurs",
+    "label_fr": "Reprises sur amortissements et provisions des exercices antérieurs",
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "71981",
+    "label_fr": "Reprises sur amortissements des exercices antérieurs",
+    "class": 7,
+    "page_pdf": 59,
+    "page_printed": 83,
+    "status": "standard"
   },
   {
     "account_code": "71984",
-    "label_fr": "Reprises sur provisions des exer-",
+    "label_fr": "Reprises sur provisions des exercices antérieurs",
     "class": 7,
     "page_pdf": 59,
     "page_printed": 83,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7321",
@@ -4901,7 +5213,7 @@
     "class": 7,
     "page_pdf": 60,
     "page_printed": 84,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7325",
@@ -4909,15 +5221,15 @@
     "class": 7,
     "page_pdf": 60,
     "page_printed": 84,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7328",
-    "label_fr": "Produits des titres de participation et des autres titres immobilisés des exer- cices antérieurs",
+    "label_fr": "Produits des titres de participation et des autres titres immobilisés des exercices antérieurs",
     "class": 7,
     "page_pdf": 60,
     "page_printed": 84,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7331",
@@ -4925,7 +5237,7 @@
     "class": 7,
     "page_pdf": 60,
     "page_printed": 84,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7338",
@@ -4933,7 +5245,7 @@
     "class": 7,
     "page_pdf": 60,
     "page_printed": 84,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7381",
@@ -4941,7 +5253,7 @@
     "class": 7,
     "page_pdf": 60,
     "page_printed": 84,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "73811",
@@ -4949,7 +5261,7 @@
     "class": 7,
     "page_pdf": 60,
     "page_printed": 84,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "73813",
@@ -4957,7 +5269,7 @@
     "class": 7,
     "page_pdf": 60,
     "page_printed": 84,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7383",
@@ -4965,7 +5277,7 @@
     "class": 7,
     "page_pdf": 60,
     "page_printed": 84,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7384",
@@ -4973,7 +5285,7 @@
     "class": 7,
     "page_pdf": 60,
     "page_printed": 84,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7385",
@@ -4981,7 +5293,7 @@
     "class": 7,
     "page_pdf": 60,
     "page_printed": 84,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7386",
@@ -4989,7 +5301,7 @@
     "class": 7,
     "page_pdf": 60,
     "page_printed": 84,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7388",
@@ -4997,7 +5309,7 @@
     "class": 7,
     "page_pdf": 60,
     "page_printed": 84,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7391",
@@ -5005,15 +5317,15 @@
     "class": 7,
     "page_pdf": 61,
     "page_printed": 85,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7392",
-    "label_fr": "Reprises sur provisions pour dépréciation - des immobilisations financières",
+    "label_fr": "Reprises sur provisions pour dépréciation des immobilisations financières",
     "class": 7,
     "page_pdf": 61,
     "page_printed": 85,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7393",
@@ -5021,15 +5333,15 @@
     "class": 7,
     "page_pdf": 61,
     "page_printed": 85,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7394",
-    "label_fr": "Reprises sur provisions pour | dépréciation des titres et valeurs de placement",
+    "label_fr": "Reprises sur provisions pour dépréciation des titres et valeurs de placement",
     "class": 7,
     "page_pdf": 61,
     "page_printed": 85,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7396",
@@ -5037,7 +5349,7 @@
     "class": 7,
     "page_pdf": 61,
     "page_printed": 85,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7397",
@@ -5045,15 +5357,15 @@
     "class": 7,
     "page_pdf": 61,
     "page_printed": 85,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "73971",
-    "label_fr": "Transferts - charges d'intér”ets",
+    "label_fr": "Transferts - charges d'intérêts",
     "class": 7,
     "page_pdf": 61,
     "page_printed": 85,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "73973",
@@ -5061,7 +5373,7 @@
     "class": 7,
     "page_pdf": 61,
     "page_printed": 85,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "73978",
@@ -5069,7 +5381,7 @@
     "class": 7,
     "page_pdf": 61,
     "page_printed": 85,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7398",
@@ -5077,23 +5389,23 @@
     "class": 7,
     "page_pdf": 61,
     "page_printed": 85,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7512",
-    "label_fr": "P.C des immobilisations incorporelles",
+    "label_fr": "P.C des immobilisations incorporelles cédées",
     "class": 7,
     "page_pdf": 62,
     "page_printed": 86,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7513",
-    "label_fr": "P.C des immobilisations corporelles",
+    "label_fr": "P.C des immobilisations corporelles cédées",
     "class": 7,
     "page_pdf": 62,
     "page_printed": 86,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7514",
@@ -5101,7 +5413,7 @@
     "class": 7,
     "page_pdf": 62,
     "page_printed": 86,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7518",
@@ -5109,7 +5421,7 @@
     "class": 7,
     "page_pdf": 62,
     "page_printed": 86,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7561",
@@ -5117,15 +5429,15 @@
     "class": 7,
     "page_pdf": 62,
     "page_printed": 86,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7568",
-    "label_fr": "Subventions d'équilibre reçues des exer- cices antérieurs",
+    "label_fr": "Subventions d'équilibre reçues des exercices antérieurs",
     "class": 7,
     "page_pdf": 62,
     "page_printed": 86,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7577",
@@ -5133,15 +5445,15 @@
     "class": 7,
     "page_pdf": 62,
     "page_printed": 86,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7578",
-    "label_fr": "Reprises. sur subventions d'investissement des exercices antérieurs",
+    "label_fr": "Reprises sur subventions d'investissement des exercices antérieurs",
     "class": 7,
     "page_pdf": 62,
     "page_printed": 86,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7581",
@@ -5149,7 +5461,7 @@
     "class": 7,
     "page_pdf": 62,
     "page_printed": 86,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "75811",
@@ -5157,7 +5469,7 @@
     "class": 7,
     "page_pdf": 62,
     "page_printed": 86,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "75812",
@@ -5165,23 +5477,23 @@
     "class": 7,
     "page_pdf": 62,
     "page_printed": 86,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7582",
-    "label_fr": "Dégrèvements d'impôts (autres qu'impôts sur les résultats )",
+    "label_fr": "Dégrèvements d'impôts (autres qu'impôts sur les résultats)",
     "class": 7,
     "page_pdf": 63,
     "page_printed": 87,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7585",
-    "label_fr": "Rentrées SUT créances soldées",
+    "label_fr": "Rentrées sur créances soldées",
     "class": 7,
     "page_pdf": 63,
     "page_printed": 87,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7586",
@@ -5189,7 +5501,7 @@
     "class": 7,
     "page_pdf": 63,
     "page_printed": 87,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "75861",
@@ -5197,15 +5509,15 @@
     "class": 7,
     "page_pdf": 63,
     "page_printed": 87,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "75862",
-    "label_fr": "libéralités",
+    "label_fr": "Libéralités",
     "class": 7,
     "page_pdf": 63,
     "page_printed": 87,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "75863",
@@ -5213,15 +5525,15 @@
     "class": 7,
     "page_pdf": 63,
     "page_printed": 87,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7588",
-    "label_fr": "Autres Produits non Courants des exercices antérieurs",
+    "label_fr": "Autres produits non courants des exercices antérieurs",
     "class": 7,
     "page_pdf": 63,
     "page_printed": 87,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7591",
@@ -5229,7 +5541,7 @@
     "class": 7,
     "page_pdf": 63,
     "page_printed": 87,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "75911",
@@ -5237,7 +5549,7 @@
     "class": 7,
     "page_pdf": 63,
     "page_printed": 87,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "75912",
@@ -5245,7 +5557,7 @@
     "class": 7,
     "page_pdf": 63,
     "page_printed": 87,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "75913",
@@ -5253,7 +5565,7 @@
     "class": 7,
     "page_pdf": 63,
     "page_printed": 87,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7594",
@@ -5261,7 +5573,7 @@
     "class": 7,
     "page_pdf": 63,
     "page_printed": 87,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "75941",
@@ -5269,15 +5581,31 @@
     "class": 7,
     "page_pdf": 63,
     "page_printed": 87,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
-    "account_code": "75945",
-    "label_fr": "Reprises Sur provisions pour reconstitution de gisements",
+    "account_code": "75942",
+    "label_fr": "Reprises sur plus-values en instance d'imposition",
     "class": 7,
     "page_pdf": 63,
     "page_printed": 87,
-    "status": "needs_review"
+    "status": "standard"
+  },
+  {
+    "account_code": "75944",
+    "label_fr": "Reprises sur provisions pour investissements",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "standard"
+  },
+  {
+    "account_code": "75945",
+    "label_fr": "Reprises sur provisions pour reconstitution de gisements",
+    "class": 7,
+    "page_pdf": 63,
+    "page_printed": 87,
+    "status": "standard"
   },
   {
     "account_code": "75946",
@@ -5285,7 +5613,7 @@
     "class": 7,
     "page_pdf": 64,
     "page_printed": 88,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7595",
@@ -5293,7 +5621,7 @@
     "class": 7,
     "page_pdf": 64,
     "page_printed": 88,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "75955",
@@ -5301,7 +5629,7 @@
     "class": 7,
     "page_pdf": 64,
     "page_printed": 88,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "75957",
@@ -5309,15 +5637,15 @@
     "class": 7,
     "page_pdf": 64,
     "page_printed": 88,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7596",
-    "label_fr": "Reprises non courantes Sur provisions pour dépréciation",
+    "label_fr": "Reprises non courantes sur provisions pour dépréciation",
     "class": 7,
     "page_pdf": 64,
     "page_printed": 88,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "75962",
@@ -5325,7 +5653,7 @@
     "class": 7,
     "page_pdf": 64,
     "page_printed": 88,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "75963",
@@ -5333,7 +5661,7 @@
     "class": 7,
     "page_pdf": 64,
     "page_printed": 88,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7597",
@@ -5341,7 +5669,7 @@
     "class": 7,
     "page_pdf": 64,
     "page_printed": 88,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "7598",
@@ -5349,7 +5677,7 @@
     "class": 7,
     "page_pdf": 64,
     "page_printed": 88,
-    "status": "needs_review"
+    "status": "standard"
   },
   {
     "account_code": "8100",

@@ -17,7 +17,6 @@ from fastapi import APIRouter, HTTPException, Request
 from fastapi.responses import StreamingResponse
 
 from core.excel_export import build_portfolio_tva_excel, build_tva_excel
-from core.export_safety import require_demo_export, safety_download_headers
 from core.export_service import export_etat_9421, export_releve_deductions
 from core.export_service_types import ExportOutcome
 from core.liasse_models import LiasseComputeRequest
@@ -47,10 +46,14 @@ def _stream(content: bytes, media_type: str, headers: dict[str, str]) -> Streami
     return StreamingResponse(io.BytesIO(content), media_type=media_type, headers=headers)
 
 
+def _attachment(filename: str) -> dict[str, str]:
+    return {"Content-Disposition": f'attachment; filename="{filename}"'}
+
+
 def _zip_download(outcome: ExportOutcome) -> StreamingResponse:
     if not outcome.success:
         raise HTTPException(status_code=422, detail=outcome.to_dict())
-    return _stream(outcome.zip_bytes, "application/zip", safety_download_headers(outcome.zip_filename))
+    return _stream(outcome.zip_bytes, "application/zip", _attachment(outcome.zip_filename))
 
 
 def _request_catalog(request: dict[str, object]) -> list:
@@ -59,8 +62,8 @@ def _request_catalog(request: dict[str, object]) -> list:
 
 
 @clients_router.get("")
-def list_clients(include_demo: bool = True):
-    return client_repository.list_clients(include_demo=include_demo)
+def list_clients():
+    return client_repository.list_clients()
 
 
 @clients_router.post("")
@@ -68,7 +71,7 @@ def create_client(request: ClientUpsert):
     try:
         return client_repository.create_client(request)
     except (sqlite3.IntegrityError, ValueError) as error:
-        raise HTTPException(status_code=409, detail={"message": "Un client réel avec cet ICE existe déjà"}) from error
+        raise HTTPException(status_code=409, detail={"message": "Un client avec cet ICE existe déjà"}) from error
 
 
 @clients_router.put("/{client_id}")
@@ -76,9 +79,9 @@ def update_client(client_id: str, request: ClientUpsert):
     try:
         return client_repository.update_client(client_id, request)
     except KeyError as error:
-        raise HTTPException(status_code=404, detail={"message": "Client réel introuvable"}) from error
+        raise HTTPException(status_code=404, detail={"message": "Client introuvable"}) from error
     except (sqlite3.IntegrityError, ValueError) as error:
-        raise HTTPException(status_code=409, detail={"message": "Un client réel avec cet ICE existe déjà"}) from error
+        raise HTTPException(status_code=409, detail={"message": "Un client avec cet ICE existe déjà"}) from error
 
 
 @clients_router.post("/{client_id}/fiscal-years")
@@ -86,14 +89,14 @@ def save_fiscal_year(client_id: str, request: FiscalYearUpsert):
     try:
         return client_repository.save_fiscal_year(client_id, request)
     except KeyError as error:
-        raise HTTPException(status_code=404, detail={"message": "Client réel introuvable"}) from error
+        raise HTTPException(status_code=404, detail={"message": "Client introuvable"}) from error
     except ValueError as error:
         raise HTTPException(status_code=422, detail={"message": str(error)}) from error
 
 
 @accounts_router.get("/cgnc")
 def list_cgnc_accounts():
-    """Official CGNC chart (standard dataset + documented supplement) used by every account lookup."""
+    """Official CGNC chart (cgnc_standard_accounts.json) used by every account lookup."""
     return list(chart_of_accounts())
 
 
@@ -178,18 +181,16 @@ def compute_liasse_endpoint(request: LiasseComputeRequest):
 
 @router.post("/liasse/simpl-is.xml")
 def export_simpl_is(request: LiasseComputeRequest):
-    require_demo_export(request.demo_only)
     result = compute_liasse(request)
     xml_bytes = build_simpl_is_xml(result)
     valid, diagnostics = validate_simpl_is_xml(xml_bytes)
     if not valid:
         raise HTTPException(status_code=422, detail={"message": "SIMPL-IS XML invalide", "diagnostics": diagnostics})
-    return _stream(xml_bytes, "application/xml", safety_download_headers(f"SIMPL_IS_{request.fiscal_year}.xml"))
+    return _stream(xml_bytes, "application/xml", _attachment(f"SIMPL_IS_{request.fiscal_year}.xml"))
 
 
 @router.post("/simpl-tva")
 def export_simpl_tva(releve: ReleveDeductions):
-    require_demo_export(releve.demo_only)
     return _zip_download(export_releve_deductions(releve))
 
 
@@ -213,7 +214,6 @@ def export_portfolio_tva_excel(request: PortfolioExcelRequest):
 
 @router.post("/simpl-ir")
 def export_simpl_ir(etat: Etat9421):
-    require_demo_export(etat.demo_only)
     return _zip_download(export_etat_9421(etat))
 
 

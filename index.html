@@ -13,7 +13,6 @@
   <div class="ds-head">
     <h1>Kompta</h1>
     <p>Recherchez un client, ou faites défiler la liste pour ouvrir son dossier</p>
-    <div class="demo-notice" role="status">Mode démonstration : les clients et écritures d’exemple ne sont pas des données fiscales valides.</div>
   </div>
   <div class="ds-search-wrap">
     <div class="ds-search-row">
@@ -31,7 +30,7 @@
 </div>
 
 <aside class="sidebar">
-  <div class="logo"><h1>Kompta</h1><span>Espace Comptable</span><div class="demo-notice" role="status">Données d’exemple · exports à ne pas déposer à la DGI</div></div>
+  <div class="logo"><h1>Kompta</h1><span>Espace Comptable</span></div>
   <div class="autre-dossier">
     <button data-action="showDossierScreen()">← Autres dossiers</button>
     <button data-action="openClientManager()" style="margin-top:6px;">⚙ Clients & exercices</button>
@@ -239,6 +238,7 @@
         <div class="ch">
           <h3>Vue globale — Tous les clients</h3>
           <div style="display:flex;gap:6px;align-items:center;">
+            <button class="btn btn-s btn-xs" data-action="openNewClientForm()">+ Nouveau dossier / client</button>
             <button class="btn btn-p btn-xs" data-action="exportPortfolioTvaExcel()">Exporter Récapitulatif TVA Portefeuille</button>
             <input id="home-clients-search" style="padding:4px 8px;border:1px solid var(--border);border-radius:6px;font-size:11px;" placeholder="Rechercher client..." oninput="renderHomeClientsTable()">
             <select id="home-clients-filter" style="padding:4px 8px;border:1px solid var(--border);border-radius:6px;font-size:11px;" onchange="renderHomeClientsTable()">
@@ -561,6 +561,7 @@
         <label>ICE<input id="ocr-ice" type="text"></label>
         <label>N° facture<input id="ocr-invoice" type="text"></label>
         <label>Date facture (JJ/MM/AAAA)<input id="ocr-date" type="text" inputmode="numeric" placeholder="JJ/MM/AAAA" autocomplete="off"></label>
+        <label>Date d'échéance (JJ/MM/AAAA)<input id="ocr-due-date" type="text" inputmode="numeric" placeholder="= date facture si absente" autocomplete="off"></label>
         <label>HT<input id="ocr-ht" type="number" step="0.01"></label>
         <label>TVA<input id="ocr-vat" type="number" step="0.01"></label>
         <label>Taux TVA<input id="ocr-vat-rate" type="number" step="0.01" min="0"></label>
@@ -731,15 +732,21 @@
 <div class="mo" id="modalClientManager">
   <div class="md md-lg" style="width:min(920px,94vw);">
     <h3>Clients et exercices</h3>
-    <p class="sub">Les clients réels sont enregistrés dans SQLite. Les données de démonstration restent séparées et en lecture seule.</p>
+    <p class="sub">Les clients et leurs exercices sont enregistrés dans SQLite.</p>
     <div id="client-manager-status" class="status s-gray" style="display:none;margin-bottom:10px;"></div>
     <div style="display:grid;grid-template-columns:minmax(260px,1fr) minmax(300px,1.2fr);gap:16px;">
       <div class="card" style="margin:0;padding:14px;">
-        <h4 style="font-size:12px;margin-bottom:10px;">Client réel</h4>
+        <h4 style="font-size:12px;margin-bottom:10px;">Client</h4>
         <input type="hidden" id="managed-client-id">
         <div class="fg" style="margin-bottom:8px;"><label>Raison sociale</label><input id="managed-client-name" type="text" placeholder="SARL Exemple"></div>
-        <div class="fg" style="margin-bottom:8px;"><label>ICE</label><input id="managed-client-ice" type="text" placeholder="000000000000000"></div>
-        <div class="fg" style="margin-bottom:8px;"><label>Forme juridique</label><input id="managed-client-form" type="text" placeholder="SARL"></div>
+        <div class="form-row">
+          <div class="fg"><label>ICE</label><input id="managed-client-ice" type="text" inputmode="numeric" maxlength="15" placeholder="15 chiffres"></div>
+          <div class="fg"><label>Identifiant fiscal (IF)</label><input id="managed-client-if" type="text" inputmode="numeric" maxlength="8" placeholder="8 chiffres"></div>
+        </div>
+        <div class="form-row">
+          <div class="fg"><label>Forme juridique</label><input id="managed-client-form" type="text" placeholder="SARL"></div>
+          <div class="fg"><label>Année d'exercice</label><input id="managed-client-year" type="number" min="2000" max="2100" placeholder="2026"></div>
+        </div>
         <div class="form-row">
           <div class="fg"><label>Régime TVA</label><select id="managed-client-regime"><option>Débit</option><option>Encaissement</option><option>Exonéré</option></select></div>
           <div class="fg"><label>Périodicité</label><select id="managed-client-period"><option>Mensuelle</option><option>Trimestrielle</option><option>—</option></select></div>

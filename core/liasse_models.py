@@ -42,7 +42,7 @@ class BalanceAmountBasis(str, Enum):
 class BalanceLine(BaseModel):
     """One row from the six-column CGNC trial balance."""
 
-    account_code: str = Field(..., alias="accountCode")
+    account_code: str = Field(..., pattern=r"^\s*\d{4,8}\s*$", alias="accountCode")
     label: str = ""
     opening_debit: Decimal = Field(0, alias="openingDebit")
     opening_credit: Decimal = Field(0, alias="openingCredit")
@@ -83,7 +83,6 @@ class IsRateBracket(BaseModel):
 class LiasseComputeRequest(BaseModel):
     fiscal_year: int = Field(..., alias="fiscalYear", ge=2000, le=2100)
     identifiant_fiscal: str = Field("", alias="identifiantFiscal")
-    demo_only: bool = Field(False, alias="demoOnly")
     balance: list[BalanceLine] = Field(default_factory=list)
     adjustments: list[TaxAdjustment] = Field(default_factory=list)
     credit_anterieur: Decimal = Field(0, alias="creditAnterieur", ge=0)

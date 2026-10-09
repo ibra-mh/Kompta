@@ -20,6 +20,11 @@ from pypdf import PdfReader
 
 
 STANDARD_MOROCCAN_VAT_RATES = {0.0, 7.0, 10.0, 14.0, 20.0}
+DATE_TOKEN = r"([0-9]{1,2}[\/\-\.][0-9]{1,2}[\/\-\.][0-9]{4}|[0-9]{4}[\/\-\.][0-9]{1,2}[\/\-\.][0-9]{1,2})"
+DUE_DATE_PATTERN = (
+    r"(?i)(?:date\s+d['’]\s*[ée]ch[ée]ance|[ée]ch[ée]ance|date\s+limite(?:\s+de\s+(?:paiement|r[èe]glement))?"
+    r"|[àa]\s+payer\s+avant\s+le|payable\s+(?:avant\s+)?le)\s*[:#\.\s]*\n?" + DATE_TOKEN
+)
 
 
 class ExtractedInvoiceData(BaseModel):
@@ -27,6 +32,7 @@ class ExtractedInvoiceData(BaseModel):
     ice: Optional[str] = None
     invoice_number: Optional[str] = Field(None, alias="invoiceNumber")
     date: Optional[str] = None  # Normalized to YYYY-MM-DD
+    due_date: Optional[str] = Field(None, alias="dueDate")  # Explicit "date d'échéance" only
     ht: Optional[float] = None
     vat: Optional[float] = None
     vat_rate: Optional[float] = Field(None, alias="vatRate")
@@ -269,6 +275,13 @@ def parse_invoice_text(text: str, active_client_ice: Optional[str] = None) -> Ex
             date_val = d
             confidence["date"] = 0.7
 
+    due_date: Optional[str] = None
+    due_match = re.search(DUE_DATE_PATTERN, text)
+    if due_match:
+        due_date = parse_date(due_match.group(1))
+        if due_date:
+            confidence["dueDate"] = 0.9
+
     # 5. Amounts (HT, TVA, VAT Rate, TTC)
     ht: Optional[float] = None
     vat: Optional[float] = None
@@ -382,6 +395,7 @@ def parse_invoice_text(text: str, active_client_ice: Optional[str] = None) -> Ex
         ice=ice,
         invoiceNumber=invoice_number,
         date=date_val,
+        dueDate=due_date,
         ht=ht,
         vat=vat,
         vatRate=vat_rate,

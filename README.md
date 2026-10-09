@@ -56,15 +56,15 @@ To stop the backend, go back to the terminal and press `Ctrl+C`. You need
 to restart it (`python run.py`) each time you want to use the export
 button again.
 
-### Heads up about the demo data
+### Clients and dossiers
 
-The built-in clients and journal entries are fictitious examples. They are
-marked as demonstration data in the French interface and are included in
-the TVA exports so the demo dossiers produce populated files. Generated XML
-files must not be submitted to the DGI.
-Some sample identifiers resemble real identifiers; that does not make them
-valid taxpayer data. The app does not yet provide a complete production
-client/exercise onboarding workflow.
+Every client, dossier and journal entry is handled the same way: there is no
+separate demo or test mode, and dossier lists are sorted alphabetically.
+Clients created from the home screen ("+ Nouveau dossier / client") are
+stored in SQLite with their ICE, IF and first exercice; the built-in clients
+are in-memory fixtures loaded with the interface. The XSD schemas in
+`schemas/` are project placeholders (see below), so check generated XML
+against the official DGI specification before filing.
 
 Two other things the export currently defaults, since Kompta doesn't
 track them per-invoice yet:
@@ -123,7 +123,6 @@ kompta_tax_export/
 │   ├── packaging.py              # Project-defined XML archive packaging
 │   ├── export_service.py         # Orchestrates: validate → build XML → XSD check → zip
 │   ├── export_service_types.py   # ExportOutcome result type
-│   ├── export_safety.py          # Demo-export restrictions and download headers
 │   ├── excel_export.py           # TVA workbook generation
 │   ├── client_service.py         # Client and fiscal-year persistence
 │   ├── journal_service.py        # Atomic append-only journal persistence
@@ -150,7 +149,6 @@ kompta_tax_export/
 ├── styles.css                    # Extracted interface styles
 ├── app.js                        # Extracted interface behavior
 ├── cgnc_standard_accounts.json   # Official CGNC chart — single source of truth
-├── cgnc_supplement_accounts.json # Documented additions missing from the dataset (3455, 4455)
 ├── kompta.sqlite3                # Local accounting database; keep private
 ├── requirements.txt              # Runtime dependencies
 └── requirements-dev.txt          # Runtime + pytest/pyflakes
@@ -159,19 +157,22 @@ kompta_tax_export/
 ### Chart of accounts (CGNC)
 
 `cgnc_standard_accounts.json` is the single source of truth for the chart of
-accounts. `cgnc_supplement_accounts.json` adds only the roots the app posts to
-that are missing from that dataset (3455 TVA récupérable, 4455 TVA facturée),
-each with the reason it is needed.
+accounts (720 accounts, classes 1–8). It is repaired against the verified
+extraction in `tools/pcge_audit/data/official_plan_cgnc.json` by
+`python tools/pcge_audit/scripts/clean_cgnc_dataset.py` (idempotent): OCR
+artifacts and merged entries are fixed, dropped accounts restored, `14525`
+corrected to `44525`, and every account marked `"status": "standard"`.
 
-- An account code is valid when it is listed, or extends a listed code
-  (e.g. `44110002` under `4411`, `3455220` under `34552`). Journal posting
-  rejects any other code.
+- An account code is valid when it has 4 to 8 digits and its first 4 digits
+  are a listed CGNC account (e.g. `345520` under `3455`, `44110002` under
+  `4411`). Journal posting, balance lines and the UI reject any other code;
+  dataset sub-accounts without a 4-digit parent fail at startup.
 - The interface loads the chart from `GET /api/accounts/cgnc`; official
   accounts cannot be relabeled, renumbered or deleted in the UI. Local
   sub-accounts (clients, suppliers, TVA rates) remain editable and are saved
   in the browser.
-- The PCGE import/preview reads the same dataset; entries whose `status` is
-  `needs_review` are listed for review instead of being imported.
+- The PCGE import/preview reads the same dataset; every account is standard
+  and importable.
 
 ### PCGE account audit tools
 
@@ -242,10 +243,10 @@ Persistence boundaries:
    the interface starts or opens that dossier.
 - Liasse state and local sub-account/auxiliary-account customizations use this browser's
    `localStorage`; they are not included in the SQLite database or its backup.
-- Built-in demo clients, demo journal rows, opening balances, and most other
-   interface state are JavaScript fixtures/in-memory state. They are not
-   durable production records. Demo rows are included in TVA exports and
-   excluded from SIMPL-IS liasse calculations.
+- Clients and their exercices are stored in SQLite. The built-in clients,
+   their journal rows, opening balances, and most other interface state are
+   JavaScript fixtures/in-memory state. All entries and opening balances of
+   the current exercice feed the TVA exports, CGNC reports and SIMPL-IS liasse.
 
 Back up the SQLite database while the app is stopped. Use a new destination
 filename for each backup so an earlier backup is not overwritten. For the
@@ -299,8 +300,8 @@ does not establish DGI acceptance.
 
 - Obtain and verify current official DGI specifications and accepted samples
    for SIMPL-TVA, SIMPL-IR, and SIMPL-IS, then replace the placeholder schemas.
-- Replace the static demo client/exercise setup with a production data-entry
-   and ownership model before using client records for fiscal calculations.
+- Move the built-in client fixtures, journal rows and opening balances into
+   SQLite so every dossier is persisted the same way.
 - Add authenticated identities and server-side ownership checks before any
    multi-user or network-accessible deployment.
 - Decide whether browser-only customization/Liasse state should move into the

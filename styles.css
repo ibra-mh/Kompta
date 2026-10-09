@@ -313,4 +313,3 @@ table.saisie-table tbody tr:hover td {
 .ap-item:hover { background:var(--pl); }
 .ap-item .ap-code { font-weight:700; color:var(--text); }
 .ap-item .ap-sub { font-size:11px; color:var(--muted); margin-top:2px; }
-.demo-notice { margin-top:8px; padding:7px 9px; border:1px solid #FCD34D; border-radius:4px; background:#FFFBEB; color:#92400E; font-size:10px; line-height:1.4; }
